@@ -24,10 +24,10 @@ The following sentences are examples for requirements based on this template. Ke
 - **The** `<printing module>` **will** **provide the** `<client>`**with the ability to** `<print>` `<documents>`.
 - [**If** the licence is basic the] `<printing module>` **will provide the** `<client>` **with the ability to** `<print>` `<greyscale documents>`.
 
-### Gramma
-The Gramma consists of entities, glossary entries, two types of boilerplates and the rules needed to use natural language.    
+### Grammar
+The Grammar consists of entities, glossary entries, two types of boilerplates and the rules needed to use natural language.    
 	
-The Gramma defines the entities *Actor* and *System* which can be referenced in boilerplates by there name:
+The Grammar defines the entities *Actor* and *System* which can be referenced in boilerplates by there name:
 
 	Actor: 'Actor'  ':' name=Text 
 	description = Description;
@@ -105,6 +105,29 @@ Such TextWithGlossaryEntriesOrSynonyms has the same structure than TextWithRefer
 	DomainObjectSynonym:
 		name=Text; 
 
+### Using simple names for Cross-References 
+Xtext uses by default full qualified names for cross-referencing nested objects. This means for our language if you want to reference the synonym of an object you have to use dot notation. The following example demonstartes this for the Object with name "document" and the synonym "documents": 
+
+	The "printing module" will provide the "client" with the ability to "print" "document.documents".
+
+	Glossary
+		Object: document
+		Synonyms: documents	   
+
+The use of such full qualified names would decrease the readability. To avoid this we add the `SimpleNameFragment2` to the lanuage part of Modeling Workflow Engine 2 (mwe2) file of the main project: 
+
+		language = StandardLanguage {
+			name = "blog.itemis.com.cnl.boilerplate.Boilerplate"
+			fileExtensions = "bp"
+			fragment = exporting.SimpleNamesFragment2 {}
+			serializer = {
+				generateStub = false
+			}
+		}
+
+This allows the use of simple names	and the direct referencing of nested objects without a dot notation.
+
+### Summary and outlook  
 
 
 
@@ -113,7 +136,7 @@ Such TextWithGlossaryEntriesOrSynonyms has the same structure than TextWithRefer
 
 ##Part 2: Natural language validation  
 
-##Part 3: Creating Glossary Entries   
+##Part 3: Creating glossary entries   
 
 
 <!--	
