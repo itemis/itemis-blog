@@ -143,9 +143,13 @@ Besides the cross-referencing we have to change the editor behavior. By default 
 
 Finally we register this newly introduced class in the ui runtime-module:
 
-	override Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
-		return MyAutoEditStrategy
+	class BoilerplateUiModule extends AbstractBoilerplateUiModule {
+	
+		override Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
+			return MyAutoEditStrategy
+		}
 	}
+
 
 ### Summary and outlook  
 
