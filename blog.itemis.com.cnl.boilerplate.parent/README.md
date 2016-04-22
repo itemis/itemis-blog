@@ -56,7 +56,7 @@ The user can use the type `Text` for the name of an entity which can consist of 
 		after+=EntitieCombination*
 		finalRef+=[Entities|STRING]*);
 
-	EntitieCombination:
+	ReferenceCombination:
 		(refs+=[Entities|STRING]+ text+=Text);
 
 References to entities have the type `STRING`. This allows the referencing of entities with a name consisting of mutliple words. For example the System "printing module".  
@@ -108,8 +108,8 @@ Such `TextWithGlossaryEntriesOrSynonyms` has the same structure than `TextWithRe
 	DomainObjectSynonym:
 		name=Text; 
 
-### Using simple names for Cross-References 
-Xtext uses by default full qualified names for cross-referencing nested objects. This means for our language if you want to reference the synonym of an object you have to use dot notation. The following example demonstartes this for the Object with name "document" and the synonym "documents": 
+### Cross-References using simple names 
+Xtext uses by default full qualified names for cross-referencing nested objects. This means for our language if you want to reference the synonym of an object you have to use a dot notation. The following example demonstartes this for the Object with name "document" and the synonym "documents": 
 
 	The "printing module" will provide the "client" with the ability to "print" "document.documents".
 
@@ -130,12 +130,15 @@ The use of such full qualified names would decrease the readability. To avoid th
 
 This allows the use of simple names	and the direct referencing of nested objects without using a dot notation.
 
+### Deactivating auto editing for Strings 
+Besides the cross-referencing we have to change the editor behavior. By default if we type " the auto editing of the editor inserts another quote to close the string and reposition the cursor between the quodes. If we know use Crtl+Space and choose a reference duplicated quotes get inserted at the end. For example "print module"". To avoid this we have to either change the proposel provider or the auto editing. 
+
+  
+Now the cross refs are working fine. but if we try the editor we find out what autoedit and content assist disturb each other. We type " and auto edit gets us to "|". If we now type Crtl+Space for content assist we finally get "This is a Thing"" with an extra " at the end.
+To avoid this we have to tweak the proposal provider a bit.
+
 ### Summary and outlook  
 
-
-
-### References
-<a name="myfootnote1">1</a>:[The IREB boilerplate](https://requirementstechniques.wordpress.com/documentation/requirements-templates/ "IREB Boilerplates")
 
 ##Part 2: Natural language validation  
 
