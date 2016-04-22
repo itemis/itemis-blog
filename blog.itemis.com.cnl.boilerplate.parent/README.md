@@ -130,12 +130,22 @@ The use of such full qualified names would decrease the readability. To avoid th
 
 This allows the use of simple names	and the direct referencing of nested objects without using a dot notation.
 
-### Deactivating auto editing for Strings 
-Besides the cross-referencing we have to change the editor behavior. By default if we type " the auto editing of the editor inserts another quote to close the string and reposition the cursor between the quodes. If we know use Crtl+Space and choose a reference duplicated quotes get inserted at the end. For example "print module"". To avoid this we have to either change the proposel provider or the auto editing. 
+### Deactivating auto editing for strings 
+Besides the cross-referencing we have to change the editor behavior. By default if we type " the auto editing of the editor inserts another quote to close the string and positions the cursor between the quotes. If we now use Crtl+Space and choose a reference, duplicated quotes get inserted at the end. For example "printing module"" instead of "printing module". To avoid this we have to deactivate the automated insertions of closing quotes for strings. Therefore we introduce a new class and override the method `configureStringLiteral` of the `DefaultAutoEditStrategyProvider`:
 
-  
-Now the cross refs are working fine. but if we try the editor we find out what autoedit and content assist disturb each other. We type " and auto edit gets us to "|". If we now type Crtl+Space for content assist we finally get "This is a Thing"" with an extra " at the end.
-To avoid this we have to tweak the proposal provider a bit.
+	class MyAutoEditStrategy extends DefaultAutoEditStrategyProvider {
+	
+		override configureStringLiteral(IEditStrategyAcceptor acceptor) {
+			acceptor.accept(partitionEndSkippingEditStrategy.get(),
+				TerminalsTokenTypeToPartitionMapper.STRING_LITERAL_PARTITION);
+		}
+	}
+
+Finally we register this newly introduced class in the ui runtime-module:
+
+	override Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
+		return MyAutoEditStrategy
+	}
 
 ### Summary and outlook  
 
