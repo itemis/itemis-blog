@@ -5,7 +5,9 @@ human review processes or to reduced quality and can have a negative impact on s
 
 This series shows how to create a controlled natural language based on sentence templates (boilerplates) using Xtext. The resulting language will allow the usage of free text in combination with references to model elements at specific parts of the boilerplates. In comprehension to text processing programs the resulting language will support the user through the usability functions of Xtex and will ensure that the requirements match the used boilerplates. Furthermore the requirements will be mapped to a data model which allows there automated validation and post processing.   
 
-Part one of this series is about the formalization of informal natural language and the realization of the boilerplates in the formal Xtext grammar. Part two deals with the validation of the natural language requirements using Natural Language Processing (NLP). Finally, in part three will show how to extract domain specific concepts from the free text parts of the boilerplates using NLP methods.
+Part one of this series is about the formalization of informal natural language and the realization of the boilerplates in the formal Xtext grammar. Besides the grammar we will see how to use strings as cross-references in a convenient and readable way. 
+Part two deals with the validation of the natural language requirements using Natural Language Processing (NLP). This part shows how to include external librarys into a Xtext project and how to use the validation API.  
+Finally, part three will show how to extract domain specific concepts from the free text parts of the boilerplates using NLP methods. The focus of this part lies on the quickfix API of Xtext.  
 
 ## Part 1: Requirement boilerplates  
 Requirement boilerplates aim to increase the quality of textual requirements by defining a sentence template with placeholders for specific words or phrases that define the particular requirement. There is a wide range of boilerplates used for requirements documentation. For example user stories in agile software development:
@@ -81,7 +83,7 @@ The core syntax elements of the language are the `Requirement` rules. The follow
 	ActorInteraction:
 		provide='provide' the1='the'? actor=[Actor|STRING] ^with='with' the2='the' ability='ability' to='to';
 	
-Since an Independent System Activity only consists of a <process> we don't need to create a seperate rule for it. Instead these informations are captured in the attribute `objectWithReferences` of the Type `TextWithGlossaryEntries` in the rule `RequirementEnd`:
+Since an Independent System Activity only consists of a process we don't need to create a seperate rule for it. Instead these informations are captured in the attribute `objectWithReferences` of the Type `TextWithGlossaryEntries` in the rule `RequirementEnd`:
 
 	RequirementEnd:
 		ai=ActorInteraction? objectWithDetails=TextWithGlossaryEntriesOrSynonyms '.';
@@ -130,7 +132,7 @@ The use of such full qualified names would decrease the readability. To avoid th
 
 This allows the use of simple names	and the direct referencing of nested objects without using a dot notation.
 
-### Deactivating auto editing for strings 
+### Deactivate auto editing for strings 
 Besides the cross-referencing we have to change the editor behavior. By default if we type " the auto editing of the editor inserts another quote to close the string and positions the cursor between the quotes. If we now use Crtl+Space and choose a reference, duplicated quotes get inserted at the end. For example "printing module"" instead of "printing module". To avoid this we have to deactivate the automated insertions of closing quotes for strings. Therefore we introduce a new class and override the method `configureStringLiteral` of the `DefaultAutoEditStrategyProvider`:
 
 	class MyAutoEditStrategy extends DefaultAutoEditStrategyProvider {
