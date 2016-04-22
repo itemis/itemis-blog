@@ -1,8 +1,11 @@
-# Xtext and contrained natural languages for software requirements 
+# Xtext and controlled natural languages for software requirements 
+Several tools and approaches exist for the documentation of formal
+requirements. However, stakeholders usually document requirements informally, i.e. in natural language. Often using text processing programs which do not provide any input assistance related to the requirements and do not allow there automated validation or post-processing. This leads either to higher efforts for cost-intensive and timeconsuming
+human review processes or to reduced quality and can have a negative impact on subsequent development phases.  To compensate these disadvantages of the usage of natural language in requirements documentation, various approaches exist. One of these approaches is to control the use of natural language by using templates in order to create acceptable requirement as they are written.
 
-This series shows how to create a constrained natural language based on sentence templates (boilerplate) using Xtext. The resulting language will allow the usage of natural language in combination with references to model elements at specific parts of the boilerplate. In comprehension to text processing programs the resulting language will support the user through the usability functions of Xtex and will ensure that the requirements match the used boilerplates. Furthermore the requirements will be mapped to a data model which allows there validation and post processing.  
+This series shows how to create a controlled natural language based on sentence templates (boilerplates) using Xtext. The resulting language will allow the usage of free text in combination with references to model elements at specific parts of the boilerplates. In comprehension to text processing programs the resulting language will support the user through the usability functions of Xtex and will ensure that the requirements match the used boilerplates. Furthermore the requirements will be mapped to a data model which allows there automated validation and post processing.   
 
-Dann Part1:, Part2:, Part3: beschreiben 
+Part one of this series is about the formalization of informal natural language and the realization of the boilerplates in the formal Xtext grammar. Part two deals with the validation of the natural language requirements using Natural Language Processing (NLP). Finally, in part three will show how to extract domain specific concepts from the free text parts of the boilerplates using NLP methods.
 
 ## Part 1: Requirement boilerplates  
 Requirement boilerplates aim to increase the quality of textual requirements by defining a sentence template with placeholders for specific words or phrases that define the particular requirement. There is a wide range of boilerplates used for requirements documentation. For example user stories in agile software development:
@@ -11,12 +14,7 @@ Requirement boilerplates aim to increase the quality of textual requirements by 
 
 Such boilerplates allow the documentation of requirements in an standardised way without the knowledge of a specific requirements language and therefore can be used by domain experts as well as requirements engineers. Furthermore they reduce the risk of ambiguous, inconsistent or vague requirements arising form the use of natural language.  
 
-Often boilerplates are used with text processing programs which do not provide any input assistance related to the boilerplates and do not allow there automated validation or post-processing.    
-
-This post shows how to create a language based on boilerplates using Xtext. The resulting language will allow the usage of natural language in combination with references to model elements at specific parts of the boilerplate. In comprehension to text processing programs the resulting language will support the user through the usability functions of Xtex and will ensure that the requirements match the used boilerplates. Furthermore the requirements will be mapped to a data model which allows there validation and post processing.  
-
-### Boilerplate
-The used boilerplate is similar to the one defined by the International Requirements Engineering Board ([IREB](https://www.ireb.org/)):  
+The boilerplate used in this series is similar to the one defined by the International Requirements Engineering Board ([IREB](https://www.ireb.org/)):  
 
 <center>![boilerplate](https://github.com/itemis/itemis-blog/blob/boilerplate/blog.itemis.com.cnl.boilerplate.parent/images/boilerplate.png)</center>  
 <center>Figure 1: The used [boilerplate](https://requirementstechniques.wordpress.com/documentation/requirements-templates/ "IREB Boilerplates").</center>
