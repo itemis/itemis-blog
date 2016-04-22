@@ -18,7 +18,7 @@ This post shows how to create a language based on boilerplates using Xtext. The 
 ### Boilerplate
 The used boilerplate is similar to the one defined by the International Requirements Engineering Board ([IREB](https://www.ireb.org/)):  
 
-<center>![boilerplate](file:images/boilerplate.png)</center>  
+<center>![boilerplate](https://github.com/itemis/itemis-blog/blob/boilerplate/blog.itemis.com.cnl.boilerplate.parent/images/boilerplate.png)</center>  
 <center>Figure 1: The used [boilerplate](https://requirementstechniques.wordpress.com/documentation/requirements-templates/ "IREB Boilerplates").</center>
 
 The following sentences are examples for requirements based on this template. Keywords are bold, references to modell elements are encapsulated in angle brackets and optional parts are in ecapsulated in square brackets:  
