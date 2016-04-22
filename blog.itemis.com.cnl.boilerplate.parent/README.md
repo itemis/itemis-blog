@@ -1,20 +1,25 @@
-# Xtext and Contrained Natural Languages: Requirement Boilerplates  
+# Xtext and contrained natural languages for software requirements 
 
-There is a wide range of boilerplates used for requirements documentation. For example user stories in agile software development:
+This series shows how to create a constrained natural language based on sentence templates (boilerplate) using Xtext. The resulting language will allow the usage of natural language in combination with references to model elements at specific parts of the boilerplate. In comprehension to text processing programs the resulting language will support the user through the usability functions of Xtex and will ensure that the requirements match the used boilerplates. Furthermore the requirements will be mapped to a data model which allows there validation and post processing.  
+
+Dann Part1:, Part2:, Part3: beschreiben 
+
+## Part 1: Requirement boilerplates  
+Requirement boilerplates aim to increase the quality of textual requirements by defining a sentence template with placeholders for specific words or phrases that define the particular requirement. There is a wide range of boilerplates used for requirements documentation. For example user stories in agile software development:
 
 	As a <role>, I want <goal/desire> so that <benefit> 
 
-Such boilerplates allow the documentation of requirements in an standardised  way without the knowledge of a specific requirements language and therefore can be used by domain experts as well as requirements engineers. 
+Such boilerplates allow the documentation of requirements in an standardised way without the knowledge of a specific requirements language and therefore can be used by domain experts as well as requirements engineers. Furthermore they reduce the risk of ambiguous, inconsistent or vague requirements arising form the use of natural language.  
 
-Often boilerplates are used with text processing programs which do not provide any input assistance related to the biolerplates for the user and do not allow an automated validation or post-processing of the requirements.    
+Often boilerplates are used with text processing programs which do not provide any input assistance related to the boilerplates and do not allow there automated validation or post-processing.    
 
-This post shows how to create a language based on boilerplates using Xtext. The resulting language will allow the usage of natural language in combination with references to model elements at specific parts of the boilerplate. In comprehension to text processing programs the resulting language will support the user through the usability functions of Xtex and will allow the validation of natural language using Part-of-speech tagging (POS-tagging).  
+This post shows how to create a language based on boilerplates using Xtext. The resulting language will allow the usage of natural language in combination with references to model elements at specific parts of the boilerplate. In comprehension to text processing programs the resulting language will support the user through the usability functions of Xtex and will ensure that the requirements match the used boilerplates. Furthermore the requirements will be mapped to a data model which allows there validation and post processing.  
 
 ### Boilerplate
-The used boilerplate is similar to the one defined by the International Requirements Engineering Board (IREB):  
+The used boilerplate is similar to the one defined by the International Requirements Engineering Board ([IREB](https://www.ireb.org/)):  
 
 <center>![boilerplate](file:images/boilerplate.png)</center>  
-<center>*Figure 1: The used boilerplate*<sup>[1](#myfootnote1)</sup>.</center>
+<center>Figure 1: The used [boilerplate](https://requirementstechniques.wordpress.com/documentation/requirements-templates/ "IREB Boilerplates").</center>
 
 The following sentences are examples for requirements based on this template. Keywords are bold, references to modell elements are encapsulated in angle brackets and optional parts are in ecapsulated in square brackets:  
 
@@ -27,7 +32,7 @@ The following sentences are examples for requirements based on this template. Ke
 ### Grammar
 The Grammar consists of entities, glossary entries, two types of boilerplates and the rules needed to use natural language.    
 	
-The Grammar defines the entities *Actor* and *System* which can be referenced in boilerplates by there name:
+The Grammar defines the entities `Actor` and `System` which can be referenced in boilerplates by there name:
 
 	Actor: 'Actor'  ':' name=Text 
 	description = Description;
@@ -37,15 +42,15 @@ The Grammar defines the entities *Actor* and *System* which can be referenced in
 
 	Description: 'Description'  ':' text+=SentenceWithReferences*;
 
-The user can use the type *Text* for the name of an entity which can consist of multiple words and is not limited by the Java-ID conventions. Keywords that should be used in Text must be added explicit:
+The user can use the type `Text` for the name of an entity which can consist of multiple words and is not limited by the Java-ID conventions. Keywords that should be used in Text must be added explicit:
 
 	Text: ( 'To' |  'to' | 'A' | 'a' | 'the' | 'The' | WORD | ANY_OTHER)+;
 
- To add further informations for an entity the user can create a description for each entity using the type *SentenceWithReferences*. Such a sentence consists of TextWithReferences and a punctuation: 
+ To add further informations for an entity the user can create a description for each entity using the type `SentenceWithReferences`. Such a sentence consists of `textWithReferences` and a `punctuation`: 
 		
-	SentenceWithReferences: text=TextWithReferences punctuation=('.' | '!' | '?');     
+	SentenceWithReferences: textWithReferences=TextWithReferences punctuation=('.' | '!' | '?');     
 
-*TextWithReferences* allows the combined use of references to entities and plain text. In order to recover the plain text representation of TextWithReferences the rule is defined as follows:   
+`TextWithReferences` allows the combined use of references to entities and plain text. In order to recover the plain text representation of `TextWithReferences` the rule is defined as follows:   
 
 	TextWithReferences:
 		(onlyRefs+=[Entities|STRING]+ | 
@@ -56,9 +61,9 @@ The user can use the type *Text* for the name of an entity which can consist of 
 	EntitieCombination:
 		(refs+=[Entities|STRING]+ text+=Text);
 
-References to entities have the type STRING. This allows the referencing of entities with a name consisting of mutliple words. For example the System "printing module".  
+References to entities have the type `STRING`. This allows the referencing of entities with a name consisting of mutliple words. For example the System "printing module".  
 
-The core syntax elements of the language are the Requirement rules. The following rules are the realisation of the boilerplate shown in Figure 1.:   
+The core syntax elements of the language are the `Requirement` rules. The following rules are the realisation of the boilerplate shown in Figure 1.:   
 
 	Requirement:
 		ConditionalRequirement | UnconditionalRequirement;
@@ -78,12 +83,12 @@ The core syntax elements of the language are the Requirement rules. The followin
 	ActorInteraction:
 		provide='provide' the1='the'? actor=[Actor|STRING] ^with='with' the2='the' ability='ability' to='to';
 	
-Since an Independent System Activity only consists of a <process> we don't need to create a seperate rule for it. Instead these informations are captured in the attribute objectWithReferences of the Type TextWithGlossaryEntries in the rule *RequirementEnd*:
+Since an Independent System Activity only consists of a <process> we don't need to create a seperate rule for it. Instead these informations are captured in the attribute `objectWithReferences` of the Type `TextWithGlossaryEntries` in the rule `RequirementEnd`:
 
 	RequirementEnd:
 		ai=ActorInteraction? objectWithDetails=TextWithGlossaryEntriesOrSynonyms '.';
 
-Such TextWithGlossaryEntriesOrSynonyms has the same structure than TextWithReferences but only *GlossaryEntries* and there synonyms can be referenced. Such a glossary entry can be a *Function* describing a <process> or a *DomainObject*: 
+Such `TextWithGlossaryEntriesOrSynonyms` has the same structure than `TextWithReferences` but only `GlossaryEntries` and there synonyms can be referenced. Such a glossary entry can be a `Function` describing a process or a `DomainObject`: 
 
 	Glossary:
 		{Glossary} 'Glossary' elements+=(GlossaryEntry)*;
@@ -125,7 +130,7 @@ The use of such full qualified names would decrease the readability. To avoid th
 			}
 		}
 
-This allows the use of simple names	and the direct referencing of nested objects without a dot notation.
+This allows the use of simple names	and the direct referencing of nested objects without using a dot notation.
 
 ### Summary and outlook  
 
@@ -136,7 +141,7 @@ This allows the use of simple names	and the direct referencing of nested objects
 
 ##Part 2: Natural language validation  
 
-##Part 3: Creating glossary entries   
+##Part 3: Extracting and creating glossary entries   
 
 
 <!--	
