@@ -1,11 +1,11 @@
 # Xtext and controlled natural languages for software requirements 
 Several tools and approaches exist for the documentation of formal
 requirements. However, stakeholders usually document requirements informally, i.e. in natural language. Often using text processing programs which do not provide any input assistance related to the requirements and do not allow their automated validation or post-processing. This leads either to higher efforts for cost intensive and time consuming
-human review processes or to reduced quality and can have a negative impact on subsequent development phases. To compensate these disadvantages of the usage of natural language in requirements documentation, various approaches exist. One of these approaches is to control the use of natural language by using templates in order to create acceptable requirement as they are written.
+human review processes or to reduced quality and can have a negative impact on subsequent development phases. To compensate these disadvantages of the usage of natural language in requirements documentation, various approaches exist. One of these approaches is to control the use of natural language by using templates in order to create acceptable requirements as they are written.
 
 This series shows how to create a controlled natural language based on sentence templates (boilerplates) using Xtext. The language will allow the usage of free text in combination with references to model elements at specific parts of the boilerplates. In comprehension to text processing programs the language will support the user through the usability functions of Xtex and will ensure that the requirements match the used boilerplates.
 
-Part one of this series is about the formalization of informal natural language and the realization of the boilerplates in the formal Xtext grammar. Besides the grammar we will see how to use strings as cross-references in a convenient and readable way.
+Part one of this series is about the formalization of informal natural language and the realization of the boilerplates in the Xtext grammar. Besides the grammar we will see how to use strings as cross-references in a convenient and readable way.
 Part two deals with the validation of the natural language requirements using Natural Language Processing (NLP). This part shows how to include external libraries into a Xtext project and how to use the validation API.
 Finally, part three will show how to extract domain specific concepts from the free text parts of the boilerplates using NLP methods. The focus of this part lies on the Quickfix API of Xtext.
 
@@ -21,15 +21,15 @@ The boilerplate used in this series is similar to the one defined by the Interna
 <center>![boilerplate](https://github.com/itemis/itemis-blog/blob/boilerplate/blog.itemis.com.cnl.boilerplate.parent/images/boilerplate.png)</center>  
 <center>Figure 1: The used [boilerplate](https://requirementstechniques.wordpress.com/documentation/requirements-templates/ "IREB Boilerplates").</center>
 
-The following sentences are examples for requirements based on this template. Keywords are bold, references to model elements are encapsulated in angle brackets and optional parts are in encapsulated in square brackets:  
+The following sentences are examples for requirements based on this template. Keywords are bold and references to model elements are encapsulated in quotes:  
 
-- **The** `<printing module>` **shall** `<print>` `<charts>` and `<documents>`.
-- [**If** the `<analyst>` created the `<chart>` or `<document>` the] `<printing module>` **shall** **provide** **the** `<analyst>` **with the ability to** `<print>` this `<chart>` or `<document>`.
-- **If** the `<charts>` where created by someone else the `<printing module>` **shall** hide the `<print button>`.
-- **The** `<printing module>` **will** **provide the** `<client>`**with the ability to** `<print>` `<documents>`.
-- [**If** the licence is basic the] `<printing module>` **will provide the** `<client>` **with the ability to** `<print>` `<greyscale documents>`.
+- **The** `"printing module"` **shall** `"print"` `"charts"` and `"documents"`.
+- **If** the `"analyst"` created the `"chart"` or `"document"` the `"printing module"` **shall** **provide** **the** `"analyst"` **with the ability to** `"print"` this `"chart"` or `"document"`.
+- **If** the `"charts"` where created by someone else the `"printing module"` **shall** hide the `"print button"`.
+- **The** `"printing module"` **will** **provide the** `"client"` **with the ability to** `"print"` `"documents"`.
+- **If** the licence is basic the `"printing module"` **will provide the** `"client"` **with the ability to** `"print"` `"greyscale documents"`.
 
-In order to realize such a language we have to define a Xtext grammar which should look as close as possible as natural language. 
+In order to realize such a language we have to define a Xtext grammar which should look as close as possible as natural language.   
 
 ### Grammar
 The Grammar consists of referable entities and glossary entries, two types of boilerplates and the rules needed to use free text.
@@ -48,7 +48,9 @@ The user can use the type `Text` for the name of an entity which can consist of 
 
 	Text: ( 'To' |  'to' | 'A' | 'a' | 'the' | 'The' | WORD | ANY_OTHER)+;
 
- To add further informations for an entity the user can create a description for each entity using the type `SentenceWithReferences`. Such a sentence consists of `textWithReferences` and a `punctuation` 
+Here we have to be careful. As the rule text has no distinct termination symbol, only keywords which are not used as terminators for `Text` types in boilerplates can be added. 
+
+To add further informations for an entity the user can create a description for each entity using the type `SentenceWithReferences`. Such a sentence consists of `textWithReferences` and a `punctuation` 
 		
 	SentenceWithReferences: textWithReferences=TextWithReferences punctuation=('.' | '!' | '?');     
 
@@ -63,7 +65,7 @@ The user can use the type `Text` for the name of an entity which can consist of 
 	ReferenceCombination:
 		(refs+=[Entities|STRING]+ text+=Text);
 
-References to entities have the type `STRING`. This allows the referencing of entities with a name consisting of multiple words. For example the System "printing module".
+References to entities have the type `STRING`. This allows the referencing of entities with a name consisting of multiple words. For example the System `"printing module"`.
 
 The core syntax elements of the language are the `Requirement` rules. The following rules are the realization of the boilerplate shown in Figure 1.:   
 
@@ -118,7 +120,7 @@ Such `TextWithGlossaryEntriesOrSynonyms` has the same structure than `TextWithRe
 Synonyms are needed to ensure a consistent usage and description of terms and also to ensure to readability of the requirements when it comes to flexions or singular and plural nouns. They are nested in GlossaryEntries. This leads us to the next topic. The referencing of such nested types.      
 
 ### Cross-References using simple names 
-Xtext uses by default full qualified names for cross-referencing nested types. This means for our language if you want to reference the synonym of a `GlossaryEntry` you have to use a dot notation. The following example demonstrates this for the Object with name "document" and the synonym "documents": 
+Xtext uses by default full qualified names for cross-referencing nested types. This means for our language if you want to reference the synonym of a `GlossaryEntry` you have to use a dot notation. The following example demonstrates this for the object "document" and his synonym "documents": 
 
 	The "printing module" will provide the "client" with the ability to "print" "document.documents".
 
@@ -126,7 +128,7 @@ Xtext uses by default full qualified names for cross-referencing nested types. T
 		Object: document
 		Synonyms: documents	   
 
-The use of such full qualified names would decrease the readability. To avoid this we add the 'SimpleNameFragment2' to the language part of Modeling Workflow Engine 2 (mwe2) file of the main project: 
+The use of such full qualified names would decrease the readability. To avoid this we add the `SimpleNameFragment2` to the language part of Modeling Workflow Engine 2 (mwe2) file of the main project: 
 
 		language = StandardLanguage {
 			name = "blog.itemis.com.cnl.boilerplate.Boilerplate"
@@ -170,7 +172,6 @@ Finally we register our implementation:
 <!--	
 Such a boilerplate constrains the structure of a sentence by the definition of keywords and placeholders.  
 The most Xtext languages are designed to generate a formal output for example source code in one ore more target languages. This post is not about such languages. Instead I will show you how to create a language for requirements documentation on base of sentence templates (boilerplates). The language will combine keywords, informal natural language (freetext) and references to entities. The resulting language will contrain the use of freetext and therefore can be described as contrained natural language. 
-Concrete manifestations of the boileplates are shown in listing 1.
 
 The boilerplate starts with an optional precondition followed by the name of the system under discussion and a liability which can be "must", "should" or "will". The next part can be an user interaction or an independent system activity. An user interaction starts with the keyword "provide" followed by the name of the actor and the keywords "with", "the", "ability" and "to". These keywords are followed by a process term. Such a process term discribing a functionality of the system under discussion. In contrast to an user interaction an independent system activity consists only of such a process term. The next part of the boilerplate is the object which is processed or used. The boilerplate ends with optional details about the object.
 -->
