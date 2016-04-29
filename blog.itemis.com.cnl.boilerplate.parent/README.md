@@ -163,7 +163,7 @@ Finally we register our newly introduced class:
 ### Summary and outlook  
 In this post we saw how to realize boilerplates in the Xtext grammar and allow the usage of free text combined with references to entities in these boilerplates. The resulting language controls the use of natural language by defining a grammatical sentence structure and allows the user a convenient use of strings as references.
 
-In the next post we will see how to validate the free text parts of the boilerplates using NLP methods and how to integrate the related bibliotheks in Xtext.
+In the next post we will see how to validate the free text parts of the boilerplates using NLP methods and how to integrate the related libraries in Xtext.
 
 ##Part 2: Natural language validation  
 
