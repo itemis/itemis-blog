@@ -6,7 +6,7 @@ This series shows how to create a controlled natural language based on sentence 
 
 Part one of this series is about the formalization of informal natural language and the realization of the boilerplates in the Xtext grammar. Besides the grammar we will see how to use strings as cross-references in a convenient and readable way.
 Part two deals with the validation of the natural language requirements using Natural Language Processing (NLP). This part shows how to include external libraries into a Xtext project and how to use the validation API.
-Finally, part three will show how to extract domain specific concepts from the free text parts of the boilerplates using NLP methods. The focus of this part lies on the Quickfix API of Xtext.
+Finally, part three will show how to extract domain specific concepts from the free text parts of the boilerplates using NLP techniques. The focus of this part lies on the Quickfix API of Xtext.
 
 ## Part 1: Requirement boilerplates  
 Requirement boilerplates aim to increase the quality of textual requirements by defining a sentence template with placeholders for specific words or phrases that define the particular requirement. There is a wide range of boilerplates used for requirements documentation. For example user stories in agile software development.
@@ -47,7 +47,7 @@ The user can use the type `Text` for the name of an entity which can consist of 
 
 	Text: ( 'To' |  'to' | 'A' | 'a' | 'the' | 'The' | WORD | ANY_OTHER)+;
 
-Here we have to be careful. Since the rule text has no distinct terminator, only keywords which are not used as terminators for `Text` types in boilerplates can be added. 
+Here we have to be careful regarding the limitations of the parser. Since the rule text has no distinct terminator, only keywords which are not used as terminators for `Text` types can be added. 
 
 To add further informations for an entity the user can create a description for each entity using the type `SentenceWithReferences`. Such a sentence consists of `textWithReferences` and a `punctuation`. 
 		
@@ -66,7 +66,7 @@ To add further informations for an entity the user can create a description for 
 
 References to entities have the type `STRING`. This allows the referencing of entities with a name consisting of multiple words. For example the System `"printing module"`.
 
-The core syntax elements of the language are the `Requirement` rules. The following rules are the realization of the boilerplate shown in Figure 1.   
+The core syntax elements of the language are the `Requirement` rules. The following rules are the realization of the boilerplate shown in figure 1.   
 
 	Requirement:
 		ConditionalRequirement | UnconditionalRequirement;
@@ -91,7 +91,7 @@ Since an Independent System Activity only consists of a process phrase we don't 
 	RequirementEnd:
 		ai=ActorInteraction? objectWithDetails=TextWithGlossaryEntriesOrSynonyms '.';
 
-Such `TextWithGlossaryEntriesOrSynonyms` has the same structure than `TextWithReferences` but only `GlossaryEntries` and their synonyms can be referenced. Such a glossary entry can be a `Function` describing a process or a `DomainObject`. 
+Such `TextWithGlossaryEntriesOrSynonyms` has the same structure than `TextWithReferences` but only `GlossaryEntries` and their synonyms can be referenced. Such a glossary entry can be a `Function` representing a `"process"` or a `DomainObject` representing an `"object"` in figure 1. 
 
 	Glossary:
 		{Glossary} 'Glossary' elements+=(GlossaryEntry)*;
@@ -151,7 +151,7 @@ Besides the cross-referencing we should change the editor behavior. By default, 
 		}
 	}
 
-Finally we register our newly introduced class:
+Finally we register our newly introduced class.
 
 	class BoilerplateUiModule extends AbstractBoilerplateUiModule {
 	
@@ -161,13 +161,31 @@ Finally we register our newly introduced class:
 	}
 
 ### Summary and outlook  
-In this post we saw how to realize boilerplates in the Xtext grammar and allow the usage of free text combined with references to entities in these boilerplates. The resulting language controls the use of natural language by defining a grammatical sentence structure and allows the user a convenient use of strings as references.
+In this post we saw how to realize boilerplates in the Xtext grammar and allow the usage of free text combined with references to entities in these boilerplates. The resulting language controls the use of natural language by defining a grammatical sentence structure and allows the user to document requirements in a standardized, convenient and readable way.  
 
-In the next post we will see how to validate the free text parts of the boilerplates using NLP methods and how to integrate the related libraries in Xtext.
+In the next post we will see how to further control the usage of natural language specially in the free text parts of the boilerplates. According to figure 1, we will make sure that each requirement contains a free text phrase which describes a process or `Function` of the system and at least one involved `DomainObject`. Since functions can be described by verbs and domain objects by nouns, we gone use NLP techniques to ensure that each boilerplate contains exactly one `Function` and at least one `DomainObject`. Therefore, we will integrate a external library and define validation rules based on the Xtext validation API.  
 
-##Part 2: Natural language validation  
+## Part 2: Controlled use of natural language
+In the first part of this series we defined a Xtext grammar based on boilerplates in order to control the use of natural language and in order to  create acceptable requirements as they are written. 
 
-##Part 3: Extracting and creating glossary entries   
+Another approach to improve the quality of textual requirements
+is the use of Natural Language Processing (NLP) techniques to check their quality in terms of grammar and vocabulary after they have been written. NLP
+techniques related to this work are Part-Of-Speech (POS)
+tagging which categorizes the tokens of a sentence into different
+types like verbs or nouns and stemming which finds the root (stem) of a word for inflected forms, for example the singular for a plural word.
+
+According to our grammar, we will use these techniques to ensure that each `RequirementEnd` contains exactly one verb representing a `Function` and at least one object which represents an `DomianObject` in our `Glossary`. 
+
+### POS-Tagging 
+
+### Model transformation 
+
+### Integrate external libraries 
+
+### Defining validation rules 
+
+
+## Part 3: Extracting and creating glossary entries   
 
 
 <!--	
