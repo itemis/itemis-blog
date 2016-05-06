@@ -163,22 +163,23 @@ Finally we register our newly introduced class.
 ### Summary and outlook  
 In this post we saw how to realize boilerplates in the Xtext grammar and allow the usage of free text combined with references to entities in these boilerplates. The resulting language controls the use of natural language by defining a grammatical sentence structure and allows the user to document requirements in a standardized, convenient and readable way.  
 
-In the next post we will see how to further control the usage of natural language specially in the free text parts of the boilerplates. According to figure 1, we will make sure that each requirement contains a free text phrase which describes a process or `Function` of the system and at least one involved `DomainObject`. Since functions can be described by verbs and domain objects by nouns, we gone use NLP techniques to ensure that each boilerplate contains exactly one `Function` and at least one `DomainObject`. Therefore, we will integrate a external library and define validation rules based on the Xtext validation API.  
+In the next part we will see how to further control the usage of natural language specially in the free text parts of the boilerplates. According to figure 1, we will make sure that each requirement contains a free text phrase which describes a process or `Function` of the system and at least one involved `DomainObject`. Since functions can be described by verbs and domain objects by nouns, we gone use NLP techniques to ensure that each boilerplate contains exactly one `Function` and at least one `DomainObject`. Therefore, we will integrate a external library and define validation rules based on the Xtext validation API.  
 
 ## Part 2: Controlled use of natural language
-In the first part of this series we defined a Xtext grammar based on boilerplates in order to control the use of natural language and in order to  create acceptable requirements as they are written. 
+In the first part of this series we defined a Xtext grammar based on boilerplates in order to control the use of natural language and create acceptable requirements as they are written. 
 
 Another approach to improve the quality of textual requirements
 is the use of Natural Language Processing (NLP) techniques to check their quality in terms of grammar and vocabulary after they have been written. NLP
-techniques related to this work are Part-Of-Speech (POS)
+techniques related to this post are Part-Of-Speech (POS)
 tagging which categorizes the tokens of a sentence into different
-types like verbs or nouns and stemming which finds the root (stem) of a word for inflected forms, for example the singular for a plural word.
+types like verbs or nouns and stemming which finds the root (stem) of a word for inflected forms, for example the singular for a plural word. Due to the fixed grammatical structure of the boilerplates defined by our Xtext grammar, an expensive grammatical analysis using NLP techniques is not necessary.
 
-According to our grammar, we will use these techniques to ensure that each `RequirementEnd` contains exactly one verb representing a `Function` and at least one object which represents an `DomianObject` in our `Glossary`. 
+We will use these techniques to define constraints for the use of domain specific concepts in the free text parts of the boilerplates. In our approach these concepts are domain objects and functions which appear as nouns and verbs in the free text parts of the boilerplates.
 
-### POS-Tagging 
+According to our grammar that means that each `RequirementEnd` must contain exactly one verb representing a `Function` and at least one object which represents an `DomianObject` in our `Glossary`. Therefore, we have to implement a model-to-text transformation which transforms the boilerplates from there reprensentation in the model to plain text. 
 
 ### Model transformation 
+
 
 ### Integrate external libraries 
 
