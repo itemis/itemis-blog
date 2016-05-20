@@ -86,7 +86,7 @@ The core syntax elements of the language are the `Requirement` rules. The follow
 	ActorInteraction:
 		provide='provide' the1='the'? actor=[Actor|STRING] ^with='with' the2='the' ability='ability' to='to';
 	
-Since an Independent System Activity only consists of a process phrase we don't need to create a separate rule for it. Instead, these informations are captured in the attribute 'objectWithReferences' of the Type `TextWithGlossaryEntries` in the rule `RequirementEnd`.
+Since an Independent System Activity only consists of a process phrase we don't need to create a separate rule for it. Instead, these informations are captured in the attribute 'objectWithReferences' of the Type `TextWithGlossaryEntriesOrSynonyms` in the rule `RequirementEnd`.
 
 	RequirementEnd:
 		ai=ActorInteraction? objectWithDetails=TextWithGlossaryEntriesOrSynonyms '.';
@@ -130,12 +130,9 @@ Xtext uses by default full qualified names for cross-referencing nested types. T
 The use of such full qualified names would decrease the readability. To avoid this we add the `SimpleNameFragment2` to the language part of Modeling Workflow Engine 2 (mwe2) file of the main project. 
 
 		language = StandardLanguage {
-			name = "blog.itemis.com.cnl.boilerplate.Boilerplate"
-			fileExtensions = "bp"
+			...
 			fragment = exporting.SimpleNamesFragment2 {}
-			serializer = {
-				generateStub = false
-			}
+			...
 		}
 
 This allows the use of simple names	and the direct referencing of nested objects.
@@ -153,7 +150,7 @@ Besides the cross-referencing we should change the editor behavior. By default, 
 
 Finally we register our newly introduced class.
 
-	class BoilerplateUiModule extends AbstractBoilerplateUiModule {
+	class <YourLanguageName>UiModule extends Abstract<YourLanguageName>UiModule {
 	
 		override Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
 			return MyAutoEditStrategy
@@ -163,35 +160,117 @@ Finally we register our newly introduced class.
 ### Summary and outlook  
 In this post we saw how to realize boilerplates in the Xtext grammar and allow the usage of free text combined with references to entities in these boilerplates. The resulting language controls the use of natural language by defining a grammatical sentence structure and allows the user to document requirements in a standardized, convenient and readable way.  
 
-In the next part we will see how to further control the usage of natural language specially in the free text parts of the boilerplates. According to figure 1, we will make sure that each requirement contains a free text phrase which describes a process or `Function` of the system and at least one involved `DomainObject`. Since functions can be described by verbs and domain objects by nouns, we gone use NLP techniques to ensure that each boilerplate contains exactly one `Function` and at least one `DomainObject`. Therefore, we will integrate a external library and define validation rules based on the Xtext validation API.  
+In the next part we will see how to further control the usage of natural language specially in the free text parts of the boilerplates. According to figure 1, we will make sure that each requirement contains a free text phrase which describes a process or `Function` of the system and at least one involved `DomainObject`. Since functions can be described by verbs and domain objects by nouns, we will use NLP techniques to ensure that each boilerplate contains exactly one `Function` and at least one `DomainObject`. Therefore, we will integrate an external library and define validation rules based on the Xtext validation API.  
 
 ## Part 2: Controlled use of natural language
-In the first part of this series we defined a Xtext grammar based on boilerplates in order to control the use of natural language and create acceptable requirements as they are written. 
+In the first part of this series we defined a Xtext grammar based on boilerplates in order to control the use of natural language and create acceptable requirements as they are written. Another approach to improve the quality of textual requirements is the use of Natural Language Processing (NLP) techniques to control their quality in terms of grammar and vocabulary after they have been written. 
 
-Another approach to improve the quality of textual requirements
-is the use of Natural Language Processing (NLP) techniques to check their quality in terms of grammar and vocabulary after they have been written. NLP
-techniques related to this post are Part-Of-Speech (POS)
-tagging which categorizes the tokens of a sentence into different
-types like verbs or nouns and stemming which finds the root (stem) of a word for inflected forms, for example the singular for a plural word. Due to the fixed grammatical structure of the boilerplates defined by our Xtext grammar, an expensive grammatical analysis using NLP techniques is not necessary.
+NLP techniques related to this post are Part-Of-Speech (POS)
+tagging which categorizes the tokens (words or phrases) of a sentence into different types like verbs or nouns and stemming which finds the root (stem) of a word for inflected forms, for example the singular for a plural word. Due to the fixed grammatical structure of the boilerplates defined by our Xtext grammar, an expensive grammatical analysis using NLP techniques is not necessary.
 
-We will use these techniques to define constraints for the use of domain specific concepts in the free text parts of the boilerplates. In our approach these concepts are domain objects and functions which appear as nouns and verbs in the free text parts of the boilerplates.
+We will use these techniques to define constraints for the use of domain specific concepts in the free text parts of the boilerplates. In our approach these concepts are objects and functions which appear as nouns and verbs in the free text parts of the boilerplates.
 
-According to our grammar that means that each `RequirementEnd` must contain exactly one verb representing a `Function` and at least one object which represents an `DomianObject` in our `Glossary`. Therefore, we have to implement a model-to-text transformation which transforms the boilerplates from there reprensentation in the model to plain text. 
+According to our grammar that means that each `RequirementEnd` must contain exactly one verb representing a `Function` and at least one object which represents an `DomianObject` in our `Glossary`. 
 
-### Model transformation 
+### Model-to-text transformation 
+In order to analyse the boilerplates using NLP techniques, we have to implement a model-to-text transformation which transforms the boilerplates from their representation in the model to plain text. Therefore, we implement a new class which contains toString methods for the different elements of the boilerplates. Due to the structure of the rules we defined in part one of this series, the transformation is rather simple. The following example shows the toString method for the type `TextWithReferences`. 
 
+	def toString(TextWithReferences text) {
+		if (!text.onlyRefs.empty) {
+			return text.onlyRefs.map[name].join(" ").trim
+		}
+		val elements = newLinkedList
+		elements.addAll(text.refBefore.map[name])
+		elements.addAll(text.text)
+		text.after.forEach [ comb |
+			elements.addAll(comb.refs.map[name])
+			elements.addAll(comb.text)
+		]
+		elements.addAll(text.finalRef.map[name])
+		elements.join(" ").trim
+	}  
 
-### Integrate external libraries 
+The POS tagging is done by a POS tagger. A POS tagger determines the part-of-speech tag (POS-tag) of a token based on the sentence context. Therefore, we have to create toString methods for all elements related to the boilerplates in order to provide complete sentences as input for the tagger.  
 
-### Defining validation rules 
+### NLP framework integration
+In order to validate natural language we use the framework [TokensRegex](http://nlp.stanford.edu/software/tokensregex.html) from the [Stanford Natural Language Processing Group](http://nlp.stanford.edu/). Its part of the [Stanford CoreNLP](http://stanfordnlp.github.io/CoreNLP/) suite and provides an API which allows the use of cascaded regular expressions over tokens. Basically this means the framework allows pattern matching over sentence phrases or words using regular expression and POS-Tags. If you want to use it directly you can integrate it via maven.
 
+	<dependency>
+		<groupId>edu.stanford.nlp</groupId>
+		<artifactId>stanford-corenlp</artifactId>
+		<version>3.6.0</version>
+	</dependency>
+	<dependency>
+		<groupId>edu.stanford.nlp</groupId>
+		<artifactId>stanford-corenlp</artifactId>
+		<version>3.6.0</version>
+		<classifier>models</classifier>
+	</dependency>   
+
+I provided a wrapper around the TokensRegex framework. Its called POSRegex and is available at [github](https://github.com/chriskn/POSRegex/tree/master/POSRegex). I recommend this wrapper because it is tailored for the use in this series. To integrate the POSRegex.jar we add it to Bundle-Classpath in the Manifest. 
+
+	Bundle-ClassPath: lib/POSRegex-0.0.2.jar,
+	 . 
+
+We have to make sure that we initialize POSRegex only ones at the Eclipse startup because of the time consuming loading of the reference files (treebanks) which gonne be used by the POS-tagger. Therefore, we register it as eager Singleton in the runtime-module. 
+
+	override configure(Binder binder) {
+		super.configure(binder);
+		binder.bind(IPOSRegexPattern).to(POSRegexPattern).asEagerSingleton();
+	} 
+
+Finaly we add the following line to the `build.properties` of the runtime project to make sure the jar is included in our eclipse plugin.
+
+	jars.extra.classpath = lib/POSRegex-0.0.2.jar    
+
+### Natural language validation
+With the model-to-text transformation and the natural language library we are now able to validate the usage of domain specific concepts. We separate the natural language validation from the model based validation rules by defining a new class extending `Abstract<YourLanguageName>Validator `in the validation package of the runtime project. Xtext allows the use of multiple validators by the annotation `@ComposedChecks`. In order to register our new validator we annotate the `<YourLanguageName>Validator` in the following way.
+
+	@ComposedChecks(validators = #[typeof(MyNaturalLanguageValidator)])
+	public class <YourLanguageName>Validator extends Abstract<YourLanguageName>Validator { 
+	}
+
+The next step is to implement the validation rules in the natural language validator. Therefore, we inject the `IPOSRegexPattern` and our model-to-text converter which is called `BoilerplateToStringConverter` in the following example. The method `checkObjectWithDetailsContainsFunction` checks if each `RequirementEnd` contains exactly one verb. It is called for every `RequirementEnd` instance by Xtext. 
+
+	@Inject
+	IPOSRegexPattern posRegex
+
+	@Inject
+	BoilerplateToStringConverter converter
+
+	@Check(CheckType.NORMAL)
+	def checkObjectWithDetailsContainsFunction(RequirementEnd end) {
+		val pattern = '(?$verb[pos:VB|pos:VBD|pos:VBG|pos:VBN|pos:VBP|pos:VBZ])'
+		val requirement = end.eContainer as Requirement
+		val reqString = converter.toString(requirement)
+		val result = posRegex.match(reqString, pattern)
+		val objectWithDetails = end.objectWithDetails
+		val owdString = converter.toString(objectWithDetails)
+		val verbs = result.tokensByGroup.get("verb")
+		val verbsInOwdString = countOccurrences(owdString, verbs)
+		val literal = <YourLanguageName>Package.Literals.REQUIREMENT_END__OBJECT_WITH_DETAILS
+		if (verbsInOwdString.size != 1) {
+			error("This text must contain one verb which stands for a function of the system", literal)
+		}
+	}
+
+The natural language validation can be time consuming. Therefore, we annotate the method with the annotation `CheckType.NORMAL` to ensure that the check is only executed when the user saves the document. In the first step we define a `pattern` containing a non-capturing group called `verb` which matches multiple types of verb POS-Tags (VB=Verb base form, VBD=Verb past tense, VBG=Verb gerund or present participle,...). A detailed description of the syntax can be found in the TokensRegex [documentation](http://nlp.stanford.edu/software/tokensregex.html#Usage). The supported POS-tags are equivalent to the POS-tags defined by the University of Pennsylvania which are described [here](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html). In the next step we get the `Requirement` instance from our model, translate it to text and run the pattern matching. The returned `result` contains all found verbs in the `verb` group. In the next step we count the occurrence of these verbs in the free text (`objectWithDetails`) part of the boilerplate. If not exactly one verb is found, we mark the `objectWithDetails` with an error. 
+
+We can do this kind of validation also for the domain objects. The following pattern could be used to check that each `objectWithDetails` contains a domain object with a name consisting of one or two nouns.
+
+	(?$noun[pos:NN|pos:NNS|pos:NNP|pos:NNPS]{1,2})      
+
+### Summary and outlook
+In this part we saw how to validate the use of domain specific concepts inside the free text parts of the boilerplates. Therefore, we integrated a natural language framework and used it together with the validation API of Xtext.  
+
+In Part 3 we will extend the use of NLP techniques. We will identifie domain specific concepts, allow the user to extract them from the free text parts of the boilerplates and add them to the glossary. To support the user during this process, we will offer multiple automatic actions using the Xtexts Quickfix API. 
 
 ## Part 3: Extracting and creating glossary entries   
 
 
 <!--	
 Such a boilerplate constrains the structure of a sentence by the definition of keywords and placeholders.  
-The most Xtext languages are designed to generate a formal output for example source code in one ore more target languages. This post is not about such languages. Instead I will show you how to create a language for requirements documentation on base of sentence templates (boilerplates). The language will combine keywords, informal natural language (freetext) and references to entities. The resulting language will contrain the use of freetext and therefore can be described as contrained natural language. 
+The most Xtext languages are designed to generate a formal output for example source code in one ore more target languages. This post is not about such languages. Instead I will show you how to create a language for requirements documentation on base of sentence templates (boilerplates). The language will combine keywords, informal natural language (free text) and references to entities. The resulting language will contrain the use of free text and therefore can be described as contrained natural language. 
 
 The boilerplate starts with an optional precondition followed by the name of the system under discussion and a liability which can be "must", "should" or "will". The next part can be an user interaction or an independent system activity. An user interaction starts with the keyword "provide" followed by the name of the actor and the keywords "with", "the", "ability" and "to". These keywords are followed by a process term. Such a process term discribing a functionality of the system under discussion. In contrast to an user interaction an independent system activity consists only of such a process term. The next part of the boilerplate is the object which is processed or used. The boilerplate ends with optional details about the object.
 -->
