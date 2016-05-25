@@ -266,7 +266,20 @@ In this part we saw how to validate the use of domain specific concepts inside t
 In Part 3 we will extend the use of NLP techniques. We will identifie domain specific concepts, allow the user to extract them from the free text parts of the boilerplates and add them to the glossary. To support the user during this process, we will offer multiple automatic actions using the Xtexts Quickfix API. 
 
 ## Part 3: Extracting and creating glossary entries   
-
+| Conditions                                                                       | R1 | R2 | R3 | R4 | R5 | R6 |
+|----------------------------------------------------------------------------------|:--:|:--:|:--:|:--:|:--:|:--:|
+| Name of concept exists in glossary as synonym                                    |  Y |  N |  N |  N |  N |  N |
+| Steam of concept exists in glossary as concept                                   |  - |  Y |  Y |  N |  N |  N |
+| Name equals steam                                                                |  - |  Y |  N |  Y |  N |  - |
+| User chooses "add to glossary"                                                   |  - |  - |  - |  Y |  Y |  N |
+| User chooses "add to concept as synonym"                                         |  - |  - |  - |  N |  N |  Y |
+| Actions                                                                          |    |    |    |    |    |    |
+| Create entry and add it so the glossary                                          |    |    |    |  X |    |    |
+| Create synonym and add it to the entry whose Name equals the steam               |    |    |  X |    |    |    |
+| Link with the existing concept                                                   |    |  X |    |    |    |    |
+| Link with the existing synonym                                                   |  X |    |    |    |    |    |
+| Create entry with the steam as name and add the concept as synonym               |    |    |    |    | X  |    |
+| User chooses existing entry. The concept will be added as synonym for this entry |    |    |    |    |    | X  |
 
 <!--	
 Such a boilerplate constrains the structure of a sentence by the definition of keywords and placeholders.  
