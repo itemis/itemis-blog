@@ -284,15 +284,15 @@ The following decision table contains six rules. Each rule describes one constel
 | Name of concept exists in glossary as synonym                                	       |  Y |  N |  N |  N |  N |  N |
 | Steam of concept exists in glossary as concept                               	       |  - |  Y |  Y |  N |  N |  N |
 | Name equals stem                                                             	  	   |  - |  Y |  N |  Y |  N |  - |
-| User chooses "add to glossary as concept"                                    	   	   |  - |  - |  - |  Y |  Y |  N |
-| User chooses "add to existing concept as synonym"                             	   |  - |  - |  - |  N |  N |  Y |
+| User choses "add to glossary as concept"                                    	   	   |  - |  - |  - |  Y |  Y |  N |
+| User choses "add to existing concept as synonym"                             	   |  - |  - |  - |  N |  N |  Y |
 | **Quick fixes**                                                                								     |
 | Create concept and add it to the glossary                                      	   |    |    |    |  X |    |    |
 | Create synonym and add it to the concept whose Name equals the steam          	   |    |    |  X |    |    |    |
 | Reference existing concept                                                	   |    |  X |    |    |    |    |
 | Reference existing synonym                                                 	   |  X |    |    |    |    |    |
 | Create concept with the steam as name and add the concept as synonym                 |    |    |    |    | X  |    |
-| User chooses existing concept. The concept will be added as synonym to this concept  |    |    |    |    |    | X  |
+| User choses existing concept. The concept will be added as synonym to this concept  |    |    |    |    |    | X  |
 
 For example the rule 6 (R6) leads to a quick fix where the user has to choose an existing concept. The found concept will be added as synonym to the existing concept. This quick fix is only shown if the concept found is not present in the glossary (not as synonym and not as concept) and the user choose to add this concept to an existing concept as synonym. It does not matter in this case if the concept is the stem or an inflected form of the word. On the contrary, for the rules 4 and 5 this does matter. If the user chooses "add to glossary as concept" and the name of the concept is the stem of the word, we provide a quick fix which creates a new concept with the name of the found concept as name (R4). Otherwise, if the name of the new concept is not the stem and the user chooses the same, we provide a quickfix which creates a new concept with the steam as name and add the found concept as synonym to the newly created (R5).
 The final step is always to encapsulate the found concept in quotation marks and therefore reference a glossary concept or one of its synonyms.   
