@@ -165,7 +165,7 @@ val cellLength = table.getMaxColumnLength(counter) - cell.regionForEObject.lengt
 cell.regionFor.feature(TablePackage.Literals.CELL__TEXT).append[space = Strings.repeat(" ", cellLength)]
 ```
 
-####Conclusion
+##Conclusion
 
 If you use the three snippets above you can easily and very fast use the new API to implement a formatter for tables, which was nearly impossible with the old API. There are many convenience methods that really make your life way easier writing a formatter.
 
