@@ -5,8 +5,8 @@ Instead of using the DSL's Grammar Access it is now possible to work directly on
 ## Wiki Table Syntax
 The [Wiki table markup](https://www.mediawiki.org/wiki/Help:Tables) is defined as follows:
 <table>
-<tr><td>|+</td><td>**table start**, *required*</td></tr>
-<tr><td>{|</td><td>table **caption**, *optional*; only between **table start** and **table row**</td></tr>
+<tr><td>{|</td><td>**table start**, *required*</td></tr>
+<tr><td>|+</td><td>table **caption**, *optional*; only between **table start** and **table row**</td></tr>
 <tr><td>|-</td><td>**table row**, *optional on first row*—wiki engine assumes the first row</td></tr>
 <tr><td>!</td><td>**table header** cell, *optional*. Consecutive **table header** cells may be added on same line separated by double marks (`!!`) or start on new lines, each with its own single mark (`!`).</td></tr>
 <tr><td>|</td><td>**table data** cell, *optional*. Consecutive **table data** cells may be added on same line separated by double marks (||) or start on new lines, each with its own single mark (`|`).</td></tr>
