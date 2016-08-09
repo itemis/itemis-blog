@@ -126,7 +126,9 @@ With the extension method `regionFor` we get the region and the keyword we can g
 The second task is to do this also for the rows. Each row should start with the keyword and a line break afterwards. The command
 is quite similar and looks like this 
 
-```row.regionFor.keyword("|-").prepend[newLine]```
+```
+row.regionFor.keyword("|-").prepend[newLine]
+```
 For this we can iterate over all the rows inside a table.
 
 ####Automatically align the columns
