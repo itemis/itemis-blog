@@ -86,6 +86,7 @@ There is a `Table` Element, which has an optional caption and multiple rows. Eac
 different cells, which are of kind `HeaderCell` (starting with `!`) or `DataCell` (starting with `|`). The cells contain any content. This is defined by the datatype rule `Label`, which allows any terminal tokens as its content.
 
 ##Implementing the Formatter
+
 A good introduction to the new formatter can be found in the presententation ["Xtext's New Formatting API"](`http://www.slideshare.net/meysholdt/xtexts-new-formatter-api`). For our introduction, we only need some functions mentioned there, 
 which I will now explain in detail. 
 
@@ -100,7 +101,6 @@ formatter={
 inside the `.mwe2` workflow of the language. After regenerating the Xtext implementation you get an Xtend class, which is automatically bound inside the `Abstract<MyDSL>RuntimeModule`
 of the language and extends the `AbstractFormatter2` class. 
 
-###Implement the formatter for the table
 Inside this class you can implement a method, which has the following body for each element of the grammar.
 
 ```
@@ -108,6 +108,7 @@ def dispatch void format(Table table, extension IFormattableDocument document) {
 }
 ```
 ####Add line breaks for the table
+
 For our task, there are several tasks to solve. 
 
 The first one is that there should be a new line after the opening keyword of the table and before the closing keyword. This is quite easy to solve. For each semantic element we can get the region of this element using the `ITextRegionExtensions` which are automatically available if we extend from `AbstractFormatter2`.
@@ -123,6 +124,7 @@ With the extension method `regionFor` we get the region and the keyword we can g
 `append` and `prepend` from the `IFormattableDocument` class we can as the method indicates append or prepend a new line.
 
 ####Format the rows
+
 The second task is to do this also for the rows. Each row should start with the keyword and a line break afterwards. The command
 is quite similar and looks like this 
 
@@ -130,6 +132,7 @@ is quite similar and looks like this
 For this we can iterate over all the rows inside a table.
 
 ####Automatically align the columns
+
 The most challenging task is to automatically align the columns based on the widest content of a column. 
 To get the widest element inside a column, you can define this method:
 
@@ -161,6 +164,7 @@ cell.regionFor.feature(TablePackage.Literals.CELL__TEXT).append[space = Strings.
 ```
 
 ####Conclusion
+
 If you use the three snippets above you can easily and very fast use the new API to implement a formatter for tables, which was nearly impossible with the old API. There are many convenience methods that really make your life way easier writing a formatter.
 
 In a further blog post we will give a short introduction on how to test the formatter with a simple Xtend template and some basic JUnit tests.
