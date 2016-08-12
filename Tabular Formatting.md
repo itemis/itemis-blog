@@ -170,3 +170,5 @@ cell.regionFor.feature(TablePackage.Literals.CELL__TEXT).append[space = Strings.
 If you use the three snippets above you can easily and very fast use the new API to implement a formatter for tables, which was nearly impossible with the old API. There are many convenience methods that really make your life way easier writing a formatter.
 
 In a further blog post we will give a short introduction on how to test the formatter with a simple Xtend template and some basic JUnit tests.
+
+The sources for this example, can be found on our github ["sources"](`https://github.com/itemis/itemis-blog/tree/tabular_formatting`).
