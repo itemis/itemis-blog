@@ -24,12 +24,6 @@ class FormattingTest{
 
 	var expectedResult='''
 	{|
-	|-|Dominik Jetzen|age 12 |street "Hauptstraße 28" zip 1292 city "Bad Nauheim"
-	|-|Dominik J     |age 23 |street "Westendstraße 2811" zip 1292 city "Frankfurt am Main"
-	|-|S H           |age 129|street "GM" zip 1 city "Ffm"
-	|}
-	
-	{|
 	|-|Orange|Apple    |more
 	|-|Bread |Pie      |more
 	|-!Butter!Ice cream|and more
@@ -43,9 +37,6 @@ class FormattingTest{
 	|}
 	'''
 	var testInput='''
-		{||-|Dominik Jetzen|age 12|street "Hauptstraße 28" zip 1292 city "Bad Nauheim"
-		|-|Dominik J|age 23|street "Westendstraße 2811" zip 1292 city "Frankfurt am Main"|-|S H|age 129|street "GM" zip 1 city "Ffm"|}
-		
 		{||-|Orange|Apple|more|-|Bread|Pie|more|-!Butter!Ice cream|and more|}
 		
 		{||-|Orange|10|7.00|-|Bread |4 |3.00|-|Butter|1 |5.00|-!Total |100|15.00|}
