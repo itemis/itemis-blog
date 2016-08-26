@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xtext.workshop.advanced.formatting.table.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: xtext.workshop.advanced.formatting.table.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: xtext.workshop.advanced.formatting.table,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: xtext.workshop.advanced.formatting.ide.contentassist.antlr.internal,
+ xtext.workshop.advanced.formatting.ide.contentassist.antlr
+

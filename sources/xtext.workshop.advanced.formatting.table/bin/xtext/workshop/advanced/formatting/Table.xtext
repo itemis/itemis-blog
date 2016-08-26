@@ -1,0 +1,38 @@
+grammar xtext.workshop.advanced.formatting.Table with org.eclipse.xtext.common.Terminals
+
+generate table "http://www.workshop.xtext/advanced/formatting/Table"
+
+// see https://www.mediawiki.org/wiki/Help:Tables
+
+Document:
+	elements+=Table*
+;
+
+Table: {Table}
+	'{|' 
+	caption=Caption?
+	rows += Row* '|}'
+;
+
+Caption:
+	'|+' label=Label
+;
+
+Row: {Row}
+	'|-' cells+=Cell*
+;
+
+Cell:
+	HeaderCell | DataCell
+;
+
+HeaderCell:
+	'!' text=Label	
+;
+
+DataCell:
+	'|' text=Label
+;
+
+Label: (ID|STRING|INT|WS|ANY_OTHER)*;
+
