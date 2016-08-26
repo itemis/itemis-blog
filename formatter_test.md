@@ -1,5 +1,5 @@
 # Testing the Formatter
-In a previous post [Formatter Introduction](https://www.itemis.de) I explained 
+In a previous post [Formatter Introduction](https://blogs.itemis.com/en/tabular-formatting-with-the-new-formatter-api) I explained 
 how the new formatter API works and how you can use it for the formatting of 
 a Table. 
 
@@ -71,3 +71,5 @@ Writing unit tests for the formatter is quite easy, once you have configured you
 because very large templates can get quite messy.
 
 Happy testing!
+
+The [sources](https://github.com/itemis/itemis-blog/tree/formatter_test/sources) can be found here.
