@@ -1,0 +1,21 @@
+grammar org.xtext.example.Keywords with org.eclipse.xtext.common.Terminals
+
+generate keywords "http://www.xtext.org/example/Keywords"
+
+Model:
+	types+=Type*;
+
+Type: DataType | Entity;
+
+DataType:
+	'Type' name=ValidID
+;	
+
+Entity:
+	'Entity' name=ValidID
+;
+
+ValidID: ID | KEYWORD;
+
+KEYWORD: 'Type'|'Entity';
+
