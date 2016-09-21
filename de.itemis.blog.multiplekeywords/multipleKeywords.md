@@ -38,6 +38,7 @@ The figure above shows the proposals based on the default implementation of the 
 
 ## Grammar Adjustments
 To enable the proposal provider to make more valuable suggestions the keyword sequences are moved to their own parser rule that is than referenced from the *Relation* rule. 
+
 ```
 Relation:
 	(DependsOn | IsComposedOf) referencedEntity=[Entity]
@@ -51,7 +52,9 @@ IsComposedOf:
 	'is' 'composed' 'of'
 ;
 ```
+
 Although, the change makes no difference to the grammar itself it causes valuable changes in the generated language framework and especially in the proposal provider. Each of the keyword sequences now has its own *complete_* method in the *AbstractDomainmodelProposalProvider*.
+
 ```java
 	public void complete_DependsOn(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
@@ -60,6 +63,7 @@ Although, the change makes no difference to the grammar itself it causes valuabl
 		// subclasses may override
 	}
 ```
+
 As the by default generated methods suggest we now implement each of these in the *DomainmodelProposalProvider* to return the whole sequence of keywords as a proposal.
 
 ```xtend
@@ -83,6 +87,7 @@ class DomainmodelProposalProvider extends AbstractDomainmodelProposalProvider {
 	}
 }
 ```
+
 First, we inject the *DomainmodelGrammarAcces* as extension to the *DomainmodelProposalProvider*. Second, we overwrite the *complete_* methods as shown in the figure above. Third, the real magic for creating a coherent keyword sequence is implemented in the *createKeywordProposal* method that based on the keywords in the given group concatenates a string containing all of them separated by a single space. Finally, the concatenated keyword string is converted into a completion proposal. The result is shown in the following figure that show the newly created proposal strings that now contain the whole sequence of keywords.
 
  ![Enhanced Proposal Provider](images/ProposalNew.png)
