@@ -96,7 +96,7 @@ def createKeywordProposal(Group group, ContentAssistContext context, ICompletion
 }
 ```
 
-The result is shown in the following figure that shows the newly created proposal strings that now contain the whole sequence of keywords.
+The following figure shows the newly created proposal strings that now contain the whole sequence of keywords.
 
  ![Enhanced Proposal Provider](images/ProposalNew.png)
 
