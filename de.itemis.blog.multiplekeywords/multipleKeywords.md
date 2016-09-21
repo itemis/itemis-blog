@@ -64,7 +64,7 @@ Although, the change makes no difference to the grammar itself it causes valuabl
 	}
 ```
 
-As the by default generated methods suggest we now implement each of these in the `DomainmodelProposalProvider` to return the whole sequence of keywords as a proposal. First, as preparation we inject the `DomainmodelGrammarAccess` as extension to the `DomainmodelProposalProvider`. The GrammarAccess is used in the overwritten `complete_` methods to get easy access to the keyword sequence defined by the grammar.
+As the by default generated methods suggest we now implement each of these in the [`DomainmodelProposalProvider`](https://github.com/itemis/itemis-blog/blob/multiple_keywords/org.eclipse.xtext.example.domainmodel.ui/src/org/eclipse/xtext/example/domainmodel/ui/contentassist/DomainmodelProposalProvider.xtend) to return the whole sequence of keywords as a proposal. First, as preparation we inject the `DomainmodelGrammarAccess` as extension to the `DomainmodelProposalProvider`. The GrammarAccess is used in the overwritten `complete_` methods to get easy access to the keyword sequence defined by the grammar.
 
 ```xtend
 class DomainmodelProposalProvider extends AbstractDomainmodelProposalProvider {
