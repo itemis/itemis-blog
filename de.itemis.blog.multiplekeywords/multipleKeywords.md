@@ -1,4 +1,4 @@
-# Multiple Consecutive Keywords
+# Xtext Hint: Content Assist for Multiple Consecutive Keywords
 
 Keywords play a central role in Xtext DSLs to define the languages general structure. In many cases a single keyword is sufficient to specify what is expected next. For example in the Xtext sample grammar used in this article the keyword `entity` introduces the definition of a new object of type *Entity*. However, in some cases there are multiple consecutive keywords required, e.g. if no single expressive word exists or if the statement should appear like a natural language sentence. Examples of the latter can be found in the blog articals regarding [controlled natural languages](https://blogs.itemis.com/en/xtext-and-controlled-natural-languages-for-software-requirements-part-1) described by Christoph Knauf. Although Xtext generally supports multiple consecutive keywords the default content assist implementation will propose one keyword after another instead of concatenating consecutive keywords. This can lead to confusing proposals for the user. 
 
