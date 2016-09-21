@@ -6,29 +6,30 @@ After demonstrating the problem with a simple Entity DSL it will be shown that s
 
 ## Sample Grammar
 As an example we will use the following small DSL that allows to define Entities that contain Properties and specific Relations. Each of the relations comes with its own semantic that is represented by a sequence of keywords. While *depends on* carries the semantic that one entity is relying on the existing of a certain other entity *is composed of* defines a composition dependency between two entities. Since it is considered good grammar style to put each keyword in its own quote the keyword sequences are separated. 
-    
-	grammar org.eclipse.xtext.example.domainmodel.Domainmodel with org.eclipse.xtext.xbase.Xbase
-	
-	generate domainmodel "http://www.xtext.org/example/Domainmodel"
-	
-	DomainModel:
-		importSection=XImportSection?
-		elements+=Entity*;
-	
-	Entity:
-		'entity' name=ValidID ('extends' superType=JvmParameterizedTypeReference)? '{'
-			properties+=Property*
-			relations+=Relation*
-		'}';
-	
-	Relation:
-		('depends' 'on' | 'is' 'composed' 'of') referencedEntity=[Entity]
-	;
-	
-	Property:
-	name=ValidID ':' type=JvmTypeReference;
-	
 
+```
+grammar org.eclipse.xtext.example.domainmodel.Domainmodel with org.eclipse.xtext.xbase.Xbase
+
+generate domainmodel "http://www.xtext.org/example/Domainmodel"
+
+DomainModel:
+	importSection=XImportSection?
+	elements+=Entity*;
+
+Entity:
+	'entity' name=ValidID ('extends' superType=JvmParameterizedTypeReference)? '{'
+		properties+=Property*
+		relations+=Relation*
+	'}';
+
+Relation:
+	('depends' 'on' | 'is' 'composed' 'of') referencedEntity=[Entity]
+;
+
+Property:
+name=ValidID ':' type=JvmTypeReference;
+```
+    
 As an example we want to define an entity Person and an entity Club where the entity Club is *composed of* Persons. Within the entity Club the proposal provider is invoked leading to the following suggestions. 
 
 ![Default Proposal Provider](images/ProposalDefault.png)
@@ -37,27 +38,51 @@ The figure above shows the proposals based on the default implementation of the 
 
 ## Grammar Adjustments
 To enable the proposal provider to make more valuable suggestions the keyword sequences are moved to their own parser rule that is than referenced from the *Relation* rule. 
+```
+Relation:
+	(DependsOn | IsComposedOf) referencedEntity=[Entity]
+;
 
-	Relation:
-		(DependsOn | IsComposedOf) referencedEntity=[Entity]
-	;
-	
-	DependsOn:
-		'depends' 'on'
-	;
-	
-	IsComposedOf:
-		'is' 'composed' 'of'
-	;
+DependsOn:
+	'depends' 'on'
+;
 
+IsComposedOf:
+	'is' 'composed' 'of'
+;
+```
 Although, the change makes no difference to the grammar itself it causes valuable changes in the generated language framework and especially in the proposal provider. Each of the keyword sequences now has its own *complete_* method in the *AbstractDomainmodelProposalProvider*.
-
-![Complete Methods](images/CompleteMethods.png)
-
+```java
+	public void complete_DependsOn(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// subclasses may override
+	}
+	public void complete_IsComposedOf(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// subclasses may override
+	}
+```
 As the by default generated methods suggest we now implement each of these in the *DomainmodelProposalProvider* to return the whole sequence of keywords as a proposal.
 
-![Overwritten Proposal Provider](images/OverwrittenProposalProvider.png)
-
+```xtend
+class DomainmodelProposalProvider extends AbstractDomainmodelProposalProvider {
+	
+	@Inject extension DomainmodelGrammarAccess
+	
+	override complete_DependsOn(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		dependsOnAccess.group.createKeywordProposal(context,acceptor)
+	}
+	override complete_IsComposedOf(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		isComposedOfAccess.group.createKeywordProposal(context,acceptor)
+	}
+	
+	def createKeywordProposal(Group group, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		if (group == null) {
+			return null
+		}
+		val proposalString = group.elements.filter(Keyword).map[value].join(" ") + " "
+		acceptor.accept(createCompletionProposal(proposalString, proposalString, null, context))
+	}
+}
+```
 First, we inject the *DomainmodelGrammarAcces* as extension to the *DomainmodelProposalProvider*. Second, we overwrite the *complete_* methods as shown in the figure above. Third, the real magic for creating a coherent keyword sequence is implemented in the *createKeywordProposal* method that based on the keywords in the given group concatenates a string containing all of them separated by a single space. Finally, the concatenated keyword string is converted into a completion proposal. The result is shown in the following figure that show the newly created proposal strings that now contain the whole sequence of keywords.
 
  ![Enhanced Proposal Provider](images/ProposalNew.png)
