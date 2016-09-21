@@ -64,31 +64,39 @@ Although, the change makes no difference to the grammar itself it causes valuabl
 	}
 ```
 
-As the by default generated methods suggest we now implement each of these in the `DomainmodelProposalProvider` to return the whole sequence of keywords as a proposal.
+As the by default generated methods suggest we now implement each of these in the `DomainmodelProposalProvider` to return the whole sequence of keywords as a proposal. First, as preparation we inject the `DomainmodelGrammarAccess` as extension to the `DomainmodelProposalProvider`. The GrammarAccess is used in the overwritten `complete_` methods to get easy access to the keyword sequence defined by the grammar.
 
 ```xtend
 class DomainmodelProposalProvider extends AbstractDomainmodelProposalProvider {
-	
+
 	@Inject extension DomainmodelGrammarAccess
 	
-	override complete_DependsOn(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		dependsOnAccess.group.createKeywordProposal(context,acceptor)
-	}
-	override complete_IsComposedOf(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		isComposedOfAccess.group.createKeywordProposal(context,acceptor)
-	}
-	
-	def createKeywordProposal(Group group, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		if (group == null) {
-			return null
-		}
-		val proposalString = group.elements.filter(Keyword).map[value].join(" ") + " "
-		acceptor.accept(createCompletionProposal(proposalString, proposalString, null, context))
-	}
+```
+
+Second, the `complete_` methods are overwritten to create a proposal string that contains all elements of the keyword sequence. The injected `DomainmodelGrammarAccess` is used to get the `group` of keywords that is than passed to the `createKeywordProposal` method that does the real magic.
+
+```xtend
+override complete_DependsOn(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	dependsOnAccess.group.createKeywordProposal(context,acceptor)
+}
+override complete_IsComposedOf(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	isComposedOfAccess.group.createKeywordProposal(context,acceptor)
 }
 ```
 
-First, we inject the `DomainmodelGrammarAccess` as extension to the `DomainmodelProposalProvider`. Second, we overwrite the `complete_` methods as shown in the figure above. Third, the real magic for creating a coherent keyword sequence is implemented in the `createKeywordProposal` method that based on the keywords in the given group concatenates a string containing all of them separated by a single space. Finally, the concatenated keyword string is converted into a completion proposal. The result is shown in the following figure that show the newly created proposal strings that now contain the whole sequence of keywords.
+The following code snippet shows how a coherent keyword sequence is computed and proposed. After checking that the passed in `group` is not null the proposal string is concatenated. First, the list of elements from the `group` are retrieved and filtered for instances of `org.eclipse.xtext.Keyword`. Second, the values of each `Keyword` are fetched and concatenated using the `join` method with a single space as delimiter. Finally, the `proposalString` is turned into a completion proposal that is than handed over to the `ICompletionProposalAcceptor` calling the `accept` method.
+
+```xtend
+def createKeywordProposal(Group group, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	if (group == null) {
+		return null
+	}
+	val proposalString = group.elements.filter(Keyword).map[value].join(" ") + " "
+	acceptor.accept(createCompletionProposal(proposalString, proposalString, null, context))
+}
+```
+
+The result is shown in the following figure that shows the newly created proposal strings that now contain the whole sequence of keywords.
 
  ![Enhanced Proposal Provider](images/ProposalNew.png)
 
