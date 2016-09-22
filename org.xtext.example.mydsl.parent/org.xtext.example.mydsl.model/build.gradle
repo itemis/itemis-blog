@@ -11,6 +11,14 @@ dependencies {
 
 }
 
+sourceSets {
+	main {
+		resources {
+			exclude '**/*.xcore'
+		}
+	}
+}
+
 xtext {
 	version = "${xtextVersion}"
 	languages {
@@ -23,13 +31,6 @@ xtext {
 		xcore {
 			setup = 'org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup'
 			generator.outlet.producesJava = true
-		}
-	}
-	sourceSets {
-		main {
-			resources {
-				exclude '**/test/*'
-			}
 		}
 	}
 }
