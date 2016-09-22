@@ -7,7 +7,6 @@ var rootPath = ".."
 
 Workflow {
 	bean = org.eclipse.emf.mwe.utils.StandaloneSetup {
-		scanClassPath = true
 		projectMapping = {
 			path = "${rootPath}/org.xtext.example.mydsl.model"
 			projectName = "org.xtext.example.mydsl.model"
@@ -34,9 +33,7 @@ Workflow {
 			name = "org.xtext.example.mydsl.MyDsl"
 			fileExtensions = "mydsl"
 			
-			referencedResource = "platform:/resource/org.xtext.example.mydsl.model/src/main/resources/mydsl.xcore"
-			referencedResource = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-			referencedResource = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
+			referencedResource = "platform:/resource/org.xtext.example.mydsl.model/src/mydsl.xcore"
 
 			emfGenerator = {
 				skipGenerate = true
