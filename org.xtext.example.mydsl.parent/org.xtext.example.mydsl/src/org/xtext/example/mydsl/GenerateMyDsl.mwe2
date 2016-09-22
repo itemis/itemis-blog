@@ -14,6 +14,8 @@ Workflow {
 		}
 	}
 	
+	bean = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
+	
 	component = XtextGenerator {
 		configuration = {
 			project = StandardProjectConfig {
