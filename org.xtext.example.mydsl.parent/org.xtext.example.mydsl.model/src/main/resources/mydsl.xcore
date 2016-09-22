@@ -1,0 +1,14 @@
+@GenModel(
+    bundleManifest="false",
+    modelDirectory="src/generated/xcore-gen",
+    complianceLevel="8.0"
+)
+package org.xtext.example.mydsl
+
+class Model {
+	contains Greeting[] greetings
+}
+
+class Greeting {
+	String name
+}

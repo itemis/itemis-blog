@@ -1,1 +1,6 @@
 .DS_Store
+bin
+src-gen
+xtend-gen
+build
+.gradle
