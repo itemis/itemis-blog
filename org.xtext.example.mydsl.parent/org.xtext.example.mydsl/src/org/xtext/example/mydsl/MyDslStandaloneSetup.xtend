@@ -21,5 +21,4 @@ class MyDslStandaloneSetup extends MyDslStandaloneSetupGenerated {
 		}
 		super.register(injector)
 	}
-	
 }

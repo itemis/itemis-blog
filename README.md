@@ -188,6 +188,29 @@ language = StandardLanguage {
 }
 ```
 
+### Standalone Setup
+
+When using the DSL not in the context of an Eclipse plugin, the metamodel's EPackage has to be registered in the EPackage registry. For the case that the metamodel is automatically generated, Xtext takes care of that registration in the generated base class of the DSL's standalone setup class.
+
+Since the metamodel is not automatically registered in the case that it is manually defined, the standalone setup class [`MyDslStandaloneSetup`](https://github.com/itemis/itemis-blog/blob/xcore_gradle/org.xtext.example.mydsl.parent/org.xtext.example.mydsl/src/org/xtext/example/mydsl/MyDslStandaloneSetup.xtend) has to be extended to do the registration process explicitly:
+
+```
+class MyDslStandaloneSetup extends MyDslStandaloneSetupGenerated {
+
+	def static void doSetup() {
+		new MyDslStandaloneSetup().createInjectorAndDoEMFRegistration()
+	}
+	
+	override register(Injector injector) {
+		if (!EPackage.Registry.INSTANCE.containsKey(MydslPackage.eNS_URI)) {
+			EPackage.Registry.INSTANCE.put(MydslPackage.eNS_URI, MydslPackage.eINSTANCE);
+		}
+		super.register(injector)
+	}
+}
+```
+
+
 ## Overview
 
 The following image shows the resulting project structure with the files [`mydsl.xcore`](https://github.com/itemis/itemis-blog/blob/xcore_gradle/org.xtext.example.mydsl.parent/org.xtext.example.mydsl.model/src/mydsl.xcore), [`MyDsl.xtext`](https://github.com/itemis/itemis-blog/blob/xcore_gradle/org.xtext.example.mydsl.parent/org.xtext.example.mydsl/src/org/xtext/example/mydsl/MyDsl.xtext) and [`GenerateMyDsl.mwe2`](https://github.com/itemis/itemis-blog/blob/xcore_gradle/org.xtext.example.mydsl.parent/org.xtext.example.mydsl/src/org/xtext/example/mydsl/GenerateMyDsl.mwe2):
