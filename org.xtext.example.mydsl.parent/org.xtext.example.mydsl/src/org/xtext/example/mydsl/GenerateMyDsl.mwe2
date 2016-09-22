@@ -34,10 +34,7 @@ Workflow {
 			fileExtensions = "mydsl"
 			
 			referencedResource = "platform:/resource/org.xtext.example.mydsl.model/src/mydsl.xcore"
-
-			emfGenerator = {
-				skipGenerate = true
-			}
+			
 			serializer = {
 				generateStub = false
 			}
