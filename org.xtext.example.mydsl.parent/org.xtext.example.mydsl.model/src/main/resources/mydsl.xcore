@@ -1,3 +1,4 @@
+@Ecore(nsPrefix="mydsl",nsURI="http://www.xtext.org/example/mydsl/MyDsl")
 @GenModel(
     bundleManifest="false",
     modelDirectory="src/generated/xcore-gen",
