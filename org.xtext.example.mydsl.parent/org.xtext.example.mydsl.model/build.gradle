@@ -1,5 +1,4 @@
 dependencies {
-	compile "org.eclipse.xtext:org.eclipse.xtext:${xtextVersion}"
 	compile "org.eclipse.xtext:org.eclipse.xtext.xbase:${xtextVersion}"
 	compile 'org.eclipse.emf:org.eclipse.emf.ecore.xcore.lib:+'
 	
@@ -8,7 +7,6 @@ dependencies {
 	xtextLanguages 'org.eclipse.emf:org.eclipse.emf.codegen.ecore:+'
 	xtextLanguages 'org.eclipse.emf:org.eclipse.emf.codegen.ecore.xtext:+'
 	xtextLanguages "org.eclipse.xtext:org.eclipse.xtext.ecore:${xtextVersion}"
-
 }
 
 sourceSets {
