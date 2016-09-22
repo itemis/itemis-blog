@@ -2,7 +2,7 @@ dependencies {
 	compile project(':org.xtext.example.mydsl.model')
 	compile "org.eclipse.xtext:org.eclipse.xtext:${xtextVersion}"
 	compile "org.eclipse.xtext:org.eclipse.xtext.xbase:${xtextVersion}"
-}    
+}	
 
 configurations {
 	mwe2 {
@@ -14,7 +14,7 @@ dependencies {
 	mwe2 "org.eclipse.emf:org.eclipse.emf.mwe2.launch:2.8.3"
 	mwe2 "org.eclipse.xtext:org.eclipse.xtext.xtext.generator:${xtextVersion}"
 	mwe2 'org.eclipse.emf:org.eclipse.emf.ecore.xcore:+'
-    mwe2 'org.eclipse.emf:org.eclipse.emf.codegen.ecore.xtext:+'
+	mwe2 'org.eclipse.emf:org.eclipse.emf.codegen.ecore.xtext:+'
 }
 
 task generateXtextLanguage(type: JavaExec) {
