@@ -1,7 +1,7 @@
 @Ecore(nsPrefix="mydsl",nsURI="http://www.xtext.org/example/mydsl/MyDsl")
 @GenModel(
     bundleManifest="false",
-    modelDirectory="build/xcore/main",
+    modelDirectory="org.xtext.example.mydsl.model/build/xcore/main", 
     complianceLevel="8.0"
 )
 package org.xtext.example.mydsl
