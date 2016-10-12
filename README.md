@@ -1,6 +1,6 @@
-# Editing Graphviz dot files with the GEF DOT Editor
+# Editing Graphviz *.dot files with the GEF DOT Editor
 
-**Graphviz dot files** are usual text files containing the textual representation of graph definitions. The structure of these dot files are defined by the [dot language](http://www.graphviz.org/content/dot-language) that provides more than 150 graph, node and edge attributes for the graph description. Some of these dot attribute values are distinct, some of them are following their own language specification and some of them depend on the previously defined dot attribute values. Remembering the name and the possible values of all these dot attributes or searching them continuously within the [official documentation](http://www.graphviz.org/content/attrs) not only ties up valuable resources, but also makes the entire process more error prone. And here is where the GEF DOT Editor could be of your assistance.
+**[Graphviz](http://www.graphviz.org/) *.dot files** are usual text files containing the textual representation of graph definitions. The structure of these *.dot files are defined by the [dot language](http://www.graphviz.org/content/dot-language) that provides more than 150 graph, subgraph, node and edge attributes to influence the graph visualization. Some of these dot attribute values are distinct, some of them are following their own language specification and some of them depend on the previously defined dot attribute values. Remembering the name and the possible values of all these dot attributes or searching them continuously within the [official documentation](http://www.graphviz.org/content/attrs) not only ties up valuable resources, but also makes the entire process more error prone. And here is where the GEF DOT Editor could be of your assistance.
 
 **The GEF DOT Editor** is an [Xtext](https://www.eclipse.org/Xtext/)-based textual editor registered for *.dot files within the Eclipse Workbench UI. Amongst others, it provides support for the following features:
 
@@ -10,9 +10,7 @@
 
 **2. Content Assist:** The GEF DOT Editor is able to provide suggestions on how to complete the statement/expression the user has just started to type. This content assist functionality can be accessed on any place within the opened dot file using the keyboard shortcut `Ctrl + Space`. Depending on the current caret position, only those dot language elements will be offered that make sense within the given context: graph attributes names within a graph context, edge attribute names within an edge context, and all possible attribute values within a certain attribute context.
 
-![2_ContentAssist_1.png](images/2_ContentAssist_1.png)
 ![2_ContentAssist_2.png](images/2_ContentAssist_2.png)
-![2_ContentAssist_3.png](images/2_ContentAssist_3.png)
 
 **3. Background Validation:** The GEF DOT Editor continuously validates the content of the opened dot file while the user is editing, even if the current dot file has not been saved yet. When the editor issues a warning/error, e.g. in case of using a deprecated/invalid dot language element, it underlines the corresponding part in yellow/red that contains the warning/error. It also puts some warning/error markers with a meaningful message on the left and right side of the editor and also populates the Problems view with all the recognized issues. With such a support the user can easily identify the parts of the dot file that need to be fixed.
 
