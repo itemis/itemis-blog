@@ -8,7 +8,7 @@
 
 ![1_SyntaxHighlighting_1.png](images/1_SyntaxHighlighting_1.png)
 
-**2. Content Assist:** The GEF DOT Editor is able to provide suggestions on how to complete the statement/expression the user has just started to type. This content assist functionality can be accessed on any place within the opened dot file using the keyboard shortcut `Ctrl + Space`. Depending on the current caret position, only those dot language elements will be offered that make sense within the given context: graph attributes names within a graph context, edge attribute names within an edge context, and all possible attribute values within a certain attribute context.
+**2. Content Assist:** The GEF DOT Editor is able to provide suggestions on how to complete the statement/expression the user has just started to type. This content assist functionality can be accessed on any place within the opened dot file using the keyboard shortcut `Ctrl + Space`. Depending on the current cursor position, only those dot language elements will be offered that make sense within the given context: graph attributes names within a graph context, edge attribute names within an edge context, and all possible attribute values within a certain attribute context.
 
 ![2_ContentAssist_2.png](images/2_ContentAssist_2.png)
 
@@ -25,15 +25,17 @@
 ![5_Folding_1.png](images/5_Folding_1.png)
 ![5_Folding_2.png](images/5_Folding_2.png)
 
-**6. Outline View:** The GEF DOT Editor provides an outline view to help the user navigating through the opened dot file. It provides a hierarchical view of the graph nodes and edges together with their attributes. By default, it represents the elements in the same order as defined within the dot file, but also allows the user to sort them alphabetically. Moreover, the user can choose to synchronize the outline view selection with the editor selection by switching the 'Link with Editor' mode on, so a selection on an element within the outline view  automatically highlights the corresponding dot element within the GEF DOT Editor.
+**6. Outline View:** The GEF DOT Editor provides an outline view to help the user navigating through the opened dot file. It provides a hierarchical view of the graph nodes and edges together with their attributes. By default, it represents the elements in the same order as defined within the dot file, but also allows the user to sort them alphabetically. Moreover, the user can choose to synchronize the outline view selection with the editor selection by switching the *'Link with Editor'* mode on, so a selection on an element within the outline view  automatically highlights the corresponding dot element within the GEF DOT Editor.
 
 ![6_OutlineView_1.png](images/6_OutlineView_1.png)
 
-**7. Automatic Sync:** The GEF DOT Editor is also able to automatically notify the GEF DOT Graph View when the user saves the currently modified dot file. Using the 'Link with DOT Editor' functionality, there is no need to manually trigger the graph visualization to re-render the currently edited dot file within the GEF DOT Graph View.
+**7. Automatic Sync:** The GEF DOT Editor is also able to automatically notify the GEF DOT Graph View when the user saves the currently modified dot file. Using the *'Link with DOT Editor'* functionality, there is no need to manually trigger the graph visualization to re-render the currently edited dot file within the GEF DOT Graph View.
 
 ![7_AutomaticSync_1.png](images/7_AutomaticSync_1.png)
 
-The GEF DOT Editor is only one part of the Graphviz DOT authoring environment the open source [GEF Framework](https://github.com/eclipse/gef/wiki) provides. For further information, take a look at the [GEF DOT User Guide](https://github.com/eclipse/gef/wiki/DOT-User-Guide) or visit the [GEF session on the Eclipsecon Europe 2016](https://www.eclipsecon.org/europe2016/session/gef4-dot-oh-dot-oh).
+**Conclusion**
+
+The GEF DOT Editor provides useful functionalities that come in handy when working with Graphviz *.dot files. Apart from that, the open source [GEF Framework](https://github.com/eclipse/gef/wiki) provides further components as parts of the GEF Graphviz DOT authoring environment. For further information, take a look at the [GEF DOT User Guide](https://github.com/eclipse/gef/wiki/DOT-User-Guide) or visit the [GEF session on the Eclipsecon Europe 2016](https://www.eclipsecon.org/europe2016/session/gef4-dot-oh-dot-oh).
 
 <hr>
 At the time of this writing, the functionality of the GEF Graphviz DOT authoring environment is limited as follows:
