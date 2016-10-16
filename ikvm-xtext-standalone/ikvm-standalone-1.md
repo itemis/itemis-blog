@@ -1,13 +1,16 @@
 # Language development on .NET with Xtext - Part 1
 ## Introduction
-Developing a textual DSL in .NET is a tedious process consisting of manually defining data structures and writing a grammar with actions to construct syntax trees, symbol tables, basic validations etc.
+Developing a textual DSL in .NET is a tedious process consisting of manually defining data structures and writing a grammar with actions to construct syntax trees, symbol tables, basic validations and so on.
 Xtext automatizes a a large part of the process of DSL creation:
 By writing an Xtext grammar, one doesn't only get a parser and a serializer, but also abstract syntax trees and the corresponding classes, syntax validations and cross-references to other EMF models.
+Apart from the generated classes, Xtext includes a runtime library which provides an extensive infrastructure of re-usable, customizable services for handling DSL models.
 
-In the following, we will illustrate the integration of a simple Xtext DSL within a .NET command-line application written in C# by using the Java-to-.NET translator IKVM.
+This blog series will illustrate the integration of a simple Xtext DSL within a .NET command-line application written in C# by using the Java-to-.NET translator IKVM.
 
-## Example
-To present the integration, we start with a DSL developed with Xtext, in this case a language for simple arithmetical expressions and functions.
+In the first part of this series, we will give an overview of an example use case.
+
+## Use case overview
+To demonstrate the integration, we start with a DSL developed with Xtext, in this case a language for simple arithmetical expressions and functions.
 A snippet of this language's grammar is listed below.
 
 [//]: # "TODO: Herausgerissenes Blatt"
@@ -15,8 +18,6 @@ A snippet of this language's grammar is listed below.
 
 From the grammar, Xtext generates a parser which maps DSL instances to Java objects.
 For example, the parser would map the expression ``1 + 2`` to an instance of the generated class ``Plus`` whose ``left`` and ``right`` properties are ``NumberLiteral``s with ``value = 1`` and ``value = 2``, respectively.
-
-Apart from these generated classes, Xtext includes a runtime library which provides an extensive infrastructure of re-usable, customizable services for handling DSL models. 
 
 Now we will write a C# interpreter for evaluating the arithmetical expressions of our DSL and a command-line interface to the interpreter, in order to show that it's possible to embed Xtext DSLs in .NET applications by consuming them in C# programs and thus avoid most of the tedious work connected with parser development.
 
@@ -39,6 +40,7 @@ In the ``evaluate`` method, we dispatch by expression class, such that for a ``P
 [//]: # "Evtl.: Diagramme"
 
 ## Conclusion
-In this post we have introduced a way of integrating Xtext developed DSLs into the .NET platform by using IKVM, which allows to consume Xtext generated classes in a C# program.
+In this post we have sketches a way of integrating Xtext developed DSLs into the .NET platform by using IKVM, which allows to consume Xtext generated classes in a C# program.
+The following blog entries of this series will provide more detail regarding the creation of the .NET assembly and the integration into the C# application.
 
-The example code is [available](https://github.com/stadlerb/ikvm-arithmetics-cli) on Github. 
+The example code is [available](https://github.com/stadlerb/ikvm-arithmetics-cli) on Github.
