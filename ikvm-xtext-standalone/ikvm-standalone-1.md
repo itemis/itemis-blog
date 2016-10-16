@@ -1,13 +1,14 @@
 # Language development on .NET with Xtext - Part 1
 ## Introduction
 Developing a textual DSL in .NET is a tedious process consisting of manually defining data structures and writing a grammar with actions to construct syntax trees, symbol tables, basic validations and so on.
+
 Xtext automatizes a a large part of the process of DSL creation:
 By writing an Xtext grammar, one doesn't only get a parser and a serializer, but also abstract syntax trees and the corresponding classes, syntax validations and cross-references to other EMF models.
 Apart from the generated classes, Xtext includes a runtime library which provides an extensive infrastructure of re-usable, customizable services for handling DSL models.
 
 This blog series will illustrate the integration of a simple Xtext DSL within a .NET command-line application written in C# by using the Java-to-.NET translator IKVM.
 
-In the first part of this series, we will give an overview of an example use case.
+In the first part of this series, we will give an overview of the example use case, a command-line calculator.
 
 ## Use case overview
 To demonstrate the integration, we start with a DSL developed with Xtext, in this case a language for simple arithmetical expressions and functions.
@@ -29,15 +30,6 @@ Then, we can reference this DLL from a C# project and use the classes originally
 
 The figure above illustrates the integration of the Xtext DSL in C# - it shows a part of the interpreter, whose purpose is to evaluate an arithmetical expression (input parameter type ``Expression``), with a number (``BigDecimal``) as result.
 In the ``evaluate`` method, we dispatch by expression class, such that for a ``Plus``, first the left and right summand are evaluated and the results are added with ``add``, and similarly for ``Minus`` and so on.
-
-[//]: # "Evtl.: Wie setze ich sowas auf?"
-[//]: # "Evtl.: Konkrete Beispiele"
-[//]: # " - Projektstruktur"
-[//]: # " - Maven Build"
-[//]: # "    - Shade "
-[//]: # "	- Aufruf IKVM"
-[//]: # "Evtl.: 'Integrationshemmnisse'"
-[//]: # "Evtl.: Diagramme"
 
 ## Conclusion
 In this post we have sketches a way of integrating Xtext developed DSLs into the .NET platform by using IKVM, which allows to consume Xtext generated classes in a C# program.
