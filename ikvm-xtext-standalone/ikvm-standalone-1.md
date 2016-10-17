@@ -6,7 +6,7 @@ Xtext automatizes a a large part of the process of DSL creation:
 By writing an Xtext grammar, one doesn't only get a parser and a serializer, but also abstract syntax trees and the corresponding classes, syntax validations and cross-references to other EMF models.
 Apart from the generated classes, Xtext includes a runtime library which provides an extensive infrastructure of re-usable, customizable services for handling DSL models.
 
-This blog series will illustrate the integration of a simple Xtext DSL within a .NET command-line application written in C# by using the Java-to-.NET translator IKVM.
+This blog series will illustrate the integration of a simple Xtext DSL within a .NET command-line application written in C# by using the Java-to-.NET translator [IKVM.NET](https://www.ikvm.net/).
 
 In the first part of this series, we will give an overview of the example use case, a command-line calculator.
 
@@ -17,13 +17,13 @@ A snippet of this language's grammar is listed below.
 [//]: # "TODO: Herausgerissenes Blatt"
 ![C# Interpreter](grammar.png)
 
-From the grammar, Xtext generates a parser which maps DSL instances to Java objects.
+From the grammar Xtext generates a parser which maps DSL instances to Java objects.
 For example, the parser would map the expression ``1 + 2`` to an instance of the generated class ``Plus`` whose ``left`` and ``right`` properties are ``NumberLiteral``s with ``value = 1`` and ``value = 2``, respectively.
 
 Now we will write a C# interpreter for evaluating the arithmetical expressions of our DSL and a command-line interface to the interpreter, in order to show that it's possible to embed Xtext DSLs in .NET applications by consuming them in C# programs and thus avoid most of the tedious work connected with parser development.
 
 In order to realize this embedding, we first convert the DSL's generated Java classes and the runtime libraries to a .NET assembly.
-To do this, we can build a Uber JAR containing all these classes and their dependencies using Maven and the Shade plugin, and then invoke IKVM from Maven to create a DLL from the JAR.
+To do this, we build an [Uber JAR](http://stackoverflow.com/a/11947093/512227) containing all these classes and their dependencies using Maven and the [Maven Shade Plugin](https://maven.apache.org/plugins/maven-shade-plugin/), and then invoke IKVM from Maven to create a DLL from the JAR.
 Then, we can reference this DLL from a C# project and use the classes originally written in Java in our C# application.
 
 ![C# Interpreter](csharp-interpreter.png)
