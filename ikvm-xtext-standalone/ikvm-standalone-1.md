@@ -1,4 +1,4 @@
-# Language development on .NET with Xtext - Part 1
+# Language development on .NET with Xtext <br/> - Part 1: Overview
 ## Introduction
 Developing a textual DSL in .NET is a tedious process consisting of manually defining data structures and writing a grammar with actions to construct syntax trees, symbol tables, basic validations and so on.
 
@@ -32,7 +32,7 @@ The figure above illustrates the integration of the Xtext DSL in C# - it shows a
 In the ``evaluate`` method, we dispatch by expression class, such that for a ``Plus``, first the left and right summand are evaluated and the results are added with ``add``, and similarly for ``Minus`` and so on.
 
 ## Conclusion
-In this post we have sketches a way of integrating Xtext developed DSLs into the .NET platform by using IKVM, which allows to consume Xtext generated classes in a C# program.
+In this post we have sketched a way of integrating Xtext developed DSLs into the .NET platform by using IKVM, which allows to consume Xtext generated classes in a C# program.
 The following blog entries of this series will provide more detail regarding the creation of the .NET assembly and the integration into the C# application.
 
 The example code is [available](https://github.com/stadlerb/ikvm-arithmetics-cli) on Github.
