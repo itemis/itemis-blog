@@ -32,7 +32,7 @@ The figure above illustrates the integration of the Xtext DSL in C# - it shows a
 In the ``evaluate`` method, we dispatch by expression class, such that for a ``Plus``, first the left and right summand are evaluated and the results are added with ``add``, and similarly for ``Minus`` and so on.
 
 ## Running the example
-In order to run the example, download the [binary distribution](https://stadlerb.github.io/ikvm-arithmetics-cli/download/calculate.zip) and unzip it, e.g. to ``C:\apps`` on Windows.
+In order to run the example, download the [binary distribution](https://github.com/stadlerb/ikvm-arithmetics-cli/releases/download/1.0.0-preview20161018/calculate-1.0.0-preview20161018.zip) and unzip it, e.g. to ``C:\apps`` on Windows.
 The execulable file is called ``calculate.exe``.
 It can be used either with in-line expressions using the ``-e`` switch or with input files using the ``-f`` switch.
 For importing modules, the files containing the module have to be added using the ``-i`` switch (multiple files separated by colons).
@@ -42,7 +42,8 @@ Examples:
         C:\apps\calculate>calculate.exe -e "2 + 3"
         - 2 + 3: 5
 
-        C:\apps\calculate>calculate.exe -i example\polynomialexample.calc:example\linearexample.calc -e "examplepolynomial(4,7) ; examplepolynomial(weightedsum(3, 4), 19)"
+        C:\apps\calculate>calculate.exe -i example\polynomialexample.calc:example\linearexample.calc ^
+        -e "examplepolynomial(4,7) ; examplepolynomial(weightedsum(3, 4), 19)"
         - examplepolynomial(4, 7): 73
         - examplepolynomial(weightedsum(3, 4), 19): 1665
 
