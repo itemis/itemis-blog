@@ -64,11 +64,6 @@ The resulting plugin configuration is illustrated below:
 
 ![Attaching the .NET assembly](ikvm-attach-dll-1.png)
 
-### Debug profile
-In order to facilitate debugging applications, IKVM.NET supports generating [PDB files](msdn.microsoft.com/library/ms241613.aspx).
-As we want to be able to deactivate their generation on demand, we create a profile ``dotnet-debug`` which adds the ``-debug`` command line option and attaches the resulting PDB file as a project artifact.
-For the detailed configuration of the profile, please refer to GitHub.
-
 ### Running the build
 Now, we can run the build using the MS Build command prompt from the parent directory:
 
