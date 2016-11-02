@@ -1,11 +1,12 @@
-# Introduction
+# Language development on .NET with Xtext<br/>Part 2: Creating a .NET assembly from an Xtext DSL
+## Introduction
 In the [first part](https://blogs.itemis.com/en/language-development-on-.net-with-xtext-part-1-overview) of this blog series we have introduced an example use case of integrating an Xtext DSL in a C# command-line calculator.
 This post will go into the details of how to use Maven to create a .NET assembly containing the DSL and Xtext runtime classes necessary for writing the calculator application.
 After starting with an overview of the project structure, we will focus on how to create a .NET assembly by first constructing a Uber JAR that includes all dependencies and then converting it to an assembly using IKVM.NET. 
 
 The source code is [available](https://github.com/stadlerb/ikvm-arithmetics-cli) on GitHub.
 
-# Project structure
+## Project structure
 As build tool, Xtext offers the choice between [Maven](https://maven.apache.org) and [Gradle](https://gradle.org).
 In this example, Maven is employed as the Gradle build has only been added recently and the Maven build is more stable.
 
@@ -18,12 +19,12 @@ The project structure consisting of the root project and the child projects ``or
 
 ![Project structure](project-structure.png)
 
-# Creating a .NET assembly for consuming the DSL in C#
+## Creating a .NET assembly for consuming the DSL in C#
 Now that we have an overview of the project structure, we can direct our attention to the actual creation of the DLL, which consists of two steps: First creating a Uber JAR from all transitive dependencies of the ``org.eclipse.example.arithmetics.dotnet`` project using the Maven Shade plugin and then converting the Uber JAR to a DLL as the project's main artifact using IKVM.NET.
 
 In the following subsections we will provide a more detailed description of the DLL creation process.
 
-## Creating a Uber JAR with the Shade plugin
+### Creating a Uber JAR with the Shade plugin
 A Uber JAR is a JAR that includes a project and its direct and indirect dependencies and is produced by merging the JARs of the project and all its dependencies into a single, "fat" JAR.
 In order to create a Uber JAR from the dependencies of the dotnet project, we include the Shade plugin in the POM of the project, which performs the merging of all Maven dependencies into a Uber JAR.
 
@@ -38,7 +39,7 @@ Now, in order to include the DSL project in the Uber JAR, we need to specify it 
 
 The ``org.eclipse.example.arithmetics`` dependency is declared as optional because otherwise, the JARs of all of its dependencies would be downloaded unnecessarily when building Maven projects that depend on the ``org.eclipse.example.arithmetics.dotnet`` project.
 
-## Converting the Uber JAR to a .NET assembly with IKVM
+### Converting the Uber JAR to a .NET assembly with IKVM
 After creating the Uber JAR in the previous step, we can use IKVM.NET to convert the it to a .NET assembly.
 As there is no currently maintained (or working) Maven plugin for IKVM.NET, we use the ``exec-maven-plugin`` in order to invoke the IKVM.NET compiler.
 
@@ -54,7 +55,7 @@ Based on this, we can specify the execution of ``ikvmc.exe`` using the ``exec`` 
 
 We specify the project's ``target`` directory as working directory and pass parameters to create a dll from the JAR.
 
-## .NET Assembly as Maven artifact
+### .NET Assembly as Maven artifact
 As the DLL is the ``org.eclipse.example.arithmetics.dotnet`` project's main artifact, but Maven has no built-in support specific for .NET assemblies, we have to use a workaround:
 We specify the project's packaging to be ``pom``, which means that technically the ``pom.xml`` itself is the project's primary artifact, and then use the the ``attach-artifact`` goal of the ``build-helper-maven-plugin`` to tell Maven to attach the DLL as a supplementary artifact.
 This way, the DLL gets installed in the Maven repository when the Maven ``install`` goal is built and can be used by other projects by adding ``<type>dll</type>`` to the dependency declaration.
@@ -63,12 +64,12 @@ The resulting plugin configuration is illustrated below:
 
 ![Attaching the .NET assembly](ikvm-attach-dll-1.png)
 
-## Debug profile
+### Debug profile
 In order to facilitate debugging applications, IKVM.NET supports generating [PDB files](msdn.microsoft.com/library/ms241613.aspx).
 As we want to be able to deactivate their generation on demand, we create a profile ``dotnet-debug`` which adds the ``-debug`` command line option and attaches the resulting PDB file as a project artifact.
 For the detailed configuration of the profile, please refer to GitHub.
 
-## Running the build
+### Running the build
 Now, we can run the build using the MS Build command prompt from the parent directory:
 
         mvn clean install
@@ -76,6 +77,6 @@ Now, we can run the build using the MS Build command prompt from the parent dire
 There may be several warnings regarding missing classes, which can be safely ignored.
 The resulting DLL will be placed in the ``target`` directory.
 
-# Conclusion
+## Conclusion
 In this part of the series, we have described how to transform an Xtext DSL project into a .NET assembly which is ready for use in a C# application.
 The next blog entry will demonstrate how to use this assembly to create a command-line calculator application.
