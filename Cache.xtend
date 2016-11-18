@@ -1,4 +1,4 @@
-package com.contiautomotive.cidl.util
+package org.xtext.example.cache
 
 import java.util.Collections
 import java.util.HashMap
