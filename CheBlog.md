@@ -1,12 +1,12 @@
 # Getting started with Xtext Language Servers and Che
 
-Eclipse Che 5 has support for the Microsoft Language Server Protocol and so has Xtext in its new Version 2.11. So let us see how be can bring both together.
+[Eclipse Che](http://www.eclipse.org/che/) 5 has support for the [Microsoft Language Server Protocol](https://github.com/Microsoft/language-server-protocol) and so has [Eclipse Xtext](https://www.eclipse.org/Xtext/) in its new Version 2.11. So let us see how be can bring both together.
 
 ## Provide the Xtext Language Server
 
-We create a new Xtext Project using the wizard in Eclipse. We delect `Eclipse` and choose `Gradle` as Buildsystem.
+We create a new Xtext Project using the wizard in Eclipse. We deselect `Eclipse` and choose `Gradle` as Buildsystem.
 
-We will use the gradle application plugin to package our dsl as a language server. Therefore we edit `org.xtext.example.mydsl.ide/build.gradle` and add the following code.
+We will use the gradle application plugin to package our dsl as a executable Language Server. Therefore we edit `org.xtext.example.mydsl.ide/build.gradle` and add the following code.
 
 ```
 apply plugin: 'application'
@@ -33,25 +33,20 @@ We build the projects with gradle.
 ./gradlew clean build distZip
 ```
 
-Inside the `org.xtext.example.mydsl.parent/org.xtext.example.mydsl.ide/build/distributions` folder we now can find a tar/zip that we can provide via a webserver so that we can pull it later from Che.
-
-## Build a custom Che with Xtext Plugin
-
-We add a Che Plugin that uses our Xtext Lanuage Server to provide editing support for `mydsl` files.
+Inside the `org.xtext.example.mydsl.parent/org.xtext.example.mydsl.ide/build/distributions` folder we now can find a tar/zip file that we can provide via a webserver so that it can be pulled from Che.
 
 You can find a prepared version [here](http://cdietrich.github.io/mydsl.tar)
 
-### Checkout Che Source-Code
+## Build a custom "Che with Xtext" Plugin
 
-We clone the Che Source-Code.
+We add a new Che Plugin that uses our Xtext Lanuage Server to provide editing support for `mydsl` files.
+
+### Get the Che Source Code
+
+We clone the Che Git repository and create a new branch from the latest release tag.
 
 ```
 https://github.com/eclipse/che.git
-```
-
-Then we create a new branch from the latest release tag.
-
-```
 cd che
 git checkout -b che-xtext-example 5.1.2
 ```
@@ -60,7 +55,7 @@ git checkout -b che-xtext-example 5.1.2
 
 We need to create a plugin that tells Che how to start our Language Server and what the file-extension is.
 
-First we create a bunch of folders and pom files
+First we create a bunch of folders and pom files.
 
 ```
 cd plugins
@@ -76,18 +71,6 @@ Here is how the `plugin-mydsl/pom.xml` looks like.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (c) 2012-2017 Codenvy, S.A.
-    All rights reserved. This program and the accompanying materials
-    are made available under the terms of the Eclipse Public License v1.0
-    which accompanies this distribution, and is available at
-    http://www.eclipse.org/legal/epl-v10.html
-
-    Contributors:
-      Codenvy, S.A. - initial API and implementation
-
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -193,7 +176,7 @@ we register our plugin in the existing `plugins/pom.xml`
 ...
 ```
 
-And inside the root-`pom.xml` of Che
+And inside the Root-POM of Che
 
 ```
 <dependency>
@@ -214,7 +197,7 @@ And inside the root-`pom.xml` of Che
 </dependency>
 ```
 
-and we have to make sure the stuff gets packaged into the war (`assembly/assembly-wsagent-war/pom.xml`)
+And we have to make sure the stuff gets packaged into the war (`assembly/assembly-wsagent-war/pom.xml`)
 
 ```
 <dependency>
@@ -479,7 +462,13 @@ chmod +x ${LS_LAUNCHER}
 echo "exec ${LS_DIR}/mydsl/bin/mydsl-standalone" >> ${LS_LAUNCHER}
 ```
 
-We go the the scripts folder and run `update_agents.sh`. Our `org.eclipse.che.ls.mydsl.json` should be updated with the script now.
+We update `scripts/update_agents.sh` so that it knows ours script and json.
+
+```
+updateAgentScript ".." "org.eclipse.che.ls.mydsl"
+```
+
+And run `update_agents.sh`. Our `org.eclipse.che.ls.mydsl.json` should be updated with the script now.
 
 ### Adapt the stacks
 
