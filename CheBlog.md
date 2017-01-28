@@ -6,7 +6,7 @@
 
 We create a new Xtext Project using the wizard in Eclipse. We deselect `Eclipse` and choose `Gradle` as Buildsystem.
 
-We will use the gradle application plugin to package our dsl as a executable Language Server. Therefore we edit `org.xtext.example.mydsl.ide/build.gradle` and add the following code.
+We will use the gradle application plugin to package our DSL as an executable Language Server. Therefore we edit `org.xtext.example.mydsl.ide/build.gradle` and add the following code.
 
 ```
 apply plugin: 'application'
@@ -165,7 +165,7 @@ And here is how the `plugin-mydsl/che-plugin-mydsl-lang-server/pom.xml` looks li
 </project>
 ```
 
-we register our plugin in the existing `plugins/pom.xml`
+We register our plugin in the existing `plugins/pom.xml`
 
 ```
 ...
@@ -300,7 +300,7 @@ public class MyDslLanguageServerLauncher extends LanguageServerLauncherTemplate 
 }
 ```
 
-And we need to register the laucher class to Che via a new `DynaModule`.
+And we need to register the launcher class to Che via a new `DynaModule`.
 
 ```
 package org.eclipse.che.plugin.mydsl.inject;
@@ -326,13 +326,13 @@ public class MyDslModule extends AbstractModule {
 
 ### Prepare the Agent
 
-This Che plugins starts our server via a `laucher.sh` shell script. To be able to do that we need to add a `wsagent` to Che as well. This agent allows us to get the Language Server server part downloaded automatically (sideload). This looks like this.
+This Che plugins starts our server via a `laucher.sh` shell script. To be able to do that we need to add a `wsagent` to Che as well. This agent allows us to get the Language Server server part downloaded automatically (side-load). This looks like this.
 
 ```
 cd agents/che-core-api-agent/src/main/resources/agents/
 ```
 
-Here we create a new Json `org.eclipse.che.ls.mydsl.json` File for the MyDsl-Agent.
+Here we create a new JSON `org.eclipse.che.ls.mydsl.json` File for the MyDsl-Agent.
 
 ```
 {
@@ -345,7 +345,7 @@ Here we create a new Json `org.eclipse.che.ls.mydsl.json` File for the MyDsl-Age
 }
 ```
 
-and `scripts/org.eclipse.che.ls.mydsl.script.sh` that does the Download of the server and the unpacking stuff (We basically copy&paste an existing file and adapt it to our needs).
+and `scripts/org.eclipse.che.ls.mydsl.script.sh` that does the download of the server and the unpacking stuff (We basically copy&paste an existing file and adapt it to our needs).
 
 ```
 #
@@ -462,7 +462,7 @@ chmod +x ${LS_LAUNCHER}
 echo "exec ${LS_DIR}/mydsl/bin/mydsl-standalone" >> ${LS_LAUNCHER}
 ```
 
-We update `scripts/update_agents.sh` so that it knows ours script and json.
+We update `scripts/update_agents.sh` so that it knows ours shell script and JSON.
 
 ```
 updateAgentScript ".." "org.eclipse.che.ls.mydsl"
@@ -488,7 +488,7 @@ To make our agent available we need to create a new Che stack or edit and existi
 
 That's it for coding. So lets build and test it
 
-### Build an run Che
+### Build and run Che
 
 ```
 npm install -g bower gulp typings
@@ -505,4 +505,4 @@ Once the workspace is started and the project is created we create a new `test.m
 
 ![Xtext in Che in Action](CheBlog_InAction.png "Xtext in Che in Action")
 
-Thats it.
+Thats it. You can find the example code [here](https://github.com/cdietrich/che/tree/che-xtext-example).
