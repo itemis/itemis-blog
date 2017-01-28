@@ -4,9 +4,17 @@
 
 ## Provide the Xtext Language Server
 
-We create a new Xtext Project using the wizard in Eclipse. We deselect `Eclipse` and choose `Gradle` as Buildsystem.
+The first step is to prepare the Xtext Langauge Server. We create a new Xtext Project using the wizard in Eclipse. We deselect `Eclipse` and choose `Gradle` as Buildsystem. We create a very simple example grammar.
 
-We will use the gradle application plugin to package our DSL as an executable Language Server. Therefore we edit `org.xtext.example.mydsl.ide/build.gradle` and add the following code.
+```
+Model:
+    greetings+=Greeting*;
+    
+Greeting:
+'Hello' name=ID ('from' from=[Greeting])? '!';
+```
+
+We will use the gradle application plugin to package our DSL as an executable package. Therefore we edit `org.xtext.example.mydsl.ide/build.gradle` and add the following code.
 
 ```
 apply plugin: 'application'
@@ -27,23 +35,25 @@ distTar {
 }
 ```
 
+We don't need to code anything to make the DSL Language Server enabled. The real interesting part is the `org.eclipse.xtext.ide.server.ServerLauncher` main class. This is a class shipped with Xtext that enables Language Server support. 
+
 We build the projects with gradle.
 
 ```
 ./gradlew clean build distZip
 ```
 
-Inside the `org.xtext.example.mydsl.parent/org.xtext.example.mydsl.ide/build/distributions` folder we now can find a tar/zip file that we can provide via a webserver so that it can be pulled from Che.
+Inside the `org.xtext.example.mydsl.parent/org.xtext.example.mydsl.ide/build/distributions` folder we now can find tar/zip files that we can provide via a webserver so that it later can be pulled from Che.
 
-You can find a prepared version [here](http://cdietrich.github.io/mydsl.tar)
+You can find my prepared version [here](http://cdietrich.github.io/mydsl.tar)
 
 ## Build a custom "Che with Xtext" Plugin
 
-We add a new Che Plugin that uses our Xtext Lanuage Server to provide editing support for `mydsl` files.
+The second step is to add a new Che Plugin that uses our Xtext Lanuage Server to provide editing support for `mydsl` files.
 
 ### Get the Che Source Code
 
-We clone the Che Git repository and create a new branch from the latest release tag.
+We clone the Che git repository and create a new branch from the latest release tag.
 
 ```
 https://github.com/eclipse/che.git
@@ -176,7 +186,7 @@ We register our plugin in the existing `plugins/pom.xml`
 ...
 ```
 
-And inside the Root-POM of Che
+And (including its version) inside the root-pom of Che (`/pom.xml`).
 
 ```
 <dependency>
@@ -197,7 +207,7 @@ And inside the Root-POM of Che
 </dependency>
 ```
 
-And we have to make sure the stuff gets packaged into the war (`assembly/assembly-wsagent-war/pom.xml`)
+And we have to package it into the `assembly-wsagent` war (`assembly/assembly-wsagent-war/pom.xml`).
 
 ```
 <dependency>
@@ -300,6 +310,8 @@ public class MyDslLanguageServerLauncher extends LanguageServerLauncherTemplate 
 }
 ```
 
+There are two interesting things only. The `LanguageDescription` which tells Che what the language id, file extensions etc are and the `startLanguageServerProcess` method that creates a new process for our language server calling a launch script and wires the stdin/stdout of the child process.
+
 And we need to register the launcher class to Che via a new `DynaModule`.
 
 ```
@@ -326,7 +338,7 @@ public class MyDslModule extends AbstractModule {
 
 ### Prepare the Agent
 
-This Che plugins starts our server via a `laucher.sh` shell script. To be able to do that we need to add a `wsagent` to Che as well. This agent allows us to get the Language Server server part downloaded automatically (side-load). This looks like this.
+This Che plugins starts our server via a `laucher.sh` shell script. To be able to do that we need to add a `agent` to Che as well. This agent allows us to get the Language Server server part downloaded automatically (side-load). This looks like this.
 
 ```
 cd agents/che-core-api-agent/src/main/resources/agents/
@@ -345,7 +357,7 @@ Here we create a new JSON `org.eclipse.che.ls.mydsl.json` File for the MyDsl-Age
 }
 ```
 
-and `scripts/org.eclipse.che.ls.mydsl.script.sh` that does the download of the server and the unpacking stuff (We basically copy&paste an existing file and adapt it to our needs).
+And `scripts/org.eclipse.che.ls.mydsl.script.sh` that does the download of the server and the unpacking stuff (We basically copy&paste an existing file and adapt it to our needs).
 
 ```
 #
@@ -462,13 +474,19 @@ chmod +x ${LS_LAUNCHER}
 echo "exec ${LS_DIR}/mydsl/bin/mydsl-standalone" >> ${LS_LAUNCHER}
 ```
 
-We update `scripts/update_agents.sh` so that it knows ours shell script and JSON.
+The Script looks quite complicated but that's caused by Che's ability to support different linuxes as workspace machines. The relevant part does
+
+* Download the server tar file from the internet
+* Unpack it
+* Create a launch script
+
+We update `scripts/update_agents.sh` so that it knows to process ours shell script and JSON.
 
 ```
 updateAgentScript ".." "org.eclipse.che.ls.mydsl"
 ```
 
-And run `update_agents.sh`. Our `org.eclipse.che.ls.mydsl.json` should be updated with the script now.
+And run it. Our `org.eclipse.che.ls.mydsl.json` should be updated with the script now.
 
 ### Adapt the stacks
 
@@ -500,7 +518,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock -e CHE_DEBUG_SERVER=true
 
 After the server has started we open a browser and go to `http://172.17.0.1:8080` (or the url Che tells you to go to)
 
-We create a new Workspace using the `Debian LSP` stack and a Blank Project.
+We create a new Workspace using the `Debian LSP` stack and a `Blank Project`.
 Once the workspace is started and the project is created we create a new `test.mydsl` file. We get notified that the Language Server is started and finally can start editing.
 
 ![Xtext in Che in Action](CheBlog_InAction.png "Xtext in Che in Action")
