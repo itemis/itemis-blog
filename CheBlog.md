@@ -45,7 +45,7 @@ We build the projects with gradle.
 
 Inside the `org.xtext.example.mydsl.parent/org.xtext.example.mydsl.ide/build/distributions` folder we now can find tar/zip files that we can provide via a webserver so that it later can be pulled from Che.
 
-You can find my prepared version [here](http://cdietrich.github.io/mydsl.tar)
+You can find my prepared version [here](http://dl.bintray.com/cdietrich/MyDslXtextLanguageServer/mydsl.tar)
 
 ## Build a custom "Che with Xtext" Plugin
 
@@ -377,7 +377,7 @@ command -v tar >/dev/null 2>&1 || { PACKAGES=${PACKAGES}" tar"; }
 command -v curl >/dev/null 2>&1 || { PACKAGES=${PACKAGES}" curl"; }
 test "$(id -u)" = 0 || SUDO="sudo"
 
-AGENT_BINARIES_URI=http://cdietrich.github.io/mydsl.tar
+AGENT_BINARIES_URI=http://dl.bintray.com/cdietrich/MyDslXtextLanguageServer/mydsl.tar
 CHE_DIR=$HOME/che
 LS_DIR=${CHE_DIR}/ls-mydsl
 LS_LAUNCHER=${LS_DIR}/launch.sh
@@ -468,7 +468,7 @@ fi
 ### Install MYDSL LS ###
 ######################
 
-curl -s ${AGENT_BINARIES_URI} > ${LS_DIR}/mydsl.tar && tar xvf ${LS_DIR}/mydsl.tar -C ${LS_DIR}
+curl -L -s ${AGENT_BINARIES_URI} > ${LS_DIR}/mydsl.tar && tar xvf ${LS_DIR}/mydsl.tar -C ${LS_DIR}
 touch ${LS_LAUNCHER}
 chmod +x ${LS_LAUNCHER}
 echo "exec ${LS_DIR}/mydsl/bin/mydsl-standalone" >> ${LS_LAUNCHER}
