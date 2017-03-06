@@ -76,5 +76,3 @@ Xtend and just say something like the following:
 ```
 greeting.getCachedElements["greet"+greeting.name,[key|greeting.name]].
 ```
-
-The sources can be found here: [sources](https://github.com/itemis/itemis-blog/blob/caching/Cache.xtend)
