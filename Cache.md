@@ -8,7 +8,7 @@ of stuff.
 
 ##Problems
 Regarding a Cache, there are two main problems:
-The first problem is, how to implement a Cache in a proper way, that he can handle
+The first problem is, how to implement a Cache in a proper way, that it can handle
 a lot of data and does not get too slow.
 The second problem is, that you need to find the point in time, when to invalidate this cache.
 Imagine you cache some parts of your DSL, but as the build is finished the user
