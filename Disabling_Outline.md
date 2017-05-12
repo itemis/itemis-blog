@@ -1,7 +1,7 @@
 # Disabling the outline in Xtext
 There are several explanations on how to modify the outline view for your language, for example in the official [documentation](https://eclipse.org/Xtext/documentation/310_eclipse_support.html#outline).
 
-Disabling the outline could sometimes be desired, as with very large files it takes very long to compute and the editor freezes.
+But what do you do, if you want to disable the outline? Disabling the outline could sometimes be desired, as with very large files it takes very long to compute and the editor freezes.
 
 ## Dropping complete support
 The first way to do this could be to drop the whole support for the outline. Therefore you can just override the binding to `IContentOutlinePage` in the `UiModule`by adding this snippet
