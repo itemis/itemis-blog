@@ -1,6 +1,6 @@
 {
   "name": "@itemis/demo-angular-lib",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Library QuickStart package.json from the documentation, supplemented with testing support",
   "main": "./bundles/demo-angular-lib.umd.js",
   "module": "./demo-angular-lib.es5.js",
