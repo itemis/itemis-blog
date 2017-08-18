@@ -39,7 +39,7 @@
       rxjs: {
         defaultExtension: 'js'
       },
-      'quickstart-lib': {
+      '@itemis/demo-angular-lib': {
         main: 'index.js',
         defaultExtension: 'js',
         meta: {
