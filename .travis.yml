@@ -18,3 +18,17 @@ script:
   - npm run test:once
   - npm run integration
   - npm run coverage
+
+# deployment
+after_success:
+  - cd dist/
+deploy:
+  skip_cleanup: true # stay in working dir (dist/)
+  provider: npm
+  email: franz.becker@itemis.com
+  api_key:
+    secure: mWThSOHGwgVttEekZvE1kXSWpTBFjXLE17S7lxdHs3wnfx2KrLhp+qxcqvMpvGw2INR5VQfWtCQaF0N5ZOk/WkW5OKP5W0/g6V8NViq03wdIT0sJQ1Oid17TxRrvs0Wv/d7Umsvphgic7HqdZz16Oj8ykXC/Q1zRRNlGvAd0KHUQ9MYGP42xR8w4jC2xqFJpuqg+9tWew2G03NFaxcGjTQQOA4D7rF8hIz3bhDHKSFCdjm5EmDP7RhwfX2zE+Bwoo+jiz32PL+ivdLTrl6dt+vDGkMyKWRqt7pGZYgDmqb+wRsmbJ3zKuQHXXW8HivNlUPo04mLYt3OD4H1JUQVJdIXXWNIhaGwASPWEPXMejqVj3hzL/Le1QMWbweJ+E/2DxCuX9Iz+1d2pBOXXCtOl4tsSNOD7xU4wGNyZ1nAowYuo/SmIwoBwvKhKcXnH6D2xGka9myb/ixvA2Q7vaKin3mIVGBl9caPsoXn5/OxkAepqdj+hNU3qmfTLPtjsUi68SdLSDivZ6sOBGiN+iBvlCCe/6FzYeb4VrOfxCLRd63dfYgX8cG5HlAshUpr+cYjuCYfyFy8bQFqYJ3j8XPxcGjOUZYFL99YkJEFINi3NPNSxvCt+/n9tXZqAYLhcsrl1vwVL1V97/Hfd+Pdc3zIxErExZu4KgiHL9W55jEzZlyM=
+  on:
+    tags: true
+    repo: itemis/itemis-blog
+    branch: angular-quickstart-lib
