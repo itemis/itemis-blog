@@ -295,3 +295,5 @@ That's all we need to do.
 If we start a new runtime Eclipse we can now set Breakpoints and have fun debugging.
 
 ![Screenshot of Debugger](debugger.png)
+
+You can find the example code [here](https://github.com/itemis/xtext-debug-example-no-xbase)
