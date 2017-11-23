@@ -64,7 +64,7 @@ class MyDslGenerator extends AbstractGenerator {
 }
 ```
 
-For debugging this is not sufficient. We have no information which elements of the generated code map back to which elements in the source model. Nor do we have information which parts of the generated code are interesting for debugging and which are no. This is where the [Tracing Code Generation](https://typefox.io/generate-traced-code-with-xtext) comes into place that was introduced in [Xtext 2.12](https://www.eclipse.org/Xtext/releasenotes.html#/releasenotes/2017/05/25/version-2-12-0) and extended with debugging features in [Xtext 2.13 ](https://www.eclipse.org/Xtext/releasenotes.html#/releasenotes/2017/10/20/version-2-13-0).
+For debugging this is not sufficient. We have no information which element of the generated code maps back to which elements in the source model. Nor do we have information which parts of the generated code are interesting for debugging and which are not. This is where the [Tracing Code Generation](https://typefox.io/generate-traced-code-with-xtext) comes into place. It was introduced in [Xtext 2.12](https://www.eclipse.org/Xtext/releasenotes.html#/releasenotes/2017/05/25/version-2-12-0) and extended with debugging features in [Xtext 2.13 ](https://www.eclipse.org/Xtext/releasenotes.html#/releasenotes/2017/10/20/version-2-13-0).
 
 We first add a `TracedAccessors` extension to our generator
 
@@ -77,7 +77,7 @@ We first add a `TracedAccessors` extension to our generator
     extension MyDslTraceExtensions
 ```
 
-That gives us convenience accessors and methods like `_name` and `_name(useForDebugging)` inside our code generator. And it allows to generate traced files.
+That gives us convenience accessors and methods like `_name` and `_name(useForDebugging)` inside our code generator which allow us to generate traced files.
 
 ```
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
@@ -122,7 +122,7 @@ public class Greeter_xxxx {               | Hello [4[Reader]4]!]1]
 1:           }
 ```
 
-This file will be picked up by the Xtext builder infrastructure and weaved up into the class file produced by Eclipse JDT (`DebugSourceInstallingCompilationParticipant`). If we now start debugging we can already "step into" our DSL files but be cannot set breakpoints yet. How to do that is described in the following section.
+This file will be picked up by the Xtext builder infrastructure and weaved up into the class file produced by Eclipse JDT (`DebugSourceInstallingCompilationParticipant`). If we now start debugging, we can already "step into" our DSL files but be cannot set breakpoints yet. How to do that is described in the following section.
 
 ## Writing the Gluecode
 
