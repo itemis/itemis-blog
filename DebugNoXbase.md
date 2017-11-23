@@ -98,10 +98,28 @@ That gives us convenience accessors and methods like `_name` and `_name(useForDe
     }
 ```
 
-If we now start a runtime eclipse, additionally to the java file there will be a `.Greeter_xxxx.java._trace` file with following content
+If we now start a runtime eclipse, additionally to the java file there will be a `.Greeter_xxxx.java._trace` file with following content (visualized)
 
 ```
-
+Regions are surrounded by [N[ ... ]N]. Regions on the left and right with the same N are associated.
+----------- Greeter_xxxx.java ----------- | -- demo/xxxx.mydsl ---
+[1[package demo;                          | [1[Hello [2[World]2]!
+                                          | Hello [3[Debug]3]!
+public class Greeter_xxxx {               | Hello [4[Reader]4]!]1]
+    public static void main(String[] args) { | 
+        System.out.println("[2[World]2]");      | 
+        System.out.println("[3[Debug]3]");      | 
+        System.out.println("[4[Reader]4]");     | 
+    }                                        | 
+}                                         | 
+]1]                                       | 
+------------------------------------------------------------------
+<N>: <isDebug> <offset>-<length> <RegionJavaClass> -> <LocationJavaClass>[<offset>,<length>,<uri>]
+1:   000-184 DebugTraceBasedRegion -> LocationData[0,39,demo/xxxx.mydsl] {
+2: D 107-005   DebugTraceBasedRegion -> LocationData[6,5,demo/xxxx.mydsl]
+3: D 138-005   DebugTraceBasedRegion -> LocationData[19,5,demo/xxxx.mydsl]
+4: D 169-006   DebugTraceBasedRegion -> LocationData[32,6,demo/xxxx.mydsl]
+1:           }
 ```
 
 This file will be picked up by the Xtext builder infrastructure and weaved up into the class file produced by Eclipse JDT (`DebugSourceInstallingCompilationParticipant`). If we now start debugging we can already "step into" our DSL files but be cannot set breakpoints yet. How to do that is described in the following section.
