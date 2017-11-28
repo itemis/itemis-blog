@@ -1,0 +1,22 @@
+grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
+
+Model:
+	includes+=Include*
+	names+=Name*
+	greetings+=Greeting*;
+	
+Include:
+	'import' importURI=STRING
+	;
+	
+Name:
+	'def' name=ID
+	;
+	
+Greeting:
+	'Hallo' name=[Name] '!'
+	;
+
+	
