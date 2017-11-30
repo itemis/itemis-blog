@@ -1,7 +1,8 @@
-build.commands=org.eclipse.jdt.core.javabuilder,org.eclipse.xtext.ui.shared.xtextBuilder
+#Thu Nov 30 14:23:24 CET 2017
 connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
-connection.project.dir=..
 derived.resources=.gradle,build
-eclipse.preferences.version=1
 natures=org.eclipse.jdt.core.javanature,org.eclipse.xtext.ui.shared.xtextNature
+eclipse.preferences.version=1
 project.path=\:org.xtext.example.mydsl.model
+connection.project.dir=..
+build.commands=org.eclipse.jdt.core.javabuilder,org.eclipse.xtext.ui.shared.xtextBuilder
