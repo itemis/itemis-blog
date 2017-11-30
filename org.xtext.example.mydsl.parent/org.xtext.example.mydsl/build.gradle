@@ -2,7 +2,7 @@ dependencies {
 	compile project(':org.xtext.example.mydsl.model')
 	compile "org.eclipse.xtext:org.eclipse.xtext:${xtextVersion}"
 	compile "org.eclipse.xtext:org.eclipse.xtext.xbase:${xtextVersion}"
-}	
+}
 
 configurations {
 	mwe2 {
@@ -11,7 +11,7 @@ configurations {
 }
 
 dependencies {
-	mwe2 "org.eclipse.emf:org.eclipse.emf.mwe2.launch:2.8.3"
+	mwe2 "org.eclipse.emf:org.eclipse.emf.mwe2.launch:${mwe2Version}"
 	mwe2 "org.eclipse.xtext:org.eclipse.xtext.xtext.generator:${xtextVersion}"
 	// added for Xcore support
 	mwe2 'org.eclipse.emf:org.eclipse.emf.ecore.xcore:+'
