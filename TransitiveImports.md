@@ -47,3 +47,5 @@ Um in unserer Sprache **transitive Importe** zu ermöglichen, müssen wir unsere
 ![collect_import_uris.png](images/collect_import_uris.png "collect_import_uris.png")
 
 Wenn wir nach dieser kleinen Anpassung unsere Resource mit den Grußbotschaften erneut öffnen sehen wir, dass die Namen durch die **transitiven Importe** aufgelöst werden können.
+
+Das Beispielprojekt kann  [hier](https://github.com/itemis/itemis-blog/tree/transitive_imports/sources) heruntergeladen werden.
