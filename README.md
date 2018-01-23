@@ -3,7 +3,8 @@
 The Xtext Grammar is the central component when developing DSL workbenches based on the [Xtext](https://www.eclipse.org/Xtext/) framework. Such *.xtext files are containing the textual representation of the grammar definitions. In case of complex DSLs, apart from the textual representations, analyzing the graphical representations could be  useful to be able to understand the structure of the defined grammar rules.
 
 Considering the 'Hello World' example of the Xtext framework, the execution of the following JUnit test case
-```
+
+```Xtend
 package org.xtext.example.mydsl.tests
 
 import com.google.inject.Inject
@@ -48,18 +49,20 @@ digraph G {
 }
 ```
 
-The [Eclipse GEF](https://www.eclipse.org/gef/) DOT Graph view is able to visualize such Graphviz *.dot files within Eclipse Workbench UI:
+The [Eclipse GEF](https://www.eclipse.org/gef/) DOT Graph view is able to visualize such Graphviz *.dot files within the Eclipse Workbench UI:
 
 ![1_HelloWorldGrammarVisualization.png](images/1_HelloWorldGrammarVisualization.png)
 
-The visualization of the Eclipse GEF DOT Xtext grammar ([Dot.xtext](https://github.com/eclipse/gef/blob/master/org.eclipse.gef.dot/src/org/eclipse/gef/dot/internal/language/Dot.xtext)) looks like this:
+The visualization of the Eclipse GEF DOT Xtext grammar ([Dot.xtext](https://github.com/eclipse/gef/blob/master/org.eclipse.gef.dot/src/org/eclipse/gef/dot/internal/language/Dot.xtext)):
 
 ![2_DotGrammarVisualization.png](images/2_DotGrammarVisualization.png)
 
-The visualization of the Xtext grammar itself ([Xtext.xtext](https://github.com/eclipse/xtext-core/blob/master/org.eclipse.xtext/src/org/eclipse/xtext/Xtext.xtext)) is as follows:
+The visualization of the Xtext grammar itself ([Xtext.xtext](https://github.com/eclipse/xtext-core/blob/master/org.eclipse.xtext/src/org/eclipse/xtext/Xtext.xtext)):
 
 ![3_XtextGrammarVisualization.png](images/3_XtextGrammarVisualization.png)
 
-And how does the visualization of your Xtext grammar looks like? We hope you will share your solution with us! We are also open to any sugessions on how this Xtext grammar visualization could be improved.
+And how does the visualization of your Xtext grammar looks like? We hope you will share your solution with us!
 
-By the way, you can read more about the Xtext Framework in the Xtext FAQ "1001 Tipps & Tricks":
+We are also open to any suggestions/contributions to improve the Xtext grammar visualization in the future!
+
+By the way, you can read more about the Xtext framework in the Xtext FAQ "1001 Tipps & Tricks":
