@@ -1,6 +1,6 @@
 # Visualizing Xtext Grammars with Eclipse GEF
 
-The Xtext Grammar is the central component when developing DSL workbenches based on the [Xtext](https://www.eclipse.org/Xtext/) framework. Such *.xtext files are containing the textual representation of the grammar definitions. In case of complex DSLs, apart from the textual representations, analyzing the graphical representations could be  useful to be able to understand the structure of the defined grammar rules.
+The Xtext Grammar is the central component when developing DSL workbenches based on the [Xtext](https://www.eclipse.org/Xtext/) framework. In case of complex DSLs, analyzing the graphical representation of the *.xtext files could be helpful to understand the structure of the defined grammar rules.
 
 Considering the 'Hello World' example of the Xtext framework, the execution of the following JUnit test case
 
