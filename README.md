@@ -1,8 +1,8 @@
 # Visualizing Xtext Grammars with Eclipse GEF
 
-The Xtext Grammar is the central component when developing DSL workbenches based on the [Xtext](https://www.eclipse.org/Xtext/) framework. In case of complex DSLs, analyzing the graphical representation of the *.xtext files could be helpful to understand the structure of the defined grammar rules.
+The Xtext grammar is the central component when developing DSL workbenches based on the [Xtext framework](https://www.eclipse.org/Xtext/). In case of complex DSLs, analyzing the graphical representation of the *.xtext files could be useful to understand the structure of the defined grammar rules.
 
-Considering the 'Hello World' example of the Xtext framework, the execution of the following JUnit test case
+Executing the following JUnit test case
 
 ```Xtend
 package org.xtext.example.mydsl.tests
@@ -30,7 +30,7 @@ class GrammarVisualizationTest {
 }
 ```
 
-converts the [MyDsl.xtext](https://github.com/eclipse/xtext-core/blob/master/org.eclipse.xtext.tests/testdata/wizard-expectations/org.xtext.example.full/org.xtext.example.full.parent/org.xtext.example.full/src/org/xtext/example/mydsl/MyDsl.xtext) grammar into a [Graphviz](http://www.graphviz.org/) dot representation and prints the following content into the console:
+on the Xtext 'Hello World' example converts the [MyDsl.xtext](https://github.com/eclipse/xtext-core/blob/master/org.eclipse.xtext.tests/testdata/wizard-expectations/org.xtext.example.full/org.xtext.example.full.parent/org.xtext.example.full/src/org/xtext/example/mydsl/MyDsl.xtext) grammar into a [Graphviz](http://www.graphviz.org/) dot representation and prints the following content into the console:
 
 ```dot
 digraph G {
@@ -65,4 +65,4 @@ And how does the visualization of your Xtext grammar looks like? We hope you wil
 
 We are also open to any suggestions/contributions to improve the Xtext grammar visualization in the future!
 
-By the way, you can read more about the Xtext framework in the Xtext FAQ "1001 Tipps & Tricks":
+If you would like to read more about the Xtext framework, I recommend you to take a look at the "1001 tipps & Tricks for Xtext".
