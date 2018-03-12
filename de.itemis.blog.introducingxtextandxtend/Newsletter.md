@@ -23,9 +23,10 @@ Domain-specific languages are likely to be used in the context of model-driven d
 For example, they might be part of a larger software system used to express calculations or configurations.
 Further, they might be used as a thin layer on top of an existing language to provide feature-rich editor support.
 
-__Not THE Entity DSL, Domain Driven Design__
-
-An almost famous example for DSLs in the context of model-driven engineering is the Entity DSL. The entity DSL allows the specification of real-world entities with their relevant properties in a concise and clear notation.
+Domain-driven design is an approach to describe the domain concepts in a language shared by business experts and developers.
+One central concept of this ubiquitous language are 'Entities'.
+The following example shows a simplistic textual DSL created with Xtext.
+The Entity DSL allows the specification of real-world entities with their relevant properties in a concise and clear notation.
 
 ![Entity Sample](./images/entity_sample.png)
 
