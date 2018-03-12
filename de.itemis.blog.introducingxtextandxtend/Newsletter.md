@@ -23,6 +23,8 @@ Domain-specific languages are likely to be used in the context of model-driven d
 For example, they might be part of a larger software system used to express calculations or configurations.
 Further, they might be used as a thin layer on top of an existing language to provide feature-rich editor support.
 
+__Not THE Entity DSL, Domain Driven Design__
+
 An almost famous example for DSLs in the context of model-driven engineering is the Entity DSL. The entity DSL allows the specification of real-world entities with their relevant properties in a concise and clear notation.
 
 ![Entity Sample](./images/entity_sample.png)
@@ -47,7 +49,7 @@ By providing a concise and semantically rich notation of the domain, DSLs increa
 Yet, in order to be successfully introduced a mature editor that integrates well with existing processes is required.
 
 ##Introducing Xtext##
-Xtext was built to quickly create domain-specific languages including an integrated, feature-rich editor.
+[Eclipse Xtext™](https://www.eclipse.org/Xtext/) was built to quickly create domain-specific languages including an integrated, feature-rich editor.
 To be more precise: Xtext is a framework for building language workbenches for textual domain-specific languages.
 
 Let's first have a look at the small but important word "textual".
@@ -55,16 +57,16 @@ When talking about modeling most of us instinctively remember creating large gra
 Instead of modeling lines and boxes on a canvas, textual modeling changes the user interface to a simple, yet feature-rich text editor.
 Not only creating and maintaining but also sharing - or should I say merging - text files is easier and often well supported by the IDE. 
 
-The text files created using the Xtext editor are analyzed by a parser, that instantiates an Ecore model representing the abstract syntax tree (AST).
-The AST is not only the basis for the Eclipse integration but also allows frameworks such as GEF to automatically create a graphical representation.
+The text files created using the Xtext editor are analyzed by a parser, that instantiates an [Ecore](https://en.wikipedia.org/wiki/Eclipse_Modeling_Framework) model representing the abstract syntax tree (AST).
+The AST is not only the basis for the Eclipse integration but also allows frameworks such as [GEF](https://www.eclipse.org/gef/) to automatically create a graphical representation.
 Although it is easier to create and maintain models via text files, it is often beneficial to have a graphical representation to discuss the broader domain concepts and their relations.
 
 The next thing mentioned by the definition above is the "language workbench".
 The term aggregates some of the concepts already mentioned.
-First,  a feature-rich editor that offers code-completion, syntax-highlighting, formatting, error detection and so on.
+First, a feature-rich editor that offers code-completion, syntax-highlighting, formatting, error detection and so on.
 Second, a sophisticated language workbench offers different views on the same model as well as navigation and refactoring support.
 Finally, a language workbench should integrate with existing tools and frameworks to embed the DSL in existing processes.
-Xtext languages can be integrated into different IDEs such as Eclipse, IntelliJ, VSCode, and all editors that support the Language Server Protocol.
+Xtext languages can be integrated into different IDEs such as Eclipse, IntelliJ IDEA, VSCode, and all editors that support the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/).
 A feature-rich, well-integrated workbench is a key factor to success for a domain-specific language.
 
 After having spent some time on the benefits of a textual domain-specific language and the corresponding workbench, we will examine how Xtext and Xtend enable you to reach these goals. 
@@ -91,7 +93,7 @@ The test cases not only cover parsing and validating the text files, but also de
 
 Having finished the tutorial, the [documentation](https://www.eclipse.org/Xtext/documentation/index.html) offers a great overview of the different concepts embodied in Xtext.
 Further, you should keep an eye on the [Eclipse TMF forum](https://eclipse.org/forums/index.php?t=thread&frm_id=27) where you find answers to many questions.
-Finally, if you want to contribute to Xtext itself you are kindly invited to provide pull requests to the Xtext [github repositories](https://github.com/eclipse/xtext).
+Finally, if you want to contribute to Xtext itself you are kindly invited to provide pull requests to the Xtext [GitHub repositories](https://github.com/eclipse/xtext).
 
 ##Leverage the domain model with Xtend##
 As shown above, Xtext enables you to create and evolve DSLs quickly.
@@ -109,16 +111,16 @@ First, it offers template strings which are ideal to generate executable code fr
 
 Xtend enables the specification of multi-line strings that contain fixed text parts as well as dynamic parts computed from the given model. 
 The example above shows a very basic multi-line String. 
-Starting with triple quotes the String contains the static part "public class" followed by a dynamic part in [gulliments](https://en.wikipedia.org/wiki/Guillemet).
+Starting with triple quotes the String contains the static part `public class` followed by a dynamic part in [gulliments](https://en.wikipedia.org/wiki/Guillemet).
 When the string is interpreted at runtime the dynamic part is replaced by the name of the entity currently in focus.
-In the class body the template String contains another gulliment expression that calls the built-in forEach function on the properties of the current entity.
+In the class body the template String contains another gulliment expression that calls the built-in `forEach` function on the properties of the current entity.
 Thereby, the generate method is called that returns a string representing the property type and name.
 In addition, the Xtend editor also highlights the whitespaces as they will appear in the generated file.
 In contrast to other templating engines functions to evaluate dynamic values can be included directly in the templates.
 
 Second, another important ingredient of Xtend is the support for lambda expressions.
-Besides custom lambda functions there are also functions such as filter, map, and reduce already shipped with the Xtend language library.
-The example above shows how the built-in function forEach is used to get the textual representation for all properties modeled in the current entity.
+Besides lambda expressions there are also higher-order functions such as `filter`, `map`, `reduce` etc. already shipped with the Xtend language library.
+The example above shows how the built-in function `forEach` is used to get the textual representation for all properties modeled in the current entity.
 The combination of built-in and custom lambda functions enables concise statements, e.g. for dealing with model-to-model transformations or model simulation. 
 
 Finally, there are many more features included in Xtend, such as extension methods, operator overloading, powerful switch expression, polymorphic method invocation, and so on, that make Xtend a conclusive add-on to the Java language.  
