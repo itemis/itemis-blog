@@ -1,10 +1,10 @@
 #Building Domain-specific languages with Xtext and Xtend#
-Specifying the requirements of a software system and converting such a specification into executable source code is difficult and error-prone.
+Specifying the requirements of a software system and converting such a specification into executable source code is difficult and prone to error.
 Requirements specifications written in prose are often ambiguous and hard to understand for developers.
-Therefore, the process of turning this documents into software is slow and error-prone.
+Therefore, the process of turning this documents into software is slow and prone to error.
 Domain-specific languages (DSL) challenge this problem by defining a semantically rich notation to describe domain concepts clear and concise.
 From the DSL models the boilerplate code can be deduced, thereby increasing the software development process efficiency as well as the overall quality.
-After giving an overview of the key concepts of a domain-specific language, the domain-specific language framework Eclipse Xtext will be introduced.
+After giving an overview of the key concepts of a domain-specific language, the domain-specific language framework [Eclipse Xtext](https://www.eclipse.org/Xtext/) will be introduced.
 In addition, it will be illustrated how DSL models can be processed efficiently using  Eclipse Xtend.
 
 ##Domain-specific languages##
@@ -31,7 +31,7 @@ The Entity DSL allows the specification of real-world entities with their releva
 ![Entity Sample](./images/entity_sample.png)
 
 The simple example above shows two entities from the insurance domain that have a relation between each other.
-By describing the domain concepts on a rather high-level of abstraction (notice that there are no programming language specific datatypes or notations) DSLs can be used by non-programmers.
+By describing the domain concepts on a rather high-level of abstraction (notice that there are no programming language specific data-types or notations) DSLs can be used by non-programmers.
 The technology independent language can close the gap between business experts and developers by becoming the common ground to discuss domain concepts benefiting both sides.
 On the one hand, the use of a formal language enables business analysts to specify domain concepts in a precise and unambiguous language. 
 A task that is particularly hard using tools such as Word or Excel.
@@ -67,7 +67,7 @@ The term aggregates some of the concepts already mentioned.
 First, a feature-rich editor that offers code-completion, syntax-highlighting, formatting, error detection and so on.
 Second, a sophisticated language workbench offers different views on the same model as well as navigation and refactoring support.
 Finally, a language workbench should integrate with existing tools and frameworks to embed the DSL in existing processes.
-Xtext languages can be integrated into different IDEs such as Eclipse, IntelliJ IDEA, VSCode, and all editors that support the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/).
+Xtext languages can be integrated into different IDEs such as the Eclipse IDE, IntelliJ IDEA, VSCode, and all editors that support the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/).
 A feature-rich, well-integrated workbench is a key factor to success for a domain-specific language.
 
 After having spent some time on the benefits of a textual domain-specific language and the corresponding workbench, we will examine how Xtext and Xtend enable you to reach these goals. 
@@ -75,7 +75,7 @@ After having spent some time on the benefits of a textual domain-specific langua
 ##Getting started with Xtext##
 Xtext is a mature framework that was build to quickly create domain-specific languages with a sophisticated workbench.
 Boiling it down to the very minimum, a Xtext DSL only requires a grammar file.
-The powerful grammar defines the language and is input for a generation process that creates the full infrastructure including the parser, linker, type checker as well as editor support for Eclipse, any editor that supports the [language server protocol](https://blogs.itemis.com/en/integrating-xtext-language-support-in-visual-studio-code), and your favorite web browser.
+The powerful grammar defines the language and is input for a generation process that creates the full infrastructure including the parser, linker, type checker as well as editor support for the Eclipse, any editor that supports the [Language Server Protocol](https://blogs.itemis.com/en/integrating-xtext-language-support-in-visual-studio-code), and your favorite web browser.
 
 Yet, the generated default often has to be customized in order to achieve company- or project-specific behavior.
 Therefore, the generated parts of the workbench can be customized by providing domain-specific implementations.
@@ -83,9 +83,9 @@ Typical customizations include custom validations, narrowed proposals during cod
 A good default that is highly customizable, enables a fast proof of concept that can evolve over time becoming a highly specific DSL.
 
 Having talked a lot about Xtext, let's get involved and create our first DSL.
-First of all, as you may have guessed already you need an Eclipse with the Xtext framework included. 
-You find a pre-bundled Eclipse [here](https://www.eclipse.org/downloads/packages/eclipse-ide-java-and-dsl-developers/oxygen2) or you can download the required plugins in your existing Eclipse right [here](http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/).
-After your Eclipse is all setup, you can start creating your first DSL.
+First of all, as you may have guessed already you need an Eclipse workspace with the Xtext framework included. 
+You find a pre-bundled Eclipse version [here](https://www.eclipse.org/downloads/packages/eclipse-ide-java-and-dsl-developers/oxygen2) or you can download the required plugins in your existing Eclipse IDE right [here](http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/).
+After your Eclipse workspace is all setup, you can start creating your first DSL.
 Since I don't want to go to much into the details, I recommend you to try the [Xtext 15-minute tutorial](https://www.eclipse.org/Xtext/documentation/102_domainmodelwalkthrough.html).
 The tutorial shows how to create the Entity DSL we used in the example above.
 Further, there is a Domain-Model example that comes with the Xtext plugins including more than 800 JUnit test cases.
