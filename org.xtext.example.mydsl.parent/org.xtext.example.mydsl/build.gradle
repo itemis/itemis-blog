@@ -13,8 +13,10 @@ configurations {
 dependencies {
 	mwe2 "org.eclipse.emf:org.eclipse.emf.mwe2.launch:${mwe2Version}"
 	mwe2 "org.eclipse.xtext:org.eclipse.xtext.xtext.generator:${xtextVersion}"
+	mwe2  "org.eclipse.xtext:org.eclipse.xtext.ecore:${xtextVersion}"
 	// added for Xcore support
 	mwe2 'org.eclipse.emf:org.eclipse.emf.ecore.xcore:+'
+	mwe2 'org.eclipse.emf:org.eclipse.emf.ecore.xcore.lib:+'
 	mwe2 'org.eclipse.emf:org.eclipse.emf.codegen.ecore.xtext:+'
 }
 

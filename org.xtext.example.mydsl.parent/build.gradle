@@ -6,7 +6,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'org.xtext:xtext-gradle-plugin:1.0.19'
+		classpath 'org.xtext:xtext-gradle-plugin:1.0.21'
 	}
 }
 
@@ -19,6 +19,7 @@ subprojects {
 	ext.mwe2Version = '2.9.1.201705291010'
 	repositories {
 		jcenter()
+		mavenCentral()
 	}
 	
 	apply plugin: 'java'
