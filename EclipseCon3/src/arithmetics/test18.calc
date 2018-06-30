@@ -1,0 +1,4 @@
+module arithmetics
+
+def fun(a,b) : a * b;
+fun(2, fun(3,4)) / (1-2+3);

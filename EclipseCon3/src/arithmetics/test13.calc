@@ -1,0 +1,3 @@
+module arithmetics
+
+def multiply(a, b) : a * b;

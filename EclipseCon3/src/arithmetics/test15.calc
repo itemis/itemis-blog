@@ -1,0 +1,8 @@
+module arithmetics
+
+def boxVolume(l,w,h): l*w*h;
+def cubeVolume(l): boxVolume(l,l,l);
+
+cubeVolume(10);
+cubeVolume(2);
+boxVolume(1,3,5);

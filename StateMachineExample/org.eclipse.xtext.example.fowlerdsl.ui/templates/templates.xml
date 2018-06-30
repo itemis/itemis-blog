@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+	<template
+		name="Transition" 
+		description="Template for a Transition"
+		id="org.eclipse.xtext.example.fowlerdsl.Statemachine.Transition"
+		context="org.eclipse.xtext.example.fowlerdsl.Statemachine.Transition"
+		enabled="true"
+	>${event:CrossReference('Transition.event')} => ${state:CrossReference('Transition.state')}</template>
+	<template 
+		id="Example Template" autoinsert="true"
+		context="org.eclipse.xtext.example.fowlerdsl.Statemachine.State"
+		deleted="false" description="Insert an example" enabled="true" name="Example">events&#13;
+	doorClosed		D1CL&#13;
+	drawerOpened	D2OP&#13;
+	lightOn			L1ON&#13;
+	doorOpened		D1OP&#13;
+	panelClosed 	PNCL&#13;
+end&#13;
+&#13;
+resetEvents&#13;
+	doorOpened doorClosed&#13;
+end&#13;
+&#13;
+commands&#13;
+	unlockPanel PNUL&#13;
+	lockPanel	NLK&#13;
+	lockDoor	D1LK&#13;
+	unlockDoor	D1UL&#13;
+end&#13;
+&#13;
+state idle&#13;
+	actions {unlockDoor lockPanel}&#13;
+	doorClosed =&gt; active&#13;
+end&#13;
+&#13;
+state active&#13;
+	drawerOpened =&gt; waitingForLight&#13;
+	lightOn		 =&gt; waitingForDrawer&#13;
+end&#13;
+&#13;
+state waitingForLight&#13;
+	lightOn =&gt; unlockedPanel&#13;
+end&#13;
+&#13;
+state waitingForDrawer&#13;
+	drawerOpened =&gt; unlockedPanel&#13;
+end&#13;
+&#13;
+state unlockedPanel&#13;
+	actions {unlockPanel lockDoor}&#13;
+	panelClosed =&gt; idle&#13;
+end</template>
+</templates>

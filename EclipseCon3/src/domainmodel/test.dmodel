@@ -1,0 +1,26 @@
+import java.util.List
+
+entity Blog {
+	title: String
+	posts: List<Post>
+	
+	op addPost(Post post) : void {}
+	op getPosts() : List<Post> {}
+}
+
+entity HasAuthor {
+	author: String
+	
+	op getAuthor() { author }
+	op setAuthor() : void {}
+}
+
+entity Post extends HasAuthor {
+	title: String
+	content: String
+	comments: List<Comment>
+}
+
+entity Comment extends HasAuthor {
+	content: String
+}

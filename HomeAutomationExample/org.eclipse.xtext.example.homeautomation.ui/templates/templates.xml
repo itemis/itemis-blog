@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+	<template
+			id="Example Template" autoinsert="true"
+			context="org.eclipse.xtext.example.homeautomation.RuleEngine.Model" deleted="false"
+			description="Insert an example" enabled="true" name="Example">Device Window can be open, closed&#13;
+Device Heater can be on, off, error&#13;
+&#13;
+Rule 'rule1' when Window.open then&#13;
+	fire(Heater.off)&#13;
+	&#13;
+Rule 'rule2' when Heater.on then&#13;
+	fire(Window.closed)&#13;
+	&#13;
+Rule 'rule3' when Window.closed then&#13;
+	fire(Heater.on)&#13;
+	&#13;
+Rule 'rule4' when Window.closed then&#13;
+	fire(Window.closed)
+	</template>
+	<template
+			id="Example Rules Template" autoinsert="true"
+			context="org.eclipse.xtext.example.homeautomation.RuleEngine.Rule" deleted="false"
+			description="Insert example rules" enabled="true" name="Example Rules">Rule 'rule1' when Window.open then&#13;
+	fire(Heater.off)&#13;
+	&#13;
+Rule 'rule2' when Heater.on then&#13;
+	fire(Window.closed)&#13;
+	&#13;
+Rule 'rule3' when Window.closed then&#13;
+	fire(Heater.on)&#13;
+	&#13;
+Rule 'rule4' when Window.closed then&#13;
+	fire(Window.closed)</template>
+</templates>

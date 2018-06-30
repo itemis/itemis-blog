@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+	<template 
+			id="Example Template" autoinsert="true"
+			context="org.eclipse.xtext.example.arithmetics.Arithmetics.Module" deleted="false"
+			description="Insert an example" enabled="true" name="Example">module arithmetics&#13;
+&#13;
+def fun(a,b) : a * b;&#13;
+fun(2, fun(3,4)) / (1-2+3);
+	</template>
+</templates>
