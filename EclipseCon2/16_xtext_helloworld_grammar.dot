@@ -1,0 +1,17 @@
+/*
+ * https://blogs.itemis.com/en/pro-tip-visualizing-xtext-grammars-with-eclipse-gef
+ */
+digraph G {
+	assignment525968792 [shape=record,label="Model:\ngreetings+= *"];
+	rulecall504858437 [label=Greeting];
+	group422330142 [shape=record,label="Greeting:\n( )"];
+	keyword649329985 [label="'Hello'"];
+	assignment1955920234 [label="name= "];
+	rulecall1444635922 [label=ID];
+	keyword775386112 [label="'!'"];
+	assignment525968792->rulecall504858437 [];
+	group422330142->keyword649329985 [];
+	assignment1955920234->rulecall1444635922 [];
+	group422330142->assignment1955920234 [];
+	group422330142->keyword775386112 [];
+}

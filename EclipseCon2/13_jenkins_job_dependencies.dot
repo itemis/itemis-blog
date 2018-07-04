@@ -1,0 +1,32 @@
+/*
+ * https://ci.inria.fr/moose/job/petitjava/depgraph-view/
+ */
+digraph {
+	node [shape=box, style=rounded];
+
+	subgraph clusterMain {
+		"FAST-Core" [href="https://ci.inria.fr/moose/job/FAST-Core/"];
+		"FAST-Java" [href="https://ci.inria.fr/moose/job/FAST-Java/"];
+		"FAST-On-Moose" [href="https://ci.inria.fr/moose/job/FAST-On-Moose/"];
+		"FAST-Pharo" [href="https://ci.inria.fr/moose/job/FAST-Pharo/"];
+		"moose-5.0" [href="https://ci.inria.fr/moose/job/moose-5.0/"];
+		"moose-5.1" [href="https://ci.inria.fr/moose/job/moose-5.1/"];
+		"petitdelphi" [href="https://ci.inria.fr/moose/job/petitdelphi/"];
+		"petitjava" [href="https://ci.inria.fr/moose/job/petitjava/"];
+		"petitparser" [href="https://ci.inria.fr/moose/job/petitparser/"];
+		color=invis;
+	}
+
+	subgraph clusterStandalone {
+		color=invis;
+	}
+	"FAST-Core" -> "FAST-Java" [ color=black  ] ;
+	"moose-5.1" -> "FAST-Java" [ color=lightblue  ] ;
+	"petitjava" -> "FAST-Java" [ color=black  ] ;
+	"FAST-Java" -> "FAST-On-Moose" [ color=black  ] ;
+	"FAST-Pharo" -> "FAST-On-Moose" [ color=black  ] ;
+	"moose-5.0" -> "FAST-On-Moose" [ color=lightblue  ] ;
+	"FAST-Core" -> "FAST-Pharo" [ color=black  ] ;
+	"petitparser" -> "petitdelphi" [ color=black  ] ;
+	"petitparser" -> "petitjava" [ color=black  ] ;
+}

@@ -1,0 +1,161 @@
+/*
+ * Git Flow
+ * https://stackoverflow.com/questions/21716736/how-to-draw-branching-schema-diagrams-in-graphviz
+ */
+strict digraph {
+	rankdir="TB"
+	nodesep=0.5
+	ranksep=0.25
+	splines=line
+	forcelabels=false
+	// general
+	node [style=filled, color="black", fontcolor="black", font="Consolas"]
+	edge [arrowhead=vee, color="black", penwidth=2]
+
+	// branch start and end nodes (on the top and on the bottom of the page)
+	node [fixedsize=false, penwidth=0, fillcolor=none, shape=none, margin="0.05"]
+	subgraph {
+		rank=same // align the labels in one horizontal row on the top of the page
+		feature1branchStart [label="feature1\nbranch",                group="feature 1"]
+		feature2branchStart [label="feature2\nbranch",                group="feature 2"]
+		developbranchStart  [label=<<B><U>develop<BR/>branch</U></B>> group="develop"]
+		releasebranchStart  [label="release\nbranch",                 group="releasebranch"]
+		hotfixesbranchStart [label="hotfixes",                        group="hotfixes"]
+		masterbranchStart   [label=<<B><U>master<BR/>branch</U></B>>  group="master"]
+
+		feature2branchStart -> feature1branchStart -> developbranchStart-> releasebranchStart -> hotfixesbranchStart -> masterbranchStart [style=invis]
+	}
+
+	subgraph {
+		rank=max // align the labels in one horizontal row on the bottom of the page
+		node[style=invis] // invisible nodes
+		feature1branchEnd [group="feature 1"]
+		feature2branchEnd [group="feature 2"]
+		developbranchEnd  [group="develop"]
+		releasebranchEnd  [group="releasebranch"]
+		hotfixesbranchEnd [group="hotfixes"]
+		masterbranchEnd   [group="master"]
+
+		feature2branchEnd -> feature1branchEnd -> developbranchEnd -> releasebranchEnd -> hotfixesbranchEnd -> masterbranchEnd [style=invis]
+	}
+
+	// tags
+	node [shape=cds, fixedsize=false, fillcolor="#C6C6C6", penwidth=1, margin="0.11,0.055"]
+	t1 [label="4.0.0" tooltip="Eclipse Neon\n22. Juni 2016"]
+	t2 [label="5.0.0" tooltip="Eclipse Oxygen\n28. Juni 2017"]
+	t3 [label="5.0.100" tooltip="Eclipse Photon\n27. Juni 2018"]
+
+	node [width=0.3, height=0.3, fixedsize=true, label="", margin="0.11,0.055", shape=circle, penwidth=2, fillcolor="#FF0000"]
+
+	// master branch
+	node [group="master", fillcolor="#27E4F9"]
+	m1
+	m2
+	m3
+	m4
+
+	masterbranchStart -> m1 [color=grey90, arrowhead=none]
+	m4 -> masterbranchEnd   [color=grey90, arrowhead=none]
+	m1 -> m2 -> m3 -> m4
+
+	// hotfixes branch
+	node [group="hotfixes", fillcolor="#FD5965"]
+	h1 [tooltip = "Bugfix on 03. Oct 2016"]
+	hotfixesbranchStart -> h1 [color=gray90 arrowhead=none]
+	h1 -> hotfixesbranchEnd   [color=gray90 arrowhead=none]
+
+	// release branch
+	node [group="releasebranch", fillcolor="#52C322"]
+	r1
+	r2
+	r3
+	r4
+	r5
+	releasebranchStart -> r1 [color=gray90 arrowhead=none]
+	r5 -> releasebranchEnd   [color=gray90 arrowhead=none]
+	r4 -> r5                 [color=gray90 arrowhead=none]
+	r1 -> r2 -> r3 -> r4
+
+	// develop branch
+	node [group="develop", fillcolor="#FFE333"]
+	d1
+	d2
+	d3
+	d4
+	d5
+	d6
+	d7
+	d8
+	d9
+	d10
+	developbranchStart -> d1 [color=gray90 arrowhead=none]
+	d10 -> developbranchEnd  [color=gray90 arrowhead=none]
+	d1 -> d2 -> d3 -> d4 -> d5 -> d6 -> d7 -> d8 -> d9 -> d10
+
+	// feature1 branch
+	node [group="feature 1", fillcolor="#FB3DB5"]
+	fa1
+	fa2
+	fa3
+	fa4
+	fa5
+	fa6
+	subgraph fas1 {
+		fa1 -> fa2 -> fa3
+	}
+	subgraph fas2 {
+		fa4 -> fa5 -> fa6
+	}
+	feature1branchStart -> fa1 [color=gray90 arrowhead=none]
+	fa3 -> fa4                 [color=gray90 arrowhead=none]
+	fa6 -> feature1branchEnd   [color=gray90 arrowhead=none]
+
+	// feature2 branch
+	node [group="feature 2", fillcolor="#FB3DB5"]
+	fb1
+	fb2
+	fb3
+	fb4
+	subgraph{ rank=same fa6 fb4 } // hack
+	subgraph{ rank=same fa1 fb1 } // hack
+
+	feature2branchStart -> fb1 [color=gray90 arrowhead=none]
+	fb4 -> feature2branchEnd   [color=gray90 arrowhead=none]
+	fb1 -> fb2 -> fb3 -> fb4
+
+	// edges between commit nodes
+	m1 -> d1
+	m1 -> h1
+	h1 -> m2
+	h1 -> d5
+	d3 -> fa1
+	fa3 -> d6
+	d6 -> r1
+	r2 -> d7
+	r4 -> d8
+	r4 -> m3
+	d9 -> r5
+	r5 -> m4
+	r5 -> d10
+
+	d7 -> fa4
+	fa6 -> d9
+
+	d3 -> fb1
+	fb4 -> d9
+
+	// tags connections
+	edge [color="#b0b0b0", style=dotted, len=0.3, arrowhead=none, penwidth=1]
+	subgraph {
+		rank="same"
+		m1 -> t1
+	}
+	subgraph {
+		rank="same"
+		m2 -> t2 
+	}
+	subgraph {
+		rank="same"
+		m3 -> t3
+	}
+}

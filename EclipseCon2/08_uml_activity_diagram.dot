@@ -1,0 +1,26 @@
+/*
+ * Sample graph taken from
+ * https://fsteeg.wordpress.com/2006/11/16/uml-activity-diagrams-with-graphviz/
+ */
+digraph untitled {
+
+	rankdir=TB
+	size="4,4"
+	edge[fontsize="11" arrowhead=open]
+
+	start[shape=circle, label="", style=filled]
+	end[shape=doublecircle, label="", style=filled]
+	action1[shape=box,style=rounded, label="action"]
+	action2[shape=box,style=rounded, label="action"]
+	action3[shape=box,style=rounded, label="action"]
+	if1[shape=diamond, label="decision"]
+	if2[shape=diamond, label="decision"]
+
+	start -> action1
+	action1 -> if1[headport=n]
+	if1 -> action2[label="condition" tailport=w]
+	if1 -> action3[taillabel="condition" labeldistance=2.5 tailport=e]
+	action2 -> if2[headport=w]
+	action3 -> if2[headport=e]
+	if2 -> end[taillabel="condition"]
+}
