@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statemachine:Statemachine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:statemachine="http://www.eclipse.org/xtext/example/fowlerdsl/Statemachine">
+  <events name="doorClosed" code="D1CL"/>
+  <events name="drawerOpened" code="D2OP"/>
+  <events name="lightOn" code="L1ON"/>
+  <events name="doorOpened" code="D1OP"/>
+  <events name="panelClosed" code="PNCL"/>
+</statemachine:Statemachine>

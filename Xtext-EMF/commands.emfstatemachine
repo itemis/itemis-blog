@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statemachine:Statemachine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:statemachine="http://www.eclipse.org/xtext/example/fowlerdsl/Statemachine">
+  <commands name="unlockPanel" code="PNUL"/>
+  <commands name="lockPanel" code="NLK"/>
+  <commands name="lockDoor" code="D1LK"/>
+  <commands name="unlockDoor" code="D1UL"/>
+</statemachine:Statemachine>

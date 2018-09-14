@@ -1,0 +1,26 @@
+resetEvents
+	doorOpened
+end
+
+state idle
+	actions { lockPanel unlockDoor }
+	doorClosed => active
+end
+
+state active
+	drawerOpened => waitingForLight
+	lightOn      => waitingForDrawer
+end
+
+state waitingForLight
+	lightOn => unlockedPanel
+end
+
+state waitingForDrawer
+	drawerOpened => unlockedPanel
+end
+
+state unlockedPanel
+	actions { lockDoor unlockPanel }
+	panelClosed => idle
+end

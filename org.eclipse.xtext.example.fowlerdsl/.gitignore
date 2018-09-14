@@ -1,0 +1,5 @@
+/target/
+/.settings/
+/bin/
+/model/
+/plugin.xml_gen

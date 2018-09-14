@@ -1,0 +1,6 @@
+commands
+	unlockPanel PNUL
+	lockPanel   NLK
+	lockDoor    D1LK
+	unlockDoor  D1UL
+end
