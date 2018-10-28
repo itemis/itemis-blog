@@ -1,0 +1,5 @@
+datatype String
+entity UML {
+	a : test.A
+	b : test.B
+}

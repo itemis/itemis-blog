@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.example.domainmodel.ui.tests
+Bundle-ManifestVersion: 2
+Bundle-Name: org.example.domainmodel.ui.tests
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.example.domainmodel.ui.tests; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.example.domainmodel.ui,
+ org.junit;bundle-version="4.12.0",
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.junit4,
+ org.eclipse.xtext.xbase.junit,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.eclipse.xtext.ui.testing;bundle-version="2.17.0",
+ org.eclipse.xtext.common.types.ui;bundle-version="2.17.0",
+ org.example.domainmodel.tests;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.example.domainmodel.ui.tests;x-internal=true
