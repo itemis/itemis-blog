@@ -43,4 +43,13 @@ xtext {
 			generator.outlet.producesJava = true
 		}
 	}
+	sourceSets {
+     	main {
+        	//you can add additional folders that are not Java source folders here
+        	srcDir 'src/'
+			output {
+				dir(xtext.languages.xcore.generator.outlets.DEFAULT_OUTPUT, 'build/xcore')
+			}
+		}
+	}
 }
