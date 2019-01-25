@@ -6,16 +6,18 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'org.xtext:xtext-gradle-plugin:1.0.21'
+		classpath 'org.xtext:xtext-gradle-plugin:2.0.2'
 	}
 }
 
-task printBuildScriptClasspath << {
-	println project.buildscript.configurations.classpath.asPath
+task printBuildScriptClasspath  {
+	doLast {
+		println project.buildscript.configurations.classpath.asPath
+	}
 }
 
 subprojects {
-	ext.xtextVersion = '2.13.0'
+	ext.xtextVersion = '2.16.0'
 	ext.mwe2Version = '2.9.1.201705291010'
 	repositories {
 		jcenter()

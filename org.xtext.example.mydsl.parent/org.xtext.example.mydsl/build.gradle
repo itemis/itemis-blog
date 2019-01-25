@@ -15,9 +15,11 @@ dependencies {
 	mwe2 "org.eclipse.xtext:org.eclipse.xtext.xtext.generator:${xtextVersion}"
 	mwe2  "org.eclipse.xtext:org.eclipse.xtext.ecore:${xtextVersion}"
 	// added for Xcore support
-	mwe2 'org.eclipse.emf:org.eclipse.emf.ecore.xcore:+'
-	mwe2 'org.eclipse.emf:org.eclipse.emf.ecore.xcore.lib:+'
-	mwe2 'org.eclipse.emf:org.eclipse.emf.codegen.ecore.xtext:+'
+	mwe2('org.eclipse.emf:org.eclipse.emf.ecore.xcore:1.3.1'){
+		exclude group: 'org.antlr', module: 'antlr-runtime'
+	}
+	mwe2 'org.eclipse.emf:org.eclipse.emf.ecore.xcore.lib:1.3.0'
+	mwe2 'org.eclipse.emf:org.eclipse.emf.codegen.ecore.xtext:1.2.0'
 }
 
 task generateXtextLanguage(type: JavaExec) {
