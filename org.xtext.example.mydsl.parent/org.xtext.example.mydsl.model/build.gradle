@@ -41,6 +41,7 @@ xtext {
 		xcore {
 			setup = 'org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup'
 			generator.outlet.producesJava = true
+			generator.outlet.cleanAutomatically = true
 		}
 	}
 	sourceSets {
