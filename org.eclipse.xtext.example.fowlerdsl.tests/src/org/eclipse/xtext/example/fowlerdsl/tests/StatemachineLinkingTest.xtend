@@ -44,7 +44,7 @@ class StatemachineLinkingTest {
 				doorOpened
 			end
 		'''.parse(resourceSet)
-	
+
 		doorOpened.assertEquals(statemachine.resetEvents.head)
 	}
 
@@ -54,7 +54,7 @@ class StatemachineLinkingTest {
 				actions {unlockDoor lockPanel}
 			end
 		'''.parse(resourceSet)
-	
+
 		unlockDoor.assertEquals(statemachine.states.head.actions.head)
 		lockPanel.assertEquals(statemachine.states.head.actions.get(1))
 	}
@@ -65,26 +65,26 @@ class StatemachineLinkingTest {
 				actions {unlockDoor lockPanel}
 				doorClosed => active
 			end
-			
+
 			state active
 			end
 		'''.parse(resourceSet)
-	
+
 		doorClosed.assertEquals(statemachine.states.head.transitions.head.event)
 	}
 
 	@Test def linking_states() {
-		
+
 		val statemachine = '''
 			state idle
 				actions {unlockDoor lockPanel}
 				doorClosed => active
 			end
-			
+
 			state active
 			end
 		'''.parse(resourceSet)
-	
+
 		val idleState = statemachine.states.head
 		val activeState = statemachine.states.get(1)
 		activeState.assertEquals(idleState.transitions.head.state)

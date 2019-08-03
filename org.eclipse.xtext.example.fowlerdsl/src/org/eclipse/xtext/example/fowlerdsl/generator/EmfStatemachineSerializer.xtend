@@ -29,9 +29,9 @@ class EmfStatemachineSerializer extends AbstractGenerator {
 	private def toOutputURI(Resource input) {
 		val inputUri = input.URI
 		val inputPath = inputUri.toPlatformString(true)
-		
+
 		val outputPath = inputPath.replace("." + primaryFileExtension, ".statemachine" )
-		
+
 		outputPath.createPlatformResourceURI(true)
 	}
 

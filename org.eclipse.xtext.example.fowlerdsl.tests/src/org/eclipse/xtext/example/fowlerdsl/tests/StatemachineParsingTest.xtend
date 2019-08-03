@@ -14,6 +14,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * @author miklossy - Initial contribution and API
+ */
 @RunWith(XtextRunner)
 @InjectWith(StatemachineInjectorProvider)
 class StatemachineParsingTest {
@@ -21,7 +24,7 @@ class StatemachineParsingTest {
 	@Inject extension ParseHelper<Statemachine>
 	@Inject extension ValidationTestHelper
 	@Inject extension StatemachineResourceSetHelper
-	
+
 	@Before def setup() {
 		initializeResourceSet
 	}
@@ -35,36 +38,36 @@ class StatemachineParsingTest {
 			doorOpened   D1OP
 			panelClosed  PNCL
 		end
-		
+
 		resetEvents
 			doorOpened
 		end
-		
+
 		commands
 			unlockPanel PNUL
 			lockPanel   NLK
 			lockDoor    D1LK
 			unlockDoor  D1UL
 		end
-		
+
 		state idle
 			actions {unlockDoor lockPanel}
 			doorClosed => active
 		end
-		
+
 		state active
 			drawerOpened => waitingForLight
 			lightOn      => waitingForDrawer
 		end
-		
+
 		state waitingForLight
 			lightOn => unlockedPanel
 		end
-		
+
 		state waitingForDrawer
 			drawerOpened => unlockedPanel
 		end
-		
+
 		state unlockedPanel
 			actions {unlockPanel lockDoor}
 			panelClosed => idle
@@ -77,25 +80,25 @@ class StatemachineParsingTest {
 		resetEvents
 			doorOpened
 		end
-		
+
 		state idle
 			actions {unlockDoor lockPanel}
 			doorClosed => active
 		end
-		
+
 		state active
 			drawerOpened => waitingForLight
 			lightOn      => waitingForDrawer
 		end
-		
+
 		state waitingForLight
 			lightOn => unlockedPanel
 		end
-		
+
 		state waitingForDrawer
 			drawerOpened => unlockedPanel
 		end
-		
+
 		state unlockedPanel
 			actions {unlockPanel lockDoor}
 			panelClosed => idle

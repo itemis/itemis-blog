@@ -34,7 +34,7 @@ class StatemachineValidationTest {
 			resetEvents
 				doorOpened
 			end
-			
+
 			state Idle
 			end
 		'''.hasOneWarning(STATE, INVALID_NAME, "Name should start with a lower case letter")

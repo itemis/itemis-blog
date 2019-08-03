@@ -42,11 +42,11 @@ class StatemachineContentAssist2Test extends AbstractContentAssistTest {
 	@Before def setup() {
 		val project = getJavaProject(null).project
 		project.addNature(XtextProjectHelper.NATURE_ID)
-		
+
 		projectFullPath = project.fullPath.toString
-		
+
 		initializeResourceSet(projectFullPath)
-		
+
 		waitForBuild(new NullProgressMonitor)
 	}
 
@@ -110,10 +110,10 @@ class StatemachineContentAssist2Test extends AbstractContentAssistTest {
 
 	private def void testContentAssistant(CharSequence text, List<String> expectedProposals,
 		String proposalToApply, String expectedContent) {
-		
+
 		val cursorPosition = text.toString.indexOf(c)
 		val content = text.toString.replace(c, "")
-		
+
 		newBuilder.append(content).
 		assertTextAtCursorPosition(cursorPosition, expectedProposals).
 		applyProposal(cursorPosition, proposalToApply).
@@ -127,16 +127,16 @@ class StatemachineContentAssist2Test extends AbstractContentAssistTest {
 	override getResourceFor(InputStream stream) {
 		val set = resourceSet as XtextResourceSet
 		initializeTypeProvider(set)
-		
+
 		val uri = URI.createPlatformResourceURI(projectFullPath + "/" + "test." + primaryFileExtension, true)
-		
+
 		var result = set.getResource(uri, false)
-		
+
 		if(result===null){
 			result = set.createResource(uri)
 			result.load(stream, null)
-		}	
-		
+		}
+
 		result as XtextResource
 	}
 }

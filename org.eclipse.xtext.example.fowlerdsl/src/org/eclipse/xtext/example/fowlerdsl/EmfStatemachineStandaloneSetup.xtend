@@ -11,17 +11,17 @@ import com.google.inject.Guice
  */
 class EmfStatemachineStandaloneSetup implements ISetup {
 
-	@Inject extension FileExtensionProvider 
+	@Inject extension FileExtensionProvider
 	@Inject extension IResourceServiceProvider.Registry
 	@Inject IResourceServiceProvider resourceServiceProvider
 
 	override createInjectorAndDoEMFRegistration() {
 		val injector = Guice.createInjector(new EmfStatemachineRuntimeModule)
-		
+
 		injector.injectMembers(this)
-		
+
 		fileExtensions.forEach[extensionToFactoryMap.put(it, resourceServiceProvider)]
-		
+
 		injector
 	}
 

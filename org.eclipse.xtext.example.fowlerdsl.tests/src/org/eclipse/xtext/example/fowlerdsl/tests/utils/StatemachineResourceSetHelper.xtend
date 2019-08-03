@@ -24,23 +24,23 @@ class StatemachineResourceSetHelper {
 
 	def void initializeResourceSet() {
 		new EmfStatemachineStandaloneSetup().createInjectorAndDoEMFRegistration
-		
+
 		resourceSet = get
-		
+
 		// register factories
 		val resourceFactoryRegistry = resourceSet.resourceFactoryRegistry
 		resourceFactoryRegistry.extensionToFactoryMap.put("emfstatemachine", new XMIResourceFactoryImpl)
-		
+
 		createEventsStatemachine(URI.createURI("events.emfstatemachine"))
 		createCommandsStatemachine(URI.createURI("commands.emfstatemachine"))
 	}
 
 	def initializeResourceSet(String projectFullPath) {
 		resourceSet = get
-		
+
 		createEventsStatemachine(URI.createPlatformResourceURI(projectFullPath + "/events.emfstatemachine", true))
 		createCommandsStatemachine(URI.createPlatformResourceURI(projectFullPath + "/commands.emfstatemachine", true))
-		
+
 		resourceSet.resources.forEach[save(newHashMap)]
 	}
 
@@ -85,7 +85,7 @@ class StatemachineResourceSetHelper {
 			commands += createCommand => [name='lockDoor'    code='D1LK']
 			commands += createCommand => [name='unlockDoor'  code='D1UL']
 		]
-		
+
 		resourceSet.createResource(uri).contents += commandsStatemachine
 	}
 
@@ -107,7 +107,7 @@ class StatemachineResourceSetHelper {
 			events += createEvent => [name='doorOpened'   code='D1OP']
 			events += createEvent => [name='panelClosed'  code='PNCL']
 		]
-		
+
 		resourceSet.createResource(uri).contents += eventsStatemachine
 	}
 }

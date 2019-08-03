@@ -91,7 +91,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 			resetEvents
 				doorOpened
 			end
-			
+
 			state Idle
 				actions {unlockDoor lockPanel}
 			end
@@ -99,7 +99,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 			resetEvents
 				doorOpened
 			end
-			
+
 			state idle
 				actions {unlockDoor lockPanel}
 			end
@@ -112,7 +112,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 			state idle
 				foo => active
 			end
-			
+
 			state active
 			end
 		'''.testQuickfixesOn(LINKING_DIAGNOSTIC,
@@ -120,7 +120,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 				state idle
 					doorClosed => active
 				end
-				
+
 				state active
 				end
 			'''),
@@ -128,7 +128,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 				state idle
 					drawerOpened => active
 				end
-				
+
 				state active
 				end
 			'''),
@@ -136,7 +136,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 				state idle
 					lightOn => active
 				end
-				
+
 				state active
 				end
 			'''),
@@ -144,7 +144,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 				state idle
 					doorOpened => active
 				end
-				
+
 				state active
 				end
 			'''),
@@ -152,7 +152,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 				state idle
 					panelClosed => active
 				end
-				
+
 				state active
 				end
 			''')
@@ -164,7 +164,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 			state idle
 				doorClosed => foo
 			end
-			
+
 			state active
 			end
 		'''.testQuickfixesOn(LINKING_DIAGNOSTIC,
@@ -172,7 +172,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 				state idle
 					doorClosed => idle
 				end
-				
+
 				state active
 				end
 			'''),
@@ -180,7 +180,7 @@ class StatemachineQuickfix2Test extends AbstractQuickfixTest {
 				state idle
 					doorClosed => active
 				end
-				
+
 				state active
 				end
 			''')

@@ -42,7 +42,7 @@ class StatemachineScopeProviderTest {
 				panelClosed  PNCL
 			end
 		'''.parse
-		
+
 		statemachine.assertVisibleElements(STATEMACHINE__RESET_EVENTS, '''
 			doorClosed
 			drawerOpened
@@ -54,7 +54,7 @@ class StatemachineScopeProviderTest {
 
 	@Test def visible_elements_for_Statemachine_resetEvents_external_resource() {
 		val statemachine = ''''''.parse(resourceSet)
-		
+
 		statemachine.assertVisibleElements(STATEMACHINE__RESET_EVENTS, '''
 			doorClosed
 			drawerOpened
@@ -63,7 +63,7 @@ class StatemachineScopeProviderTest {
 			panelClosed
 		''')
 	}
-	
+
 	@Test def visible_elements_for_State_actions(){
 		val statemachine = '''
 			commands
@@ -72,11 +72,11 @@ class StatemachineScopeProviderTest {
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 			end
 		'''.parse
-	
+
 		statemachine.states.head.assertVisibleElements(STATE__ACTIONS, '''
 			unlockPanel
 			lockPanel
@@ -90,7 +90,7 @@ class StatemachineScopeProviderTest {
 			state idle
 			end
 		'''.parse(resourceSet)
-	
+
 		statemachine.states.head.assertVisibleElements(STATE__ACTIONS, '''
 			unlockPanel
 			lockPanel
@@ -108,12 +108,12 @@ class StatemachineScopeProviderTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			state idle
 				doorClosed => active
 			end
 		'''.parse
-		
+
 		statemachine.states.head.transitions.head.assertVisibleElements(TRANSITION__EVENT, '''
 			doorClosed
 			drawerOpened
@@ -129,7 +129,7 @@ class StatemachineScopeProviderTest {
 				doorClosed => active
 			end
 		'''.parse(resourceSet)
-	
+
 		statemachine.states.head.transitions.head.assertVisibleElements(TRANSITION__EVENT, '''
 			doorClosed
 			drawerOpened
@@ -148,20 +148,20 @@ class StatemachineScopeProviderTest {
 			state idle
 				doorClosed => active
 			end
-			
+
 			state active
 			end
-			
+
 			state waitingForLight
 			end
-			
+
 			state waitingForDrawer
 			end
-			
+
 			state unlockedPanel
 			end
 		'''.parse
-	
+
 		statemachine.states.head.transitions.head.assertVisibleElements(TRANSITION__STATE, '''
 			idle
 			active

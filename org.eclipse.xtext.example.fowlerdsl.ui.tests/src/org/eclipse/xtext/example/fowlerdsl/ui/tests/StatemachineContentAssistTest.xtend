@@ -7,6 +7,9 @@ import org.eclipse.xtext.ui.testing.AbstractContentAssistTest
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * @author miklossy - Initial contribution and API
+ */
 @RunWith(XtextRunner)
 @InjectWith(StatemachineUiInjectorProvider)
 class StatemachineContentAssistTest extends AbstractContentAssistTest {
@@ -36,7 +39,7 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				«c»
 			end
@@ -54,7 +57,7 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				doorOpened
 			end
@@ -69,7 +72,7 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 				actions {«c»}
 			end
@@ -86,7 +89,7 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 				actions {unlockDoor}
 			end
@@ -102,18 +105,18 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				doorOpened doorClosed
 			end
-			
+
 			commands
 				unlockPanel PNUL
 				lockPanel   NLK
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 				actions {unlockDoor lockPanel}
 				«c»
@@ -134,18 +137,18 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				doorOpened doorClosed
 			end
-			
+
 			commands
 				unlockPanel PNUL
 				lockPanel   NLK
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 				actions {unlockDoor lockPanel}
 				doorClosed
@@ -162,36 +165,36 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				doorOpened doorClosed
 			end
-			
+
 			commands
 				unlockPanel PNUL
 				lockPanel   NLK
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 				actions {unlockDoor lockPanel}
 				doorClosed => active
 			end
-			
+
 			state active
 				drawerOpened => waitingForLight
 				lightOn      => waitingForDrawer
 			end
-			
+
 			state waitingForLight
 				lightOn => unlockedPanel
 			end
-			
+
 			state waitingForDrawer
 				drawerOpened => unlockedPanel
 			end
-			
+
 			state unlockedPanel
 				actions {unlockPanel lockDoor}
 				panelClosed => «c»
@@ -210,36 +213,36 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				doorOpened doorClosed
 			end
-			
+
 			commands
 				unlockPanel PNUL
 				lockPanel   NLK
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 				actions {unlockDoor lockPanel}
 				doorClosed => active
 			end
-			
+
 			state active
 				drawerOpened => waitingForLight
 				lightOn      => waitingForDrawer
 			end
-			
+
 			state waitingForLight
 				lightOn => unlockedPanel
 			end
-			
+
 			state waitingForDrawer
 				drawerOpened => unlockedPanel
 			end
-			
+
 			state unlockedPanel
 				actions {unlockPanel lockDoor}
 				panelClosed => idle
@@ -256,11 +259,11 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			state idle
 				«c»
 			end
-			
+
 			state active
 			end
 		'''.testContentAssistant(#[
@@ -280,11 +283,11 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			state idle
 				doorClosed => idle
 			end
-			
+
 			state active
 			end
 		''')
@@ -292,10 +295,10 @@ class StatemachineContentAssistTest extends AbstractContentAssistTest {
 
 	private def void testContentAssistant(CharSequence text, List<String> expectedProposals,
 		String proposalToApply, String expectedContent) {
-		
+
 		val cursorPosition = text.toString.indexOf(c)
 		val content = text.toString.replace(c, "")
-		
+
 		newBuilder.append(content).
 		assertTextAtCursorPosition(cursorPosition, expectedProposals).
 		applyProposal(cursorPosition, proposalToApply).

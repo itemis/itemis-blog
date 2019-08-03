@@ -7,6 +7,9 @@ import org.eclipse.xtext.testing.formatter.FormatterTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * @author miklossy - Initial contribution and API
+ */
 @RunWith(XtextRunner)
 @InjectWith(StatemachineInjectorProvider)
 class StatemachineFormatterTest {
@@ -32,10 +35,10 @@ class StatemachineFormatterTest {
 
 	@Test def commands() {
 		assertFormatted[
-			
+
 			toBeFormatted = '''
 				commands unlockPanel PNUL lockPanel NLK lockDoor D1LK unlockDoor D1UL end
-			'''			
+			'''
 			expectation = '''
 				commands
 					unlockPanel PNUL
@@ -56,16 +59,16 @@ class StatemachineFormatterTest {
 			expectation = '''
 				state idle
 				end
-				
+
 				state active
 				end
-				
+
 				state waitingForLight
 				end
-				
+
 				state waitingForDrawer
 				end
-				
+
 				state unlockedPanel
 				end
 			'''
@@ -86,7 +89,7 @@ class StatemachineFormatterTest {
 					doorOpened   D1OP
 					panelClosed  PNCL
 				end
-				
+
 				resetEvents
 					doorOpened
 				end
@@ -108,7 +111,7 @@ class StatemachineFormatterTest {
 					doorOpened   D1OP
 					panelClosed  PNCL
 				end
-				
+
 				resetEvents
 					doorClosed
 					doorOpened
@@ -131,7 +134,7 @@ class StatemachineFormatterTest {
 					doorOpened   D1OP
 					panelClosed  PNCL
 				end
-				
+
 				commands
 					unlockPanel PNUL
 					lockPanel   NLK
@@ -156,7 +159,7 @@ class StatemachineFormatterTest {
 					doorOpened   D1OP
 					panelClosed  PNCL
 				end
-				
+
 				state idle
 				end
 			'''
@@ -178,11 +181,11 @@ class StatemachineFormatterTest {
 					doorOpened   D1OP
 					panelClosed  PNCL
 				end
-				
+
 				resetEvents
 					doorOpened
 				end
-				
+
 				commands
 					unlockPanel PNUL
 					lockPanel   NLK
@@ -207,11 +210,11 @@ class StatemachineFormatterTest {
 					doorOpened   D1OP
 					panelClosed  PNCL
 				end
-				
+
 				resetEvents
 					doorOpened
 				end
-				
+
 				state idle
 					doorClosed => active
 				end
@@ -235,18 +238,18 @@ class StatemachineFormatterTest {
 					doorOpened   D1OP
 					panelClosed  PNCL
 				end
-				
+
 				resetEvents
 					doorOpened
 				end
-				
+
 				commands
 					unlockPanel PNUL
 					lockPanel   NLK
 					lockDoor    D1LK
 					unlockDoor  D1UL
 				end
-				
+
 				state idle
 					actions {unlockDoor lockPanel}
 					doorClosed => active
@@ -275,36 +278,36 @@ class StatemachineFormatterTest {
 					doorOpened   D1OP
 					panelClosed  PNCL
 				end
-				
+
 				resetEvents
 					doorOpened
 				end
-				
+
 				commands
 					unlockPanel PNUL
 					lockPanel   NLK
 					lockDoor    D1LK
 					unlockDoor  D1UL
 				end
-				
+
 				state idle
 					actions {unlockDoor lockPanel}
 					doorClosed => active
 				end
-				
+
 				state active
 					drawerOpened => waitingForLight
 					lightOn      => waitingForDrawer
 				end
-				
+
 				state waitingForLight
 					lightOn => unlockedPanel
 				end
-				
+
 				state waitingForDrawer
 					drawerOpened => unlockedPanel
 				end
-				
+
 				state unlockedPanel
 					actions {unlockPanel lockDoor}
 					panelClosed => idle

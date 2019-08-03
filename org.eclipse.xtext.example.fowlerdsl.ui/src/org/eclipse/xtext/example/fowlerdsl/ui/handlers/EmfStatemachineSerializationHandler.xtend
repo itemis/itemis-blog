@@ -19,28 +19,28 @@ class EmfStatemachineSerializationHandler extends AbstractHandler {
 
 	override execute(ExecutionEvent event) {
 		val selection = event.getCurrentSelection
-		
+
 		val emfFile = (selection as IStructuredSelection).firstElement as IFile
 		val project = emfFile.project
 		val resourceSet = project.get
-		
+
 		val emfFileFullPath = emfFile.fullPath.toString
 		val emfUri = emfFileFullPath.createPlatformResourceURI(true)
 		val emfResource = resourceSet.getResource(emfUri, true)
 		val emfRoot = emfResource.contents.head
-		
-		val xtextFileFullPath = emfFile.parent.fullPath + "/" + emfFile.name.replace(".emfstatemachine", '''.«primaryFileExtension»''') 
+
+		val xtextFileFullPath = emfFile.parent.fullPath + "/" + emfFile.name.replace(".emfstatemachine", '''.«primaryFileExtension»''')
 		val xtextUri = xtextFileFullPath.createPlatformResourceURI(true)
 		val xtextResource = resourceSet.createResource(xtextUri)
 		//val xtextRoot = EcoreUtil.copy(emfRoot)
 		val xtextRoot = emfRoot
 		xtextResource.contents += xtextRoot
-		
+
 		xtextResource.save(newHashMap)
-		
+
 		// refresh the IDE to make the new file visible
 		project.refreshLocal(IResource.DEPTH_INFINITE, null)
-		
+
 		null
 	}
 

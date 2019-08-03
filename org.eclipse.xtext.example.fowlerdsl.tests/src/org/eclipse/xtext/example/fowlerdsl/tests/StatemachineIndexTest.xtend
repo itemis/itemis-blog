@@ -141,16 +141,16 @@ class StatemachineIndexTest {
 		'''
 		state idle
 		end
-		
+
 		state active
 		end
-		
+
 		state waitingForLight
 		end
-		
+
 		state waitingForDrawer
 		end
-		
+
 		state unlockedPanel
 		end
 		'''.parse.assertExportedEObjectDescriptions('''
@@ -167,11 +167,11 @@ class StatemachineIndexTest {
 		events
 			doorClosed D1CL
 		end
-		
+
 		state idle
 			doorClosed => active
 		end
-		
+
 		state active
 		end
 		'''.parse.assertExportedEObjectDescriptions('''

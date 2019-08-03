@@ -19,7 +19,7 @@ class FowlerdslActivatorEx extends FowlerdslActivator {
 		}
 		super.getUiModule(grammar)
 	}
-	
+
 	private def isEMFStatemachineLanguage(String grammar){
 		LanguageConstants.ORG_ECLIPSE_XTEXT_EXAMPLE_FOWLERDSL_EMFSTATEMACHINE.equals(grammar)
 	}

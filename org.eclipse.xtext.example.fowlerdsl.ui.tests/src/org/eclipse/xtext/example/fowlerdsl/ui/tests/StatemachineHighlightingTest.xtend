@@ -7,6 +7,9 @@ import org.eclipse.xtext.ui.testing.AbstractHighlightingTest
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * @author miklossy - Initial contribution and API
+ */
 @RunWith(XtextRunner)
 @InjectWith(StatemachineUiInjectorProvider)
 class StatemachineHighlightingTest extends AbstractHighlightingTest {
@@ -44,7 +47,7 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				doorOpened doorClosed
 			end
@@ -71,37 +74,37 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				doorOpened
 				doorClosed
 			end
-			
+
 			commands
 				unlockPanel PNUL
 				lockPanel   NLK
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 				actions {unlockDoor lockPanel}
 				doorClosed => active
 			end
-			
+
 			state active
 				drawerOpened => waitingForLight
 				lightOn      => waitingForDrawer
 			end
-			
+
 			state waitingForLight
 				lightOn => unlockedPanel
 			end
-			
+
 			state waitingForDrawer
 				drawerOpened => unlockedPanel
 			end
-			
+
 			state unlockedPanel
 				actions {unlockPanel lockDoor}
 				panelClosed => idle
@@ -118,37 +121,37 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-			
+
 			resetEvents
 				doorOpened
 				doorClosed
 			end
-			
+
 			commands
 				unlockPanel PNUL
 				lockPanel   NLK
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-			
+
 			state idle
 				actions {unlockDoor lockPanel}
 				doorClosed => active
 			end
-			
+
 			state active
 				drawerOpened => waitingForLight
 				lightOn      => waitingForDrawer
 			end
-			
+
 			state waitingForLight
 				lightOn => unlockedPanel
 			end
-			
+
 			state waitingForDrawer
 				drawerOpened => unlockedPanel
 			end
-			
+
 			state unlockedPanel
 				actions {unlockPanel lockDoor}
 				panelClosed => idle
@@ -168,15 +171,33 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 		'''
 			/*
 			 * An implementation of Martin Fowler's secret compartment state machine
-			 * 
+			 *
 			 * http://martinfowler.com/dslwip/Intro.html
 			 */
 		'''.testHighlighting('''
 			/*
 			 * An implementation of Martin Fowler's secret compartment state machine
-			 * 
+			 *
 			 * http://martinfowler.com/dslwip/Intro.html
 			 */
 		''', SWT.NORMAL, 63, 127, 95)
+	}
+
+	@Test def fixme_task_in_comment() {
+		'''
+			// FIXME
+		'''.testHighlighting('FIXME', SWT.BOLD, 127, 159, 191)
+	}
+
+	@Test def todo_task_in_comment() {
+		'''
+			// TODO
+		'''.testHighlighting('TODO', SWT.BOLD, 127, 159, 191)
+	}
+
+	@Test def xxx_task_in_comment() {
+		'''
+			// XXX
+		'''.testHighlighting('XXX', SWT.BOLD, 127, 159, 191)
 	}
 }

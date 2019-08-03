@@ -36,25 +36,25 @@ class StatemachineSerializerTest {
 			resetEvents
 				doorOpened
 			end
-			
+
 			state idle
 				actions { unlockDoor lockPanel }
 				doorClosed => active
 			end
-			
+
 			state active
 				drawerOpened => waitingForLight
 				lightOn      => waitingForDrawer
 			end
-			
+
 			state waitingForLight
 				lightOn => unlockedPanel
 			end
-			
+
 			state waitingForDrawer
 				drawerOpened => unlockedPanel
 			end
-			
+
 			state unlockedPanel
 				actions { unlockPanel lockDoor }
 				panelClosed => idle

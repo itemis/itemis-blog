@@ -13,7 +13,7 @@ import org.eclipse.xtext.generator.IGeneratorContext
 
 /**
  * Generates code from your model files on save.
- * 
+ *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class StatemachineGenerator extends AbstractGenerator {
@@ -31,17 +31,17 @@ class StatemachineGenerator extends AbstractGenerator {
 		import java.io.BufferedReader;
 		import java.io.IOException;
 		import java.io.InputStreamReader;
-		
+
 		public class «sm.eResource.className» {
-			
+
 			public static void main(String[] args) {
 				new «sm.eResource.className»().run();
 			}
-			
+
 			«FOR c : sm.commands»
 				«c.declareCommand»
 			«ENDFOR»
-			
+
 			protected void run() {
 				boolean executeActions = true;
 				String currentState = "«sm.states.head?.name»";
@@ -57,10 +57,10 @@ class StatemachineGenerator extends AbstractGenerator {
 							executeActions = true;
 						}
 					«ENDFOR»
-					
+
 				}
 			}
-			
+
 			private String receiveEvent() {
 				System.out.flush();
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
