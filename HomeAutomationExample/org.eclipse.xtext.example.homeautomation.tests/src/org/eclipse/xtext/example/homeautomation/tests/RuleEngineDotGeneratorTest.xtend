@@ -15,6 +15,9 @@ import org.eclipse.xtext.xbase.testing.CompilationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * Test cases for the {@link org.eclipse.xtext.example.homeautomation.generator.RuleEngineDotGenerator} class.
+ */
 @RunWith(XtextRunner)
 @InjectWith(RuleEngineInjectorProvider)
 class RuleEngineDotGeneratorTest {

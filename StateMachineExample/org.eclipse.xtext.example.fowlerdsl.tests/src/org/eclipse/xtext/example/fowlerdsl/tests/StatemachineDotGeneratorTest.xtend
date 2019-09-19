@@ -8,12 +8,15 @@
 package org.eclipse.xtext.example.fowlerdsl.tests
 
 import javax.inject.Inject
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.xbase.testing.CompilationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.xbase.testing.CompilationTestHelper
 
+/**
+ * Test cases for the {@link org.eclipse.xtext.example.fowlerdsl.generator.StatemachineDotGenerator} class.
+ */
 @RunWith(XtextRunner)
 @InjectWith(StatemachineInjectorProvider)
 class StatemachineDotGeneratorTest {

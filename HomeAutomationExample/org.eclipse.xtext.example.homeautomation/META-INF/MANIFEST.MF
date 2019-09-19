@@ -2,33 +2,34 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Homeautomation Example - Runtime
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.16.0.qualifier
+Bundle-Version: 2.20.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.example.homeautomation; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext,
- org.eclipse.xtext.xbase,
- org.eclipse.equinox.common;bundle-version="3.5.0",
- org.eclipse.emf.ecore,
- org.objectweb.asm;bundle-version="[6.2.1,6.3.0)";resolution:=optional,
- org.eclipse.xtext.util,
- org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
- org.eclipse.xtend.lib;bundle-version="2.14.0",
+Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.emf.common,
+ org.eclipse.emf.ecore,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtend.lib;bundle-version="2.14.0",
+ org.eclipse.xtext,
  org.eclipse.xtext.common.types,
- org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
+ org.eclipse.xtext.util,
+ org.eclipse.xtext.xbase,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.objectweb.asm;bundle-version="[7.2.0,7.3.0)";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.eclipse.xtext.example.homeautomation.ruleEngine.util,
+Export-Package: org.eclipse.xtext.example.homeautomation,
+ org.eclipse.xtext.example.homeautomation.formatting2,
+ org.eclipse.xtext.example.homeautomation.generator;x-friends:="org.eclipse.xtext.example.homeautomation.tests",
+ org.eclipse.xtext.example.homeautomation.jvmmodel,
+ org.eclipse.xtext.example.homeautomation.parser.antlr,
+ org.eclipse.xtext.example.homeautomation.parser.antlr.internal,
+ org.eclipse.xtext.example.homeautomation.parser.antlr.lexer,
  org.eclipse.xtext.example.homeautomation.ruleEngine,
  org.eclipse.xtext.example.homeautomation.ruleEngine.impl,
- org.eclipse.xtext.example.homeautomation,
- org.eclipse.xtext.example.homeautomation.parser.antlr.lexer,
- org.eclipse.xtext.example.homeautomation.parser.antlr.internal,
- org.eclipse.xtext.example.homeautomation.validation,
- org.eclipse.xtext.example.homeautomation.jvmmodel,
+ org.eclipse.xtext.example.homeautomation.ruleEngine.util,
  org.eclipse.xtext.example.homeautomation.scoping,
  org.eclipse.xtext.example.homeautomation.serializer,
- org.eclipse.xtext.example.homeautomation.parser.antlr,
  org.eclipse.xtext.example.homeautomation.services,
- org.eclipse.xtext.example.homeautomation.formatting2
+ org.eclipse.xtext.example.homeautomation.validation
 Import-Package: org.apache.log4j
 Automatic-Module-Name: org.eclipse.xtext.example.homeautomation

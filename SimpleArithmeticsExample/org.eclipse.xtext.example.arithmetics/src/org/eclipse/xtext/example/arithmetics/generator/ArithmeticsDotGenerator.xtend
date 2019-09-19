@@ -8,27 +8,28 @@
 package org.eclipse.xtext.example.arithmetics.generator
 
 import com.google.inject.Inject
-import java.util.Map
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.example.arithmetics.arithmetics.Expression
-import org.eclipse.xtext.example.arithmetics.interpreter.Calculator
-import org.eclipse.xtext.serializer.ISerializer
-import org.eclipse.xtext.example.arithmetics.arithmetics.Module
-import org.eclipse.xtext.example.arithmetics.arithmetics.Plus
-import org.eclipse.xtext.example.arithmetics.arithmetics.Minus
-import org.eclipse.xtext.example.arithmetics.arithmetics.Multi
-import org.eclipse.xtext.example.arithmetics.arithmetics.Div
-import org.eclipse.xtext.example.arithmetics.arithmetics.NumberLiteral
-import org.eclipse.xtext.example.arithmetics.arithmetics.FunctionCall
-import org.eclipse.xtext.example.arithmetics.arithmetics.Definition
-import org.eclipse.xtext.example.arithmetics.arithmetics.Evaluation
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
+import java.util.Map
+import java.util.regex.Pattern
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.example.arithmetics.arithmetics.Definition
+import org.eclipse.xtext.example.arithmetics.arithmetics.Div
+import org.eclipse.xtext.example.arithmetics.arithmetics.Evaluation
+import org.eclipse.xtext.example.arithmetics.arithmetics.Expression
+import org.eclipse.xtext.example.arithmetics.arithmetics.FunctionCall
+import org.eclipse.xtext.example.arithmetics.arithmetics.Minus
+import org.eclipse.xtext.example.arithmetics.arithmetics.Module
+import org.eclipse.xtext.example.arithmetics.arithmetics.Multi
+import org.eclipse.xtext.example.arithmetics.arithmetics.NumberLiteral
+import org.eclipse.xtext.example.arithmetics.arithmetics.Plus
+import org.eclipse.xtext.example.arithmetics.interpreter.Calculator
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import org.eclipse.xtext.serializer.ISerializer
 
 /**
  * Generates code from your model files on save.
@@ -216,9 +217,9 @@ class ArithmeticsDotGenerator extends AbstractGenerator {
 		 * Generate backward edge label only if the expression can be evaluated and it does not evaluates to 'null'
 		 */
 		val result = formattedResult
-		if(result!==null) '''label=«result»'''
+		if(result!==null) '''label=«result» labeltooltip="«result» = «serialize.removeComments»"'''
 	}
-
+	
 	private def formattedResult(Expression it) {
 		val result = try {
 			evaluate
@@ -227,6 +228,10 @@ class ArithmeticsDotGenerator extends AbstractGenerator {
 		}
 		
 		if(result!==null) '''«result.format»'''
+	}
+	
+	private def removeComments(String text) {
+		Pattern.compile("//.*$", Pattern.MULTILINE).matcher(text).replaceAll("").trim
 	}
 
 	private def generateSubgraph(Definition it) '''

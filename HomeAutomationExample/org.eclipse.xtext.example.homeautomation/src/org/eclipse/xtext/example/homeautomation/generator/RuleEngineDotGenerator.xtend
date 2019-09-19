@@ -91,14 +91,15 @@ class RuleEngineDotGenerator extends JvmModelGenerator {
 		'''«deviceState.nodeID»'''
 
 	private def target(Rule it) {
-		'''"«firstFeatureCall.actualArguments.head.serialize»"'''
+		'''"«firstFeatureCall?.actualArguments?.head?.serialize»"'''
 	}
 
 	private def attributes(Rule it)
 		'''«IF firstFeatureCall.isRecursive»color=gold«ELSE»arrowhead=onormal«ENDIF»'''
 
 	private def firstFeatureCall(Rule it) {
-		(thenPart as XBlockExpression).expressions.head as XFeatureCall
+		val firstExpression = (thenPart as XBlockExpression).expressions.head
+		if (firstExpression instanceof XFeatureCall) firstExpression else null
 	}
 
 	private def fileName(Resource res) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2017 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2019 itemis AG (http://www.itemis.eu) and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,10 +9,7 @@ package org.eclipse.xtext.example.arithmetics.ui.tests.autoedit
 
 import com.google.inject.Inject
 import java.util.Collections
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.xtext.example.arithmetics.ui.internal.ArithmeticsActivator
 import org.eclipse.xtext.example.arithmetics.ui.tests.ArithmeticsUiInjectorProvider
 import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.testing.InjectWith
@@ -45,7 +42,6 @@ class AutoEditTest extends AbstractAutoEditTest {
 				|
 			''')
 		]
-		
 	}
 
 	@Inject FileExtensionProvider extensionProvider
@@ -59,19 +55,15 @@ class AutoEditTest extends AbstractAutoEditTest {
 		extensionProvider.primaryFileExtension
 	}
 
-	override protected getEditorId() {
-		ArithmeticsActivator.ORG_ECLIPSE_XTEXT_EXAMPLE_ARITHMETICS_ARITHMETICS
-	}
-
-	def protected IProject createPluginProject(String name) throws CoreException {
-		projectFactory.setBreeToUse(JREContainerProvider.PREFERRED_BREE) 
-		projectFactory.setProjectName(name) 
-		projectFactory.addFolders(Collections.singletonList("src")) 
-		projectFactory.addBuilderIds(XtextProjectHelper.BUILDER_ID) 
-		projectFactory.addProjectNatures(XtextProjectHelper.NATURE_ID) 
-		var IProject result=projectFactory.createProject(new NullProgressMonitor(), null)
-		JavaProjectSetupUtil.setUnixLineEndings(result) 
-		return result 
+	private def createPluginProject(String name) {
+		projectFactory.setBreeToUse(JREContainerProvider.PREFERRED_BREE)
+		projectFactory.setProjectName(name)
+		projectFactory.addFolders(Collections.singletonList("src"))
+		projectFactory.addBuilderIds(XtextProjectHelper.BUILDER_ID)
+		projectFactory.addProjectNatures(XtextProjectHelper.NATURE_ID)
+		val result=projectFactory.createProject(new NullProgressMonitor(), null)
+		JavaProjectSetupUtil.setUnixLineEndings(result)
+		return result
 	}
 
 }

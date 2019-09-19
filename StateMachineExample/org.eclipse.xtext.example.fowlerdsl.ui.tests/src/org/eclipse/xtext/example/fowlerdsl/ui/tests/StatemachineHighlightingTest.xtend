@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2018, 2019 itemis AG (http://www.itemis.eu) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package org.eclipse.xtext.example.fowlerdsl.ui.tests
 
 import org.eclipse.swt.SWT
@@ -7,6 +14,9 @@ import org.eclipse.xtext.ui.testing.AbstractHighlightingTest
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * @author miklossy - Initial contribution and API
+ */
 @RunWith(XtextRunner)
 @InjectWith(StatemachineUiInjectorProvider)
 class StatemachineHighlightingTest extends AbstractHighlightingTest {
@@ -178,5 +188,23 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 			 * http://martinfowler.com/dslwip/Intro.html
 			 */
 		''', SWT.NORMAL, 63, 127, 95)
+	}
+
+	@Test def fixme_task_in_comment() {
+		'''
+			// FIXME
+		'''.testHighlighting('FIXME', SWT.BOLD, 127, 159, 191)
+	}
+
+	@Test def todo_task_in_comment() {
+		'''
+			// TODO
+		'''.testHighlighting('TODO', SWT.BOLD, 127, 159, 191)
+	}
+
+	@Test def xxx_task_in_comment() {
+		'''
+			// XXX
+		'''.testHighlighting('XXX', SWT.BOLD, 127, 159, 191)
 	}
 }

@@ -487,15 +487,13 @@
 			sequence="CTRL+ALT+H">
 		</key>
 	</extension>
- 
- 	<!-- Visualization context menu -->
+	<!-- Visualization context menu -->
 	<extension
 		point="org.eclipse.ui.commands">
 		<command name="Visualize"
 			id="org.eclipse.xtext.example.arithmetics.ui.commands.VisualizationCommand">
 		</command>
 	</extension>
-	
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler
@@ -503,7 +501,6 @@
 			commandId="org.eclipse.xtext.example.arithmetics.ui.commands.VisualizationCommand">
 		</handler>
 	</extension>
-	
 	<!-- Add Visualization context menu to the Package Explorer --> 
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
@@ -521,7 +518,6 @@
 			</command>
 		</menuContribution>
 	</extension>
-	
 	<!-- Add Visualization context menu to the Project Explorer --> 
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
@@ -538,5 +534,15 @@
 				</visibleWhen>
 			</command>
 		</menuContribution>
+	</extension>
+	<!-- Add GEF Arithmetics View -->
+	<extension point="org.eclipse.ui.views">
+		<view
+			class="org.eclipse.xtext.example.arithmetics.ui.visualization.ArithmeticsView"
+			icon="icons/GEF-logo.png"
+			id="org.eclipse.xtext.example.arithmetics.ui.visualization.ArithmeticsView"
+			name="GEF Arithmetics View"
+			restorable="true">
+		</view>
 	</extension>
 </plugin>

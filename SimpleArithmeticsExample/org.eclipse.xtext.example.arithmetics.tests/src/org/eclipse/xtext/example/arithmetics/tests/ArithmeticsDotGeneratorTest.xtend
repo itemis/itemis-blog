@@ -15,6 +15,9 @@ import org.eclipse.xtext.xbase.testing.CompilationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * Test cases for the {@link org.eclipse.xtext.example.arithmetics.generator.ArithmeticsDotGenerator} class.
+ */
 @RunWith(XtextRunner)
 @InjectWith(ArithmeticsInjectorProvider)
 class ArithmeticsDotGeneratorTest {
@@ -76,8 +79,8 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=1]
-					3->1[label=2]
+					2->1[label=1 labeltooltip="1 = 1"]
+					3->1[label=2 labeltooltip="2 = 2"]
 				}
 				
 			}
@@ -109,10 +112,10 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=3]
-					5->1[label=3]
-					3->2[label=1]
-					4->2[label=2]
+					2->1[label=3 labeltooltip="3 = 1+2"]
+					5->1[label=3 labeltooltip="3 = 3"]
+					3->2[label=1 labeltooltip="1 = 1"]
+					4->2[label=2 labeltooltip="2 = 2"]
 				}
 				
 			}
@@ -144,10 +147,10 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=3]
-					5->1[label=3]
-					3->2[label=1]
-					4->2[label=2]
+					2->1[label=3 labeltooltip="3 = 1 + 2"]
+					5->1[label=3 labeltooltip="3 = 3"]
+					3->2[label=1 labeltooltip="1 = 1"]
+					4->2[label=2 labeltooltip="2 = 2"]
 				}
 				
 			}
@@ -179,10 +182,10 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=2]
-					5->1[label=3]
-					3->2[label=1]
-					4->2[label=2]
+					2->1[label=2 labeltooltip="2 = 1 * 2"]
+					5->1[label=3 labeltooltip="3 = 3"]
+					3->2[label=1 labeltooltip="1 = 1"]
+					4->2[label=2 labeltooltip="2 = 2"]
 				}
 				
 			}
@@ -214,10 +217,10 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=-1]
-					5->1[label=3]
-					3->2[label=1]
-					4->2[label=2]
+					2->1[label=-1 labeltooltip="-1 = 1 - 2"]
+					5->1[label=3 labeltooltip="3 = 3"]
+					3->2[label=1 labeltooltip="1 = 1"]
+					4->2[label=2 labeltooltip="2 = 2"]
 				}
 				
 			}
@@ -249,10 +252,10 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=0.5]
-					5->1[label=3]
-					3->2[label=1]
-					4->2[label=2]
+					2->1[label=0.5 labeltooltip="0.5 = 1 / 2"]
+					5->1[label=3 labeltooltip="3 = 3"]
+					3->2[label=1 labeltooltip="1 = 1"]
+					4->2[label=2 labeltooltip="2 = 2"]
 				}
 				
 			}
@@ -292,14 +295,14 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=-12]
-					7->1[label=54]
-					3->2[label=12]
-					4->2[label=-1]
-					5->4[label=5]
-					6->4[label=6]
-					8->7[label=108]
-					9->7[label=2]
+					2->1[label=-12 labeltooltip="-12 = 12*(5-6)"]
+					7->1[label=54 labeltooltip="54 = 108/2"]
+					3->2[label=12 labeltooltip="12 = 12"]
+					4->2[label=-1 labeltooltip="-1 = (5-6)"]
+					5->4[label=5 labeltooltip="5 = 5"]
+					6->4[label=6 labeltooltip="6 = 6"]
+					8->7[label=108 labeltooltip="108 = 108"]
+					9->7[label=2 labeltooltip="2 = 2"]
 				}
 				
 			}
@@ -341,14 +344,14 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=2]
-					5->1[label=3]
-					3->2[label=1]
-					4->2[label=2]
-					7->6[label=1]
-					8->6[label=-1]
-					9->8[label=2]
-					10->8[label=3]
+					2->1[label=2 labeltooltip="2 = 1*2"]
+					5->1[label=3 labeltooltip="3 = 3"]
+					3->2[label=1 labeltooltip="1 = 1"]
+					4->2[label=2 labeltooltip="2 = 2"]
+					7->6[label=1 labeltooltip="1 = 1"]
+					8->6[label=-1 labeltooltip="-1 = (2-3)"]
+					9->8[label=2 labeltooltip="2 = 2"]
+					10->8[label=3 labeltooltip="3 = 3"]
 				}
 				
 			}
@@ -378,8 +381,8 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=3.14]
-					3->1[label=4]
+					2->1[label=3.14 labeltooltip="3.14 = pi"]
+					3->1[label=4 labeltooltip="4 = 4"]
 				}
 				
 				// subgraphs
@@ -415,8 +418,8 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=2]
-					3->1[label=1]
+					2->1[label=2 labeltooltip="2 = a"]
+					3->1[label=1 labeltooltip="1 = b"]
 				}
 				
 				// subgraphs
@@ -636,12 +639,12 @@ class ArithmeticsDotGeneratorTest {
 				// backward edges
 				{
 					edge[arrowhead=normal color=green4 style=dashed]
-					2->1[label=24]
-					3->1[label=2]
-					4->3[label=-1]
-					7->3[label=3]
-					5->4[label=1]
-					6->4[label=2]
+					2->1[label=24 labeltooltip="24 = fun(2, fun(3,4))"]
+					3->1[label=2 labeltooltip="2 = (1-2+3)"]
+					4->3[label=-1 labeltooltip="-1 = 1-2"]
+					7->3[label=3 labeltooltip="3 = 3"]
+					5->4[label=1 labeltooltip="1 = 1"]
+					6->4[label=2 labeltooltip="2 = 2"]
 				}
 				
 				// subgraphs
@@ -653,6 +656,106 @@ class ArithmeticsDotGeneratorTest {
 					8->9
 					8->10
 				}
+			}
+		''')
+	}
+
+	@Test def test19() {
+		'''
+			module arithmetics
+			1+2+3;
+			1+(2+3);
+		'''.assertCompilesTo('''
+			digraph {
+				node[shape=square style="bold, filled" fillcolor="orange"]
+				
+				// nodes
+				1[label="+" tooltip=6]
+				2[label="+" tooltip=3]
+				3[label="1" tooltip=1 shape=circle]
+				4[label="2" tooltip=2 shape=circle]
+				5[label="3" tooltip=3 shape=circle]
+				6[label="+" tooltip=6]
+				7[label="1" tooltip=1 shape=circle]
+				8[label="+" tooltip=5]
+				9[label="2" tooltip=2 shape=circle]
+				10[label="3" tooltip=3 shape=circle]
+				
+				// forward edges
+				edge[arrowhead=vee]
+				1->2
+				1->5
+				2->3
+				2->4
+				6->7
+				6->8
+				8->9
+				8->10
+				
+				// backward edges
+				{
+					edge[arrowhead=normal color=green4 style=dashed]
+					2->1[label=3 labeltooltip="3 = 1+2"]
+					5->1[label=3 labeltooltip="3 = 3"]
+					3->2[label=1 labeltooltip="1 = 1"]
+					4->2[label=2 labeltooltip="2 = 2"]
+					7->6[label=1 labeltooltip="1 = 1"]
+					8->6[label=5 labeltooltip="5 = (2+3)"]
+					9->8[label=2 labeltooltip="2 = 2"]
+					10->8[label=3 labeltooltip="3 = 3"]
+				}
+				
+			}
+		''')
+	}
+
+	@Test def test20() {
+		'''
+			module arithmetics
+			1+2+3;
+			// = 6
+			1+(2+3);
+			// = 6
+		'''.assertCompilesTo('''
+			digraph {
+				node[shape=square style="bold, filled" fillcolor="orange"]
+				
+				// nodes
+				1[label="+" tooltip=6]
+				2[label="+" tooltip=3]
+				3[label="1" tooltip=1 shape=circle]
+				4[label="2" tooltip=2 shape=circle]
+				5[label="3" tooltip=3 shape=circle]
+				6[label="+" tooltip=6]
+				7[label="1" tooltip=1 shape=circle]
+				8[label="+" tooltip=5]
+				9[label="2" tooltip=2 shape=circle]
+				10[label="3" tooltip=3 shape=circle]
+				
+				// forward edges
+				edge[arrowhead=vee]
+				1->2
+				1->5
+				2->3
+				2->4
+				6->7
+				6->8
+				8->9
+				8->10
+				
+				// backward edges
+				{
+					edge[arrowhead=normal color=green4 style=dashed]
+					2->1[label=3 labeltooltip="3 = 1+2"]
+					5->1[label=3 labeltooltip="3 = 3"]
+					3->2[label=1 labeltooltip="1 = 1"]
+					4->2[label=2 labeltooltip="2 = 2"]
+					7->6[label=1 labeltooltip="1 = 1"]
+					8->6[label=5 labeltooltip="5 = (2+3)"]
+					9->8[label=2 labeltooltip="2 = 2"]
+					10->8[label=3 labeltooltip="3 = 3"]
+				}
+				
 			}
 		''')
 	}

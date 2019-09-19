@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2016, 2018 itemis AG (http://www.itemis.eu) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package org.eclipse.xtext.example.domainmodel.tests
 
 import com.google.inject.Inject
@@ -38,11 +45,11 @@ class FormatterTest {
 	}
 
 	/**
- 	* This example tests whether a messy document is being formatted properly.
- 	* In contrast to the first example, this approach also allows to test formatting strategies that are input-aware.
- 	* Example: "Change newLines between tokens to be one at minimum, two at maximum."
- 	* Here, it depends on the formatters input document whether there will be one or two newLines on the output.
- 	*/
+	* This example tests whether a messy document is being formatted properly.
+	* In contrast to the first example, this approach also allows to test formatting strategies that are input-aware.
+	* Example: "Change newLines between tokens to be one at minimum, two at maximum."
+	* Here, it depends on the formatters input document whether there will be one or two newLines on the output.
+	*/
 	@Test def void example2() {
 		assertFormatted[
 			expectation = '''
@@ -59,8 +66,8 @@ class FormatterTest {
 	}
 
 	/**
- 	* This example shows how to test property-dependent formatting behavior.
- 	*/
+	* This example shows how to test property-dependent formatting behavior.
+	*/
 	@Test def void example3() {
 		assertFormatted[
 			preferences[

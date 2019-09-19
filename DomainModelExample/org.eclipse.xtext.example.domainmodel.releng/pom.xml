@@ -2,26 +2,36 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.xtext.example.domainmodel</groupId>
-	<version>2.14.0-SNAPSHOT</version>
+	<version>2.20.0-SNAPSHOT</version>
 	<artifactId>org.eclipse.xtext.example.domainmodel.parent</artifactId>
 	<packaging>pom</packaging>
-
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.eclipse.xtext</groupId>
+				<artifactId>xtext-dev-bom</artifactId>
+				<version>${xtextVersion}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<properties>
-		<xtextVersion>${project.version}</xtextVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- Tycho settings -->
-		<tycho-version>1.1.0</tycho-version>
+		<tycho-version>1.5.1</tycho-version>
 		<targetplatform.groupId>${project.groupId}</targetplatform.groupId>
 		<targetplatform.artifactId>${project.groupId}.tp</targetplatform.artifactId>
 		<targetplatform.version>${project.version}</targetplatform.version>
-		<targetplatform.classifier>domainmodel-photon</targetplatform.classifier>
+		<targetplatform.classifier>domainmodel</targetplatform.classifier>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
 		<platformSystemProperties></platformSystemProperties>
 		<moduleProperties></moduleProperties>
 		<systemProperties></systemProperties>
 		<tycho.testArgLine></tycho.testArgLine>
+		<xtextVersion>${project.version}</xtextVersion>
 	</properties>
 	<modules>
 		<module>tp</module>
@@ -71,6 +81,30 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.rcp</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.jdt</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.xtext.ui.codemining</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.xtext.logging</id>
+								<versionRange>1.2.15</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -129,10 +163,6 @@
 					<configuration>
 						<filesets>
 							<fileset>
-								<directory>${basedir}/xtend-gen</directory>
-								<includes>
-									<include>**/*</include>
-								</includes>
 								<directory>${basedir}/xtend-gen</directory>
 								<includes>
 									<include>**/*</include>

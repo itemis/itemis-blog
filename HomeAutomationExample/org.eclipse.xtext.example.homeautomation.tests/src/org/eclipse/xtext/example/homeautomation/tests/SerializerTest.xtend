@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2016, 2019 itemis AG (http://www.itemis.eu) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package org.eclipse.xtext.example.homeautomation.tests
 
 import java.io.StringWriter
@@ -20,28 +27,28 @@ import org.junit.runner.RunWith
 @RunWith(XtextRunner)
 @InjectWith(RuleEngineInjectorProvider)
 class SerializerTest extends Assert {
+
 	@Inject ISerializer serializer
 	extension RuleEngineFactory = RuleEngineFactory.eINSTANCE
 	extension XbaseFactory = XbaseFactory.eINSTANCE
 	@Inject extension FileExtensionProvider
 	@Inject Provider<XtextResourceSet> rsProvider
 
-	@Test
-	def test() {
-		
+	@Test def test() {
+
 		val model = createModel
 		val rs = rsProvider.get
-		
+
 		model.declarations += createDevice => [
 			name = "Window"
 			states += #["open","closed"].map[s|createState => [name=s]]
 		]
-		
+
 		model.declarations += createDevice => [
 			name = "Heater"
 			states += #["on","off"].map[s|createState => [name=s]]
 		]
-		
+
 		model.declarations += createRule => [
 			description = "Save energy"
 			deviceState = (model.declarations.head as Device).states.head
@@ -56,10 +63,10 @@ class SerializerTest extends Assert {
 				]
 			]
 		]
-		
+
 		val resource = rs.createResource(URI.createURI("heater." + primaryFileExtension))
 		resource.contents += model
-		
+
 		val sw = new StringWriter
 		serializer.serialize(model, sw, SaveOptions.newBuilder.format.options)
 		assertEquals('''
