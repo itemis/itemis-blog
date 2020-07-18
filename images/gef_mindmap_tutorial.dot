@@ -1,0 +1,81 @@
+digraph "GEF Mindmap Tutorial" {
+
+	splines=ortho
+	node[shape=rectangle style="rounded, filled" fillcolor=green width=3.5 height=1.4]
+
+	// defining the nodes
+	main[label="Getting Started with Eclipse GEF\nThe Mindmap Tutorial" fillcolor=aliceblue]
+
+	part1[label="Part I\nThe Foundations" fillcolor=yellow]
+		step3[label="Step 3\nDefining the Visuals"]
+		step2[label="Step 2\nCreating the Model"]
+		step1[label="Step 1\nPreparing the\nDevelopment Environment"]
+
+	part2[label="Part II\nGEF MVC" fillcolor=yellow]
+		step6[label="Step 6\nMoving and Resizing a Node"]
+		step5[label="Step 5\nModels, Policies and Behaviors"]
+		step4[label="Step 4\nCreating the GEF Parts"]
+
+	part3[label="Part III\nAdding Nodes and Connections" fillcolor=yellow]
+		step9[label="Step 9\nCreating Connections"]
+		step8[label="Step 8\nCreating New Nodes"]
+		step7[label="Step 7\nUndo and Redo Operations"]
+
+	part4[label="Part IV\nModifying and Removing Nodes" fillcolor=yellow]
+		step13[label="Step 13\nDeleting Nodes (2)"]
+		step12[label="Step 12\nCreating Feedback"]
+		step11[label="Step 11\nModifying Nodes"]
+		step10[label="Step 10\nDeleting Nodes (1)"]
+
+	part5[label="Part V\nCreating an Eclipse Editor" fillcolor=yellow]
+		step16[label="Step 16\nContributing Toolbar Actions"]
+		step15[label="Step 15\nUndo, Redo, Select-All\nand Delete in Eclipse"]
+		step14[label="Step 14\nCreating an Eclipse Editor"]
+
+	part6[label="Part VI\nAutomatic Layouting" fillcolor=yellow]
+		step19[label="Step 19\nAutomatic Layouting\nvia the Eclipse Layout Kernel"]
+		step18[label="Step 18\nAutomatic Layouting\nvia Graphviz DOT"]
+		step17[label="Step 17\nAutomatic Layouting\nvia GEF Layout"]
+
+	// defining the edges
+	main -> part1
+	main -> part2
+	main -> part3
+	main -> part4
+	main -> part5
+	main -> part6
+
+	part1 -> step1
+	part1 -> step2
+	part1 -> step3
+
+	part2 -> step4
+	part2 -> step5
+	part2 -> step6
+
+	part3 -> step7
+	part3 -> step8
+	part3 -> step9
+
+	part4 -> step10
+	part4 -> step11
+	part4 -> step12
+	part4 -> step13
+
+	part5 -> step14
+	part5 -> step15
+	part5 -> step16
+
+	part6 -> step17
+	part6 -> step18
+	part6 -> step19
+
+	// add invisible edges to influence the layouting
+	edge[style=invis weight=10]
+	step1 -> step2 -> step3
+	step4 -> step5 -> step6
+	step7 -> step8 -> step9
+	step10 -> step11 -> step12 -> step13
+	step14 -> step15 -> step16
+	step17 -> step18 -> step19
+}
