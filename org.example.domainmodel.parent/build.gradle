@@ -1,0 +1,37 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.xtext:xtext-gradle-plugin:2.0.8'
+	}
+}
+
+subprojects {
+	ext.xtextVersion = '2.25.0-SNAPSHOT'
+	repositories {
+		mavenCentral()
+		maven {
+			url 'https://oss.sonatype.org/content/repositories/snapshots'
+		}
+	}
+	
+	apply plugin: 'java'
+	dependencies {
+		compile platform("org.eclipse.xtext:xtext-dev-bom:${xtextVersion}")
+	}
+
+	apply plugin: 'org.xtext.xtend'
+	apply from: "${rootDir}/gradle/source-layout.gradle"
+	apply plugin: 'eclipse'
+	
+	group = 'org.example.domainmodel'
+	version = '1.0.0-SNAPSHOT'
+	
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
+	
+	configurations.all {
+		exclude group: 'asm'
+	}
+}

@@ -1,0 +1,3 @@
+include 'org.example.domainmodel'
+include 'org.example.domainmodel.ide'
+include 'org.example.domainmodel.tests'

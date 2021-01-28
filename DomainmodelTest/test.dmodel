@@ -1,0 +1,14 @@
+/**
+ * javadoc of datatype 'd1'
+ */
+datatype d1
+
+/**
+ * javadoc of datatype 'd2'
+ */
+datatype d2
+
+entity MyEntity {
+	f : d1
+	f : d2
+}

@@ -1,0 +1,7 @@
+dependencies {
+	compile project(':org.example.domainmodel')
+	compile project(':org.example.domainmodel.ide')
+	testCompile 'junit:junit'
+	testCompile "org.eclipse.xtext:org.eclipse.xtext.testing:${xtextVersion}"
+	testCompile "org.eclipse.xtext:org.eclipse.xtext.xbase.testing:${xtextVersion}"
+}
